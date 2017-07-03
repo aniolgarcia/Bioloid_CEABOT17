@@ -1,0 +1,24 @@
+#ifndef _COMM_CFG_H
+#define _COMM_CFG_H
+
+#ifndef DYN_MASTER_MAX_TX_BUFFER_LEN
+  #define DYN_MASTER_MAX_TX_BUFFER_LEN            128
+#endif
+
+#ifndef DYN_MASTER_MAX_RX_BUFFER_LEN
+  #define DYN_MASTER_MAX_RX_BUFFER_LEN            128
+#endif
+
+#ifndef DYN_MASTER_DEFAULT_BAUDRATE
+  #define DYN_MASTER_DEFAULT_BAUDRATE             1000000
+#endif
+
+#ifndef DYN_MASTER_DEFAULT_TIMEOUT_US
+  #define DYN_MASTER_DEFAULT_TIMEOUT_US           2000
+#endif
+
+#ifndef SERIAL_CONSOLE_MAX_BUFFER_LEN
+  #define SERIAL_CONSOLE_MAX_BUFFER_LEN           128
+#endif
+
+#endif
