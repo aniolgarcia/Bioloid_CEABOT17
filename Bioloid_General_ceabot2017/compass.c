@@ -8,20 +8,29 @@
 
 typedef enum {wait_start,wait_walk_ready,read_compass} main_states;
 
-int compass( int valor_base)
+int compass(int valor_base)
 {
         
 	int nou_valor, desviament;
 	
 	nou_valor = exp_compass_get_avg_heading();
 	desviament = nou_valor - valor_base;
-	if(desviament>1800){
+	//Com que el desviament no pot ser més de 180, si es passa és que ha passat de 360 o 0
+	if(desviament > 1800)
+	{
 		desviament = desviament - 3600;
-	}else if (desviament<-1800){
+	}
+	else if(desviament < -1800)
+	{
 		desviament = desviament + 3600;
 	}
 	
 	return desviament;
+}
+
+int compass_correction(int value, int upper_end, int bottom_end)
+{
+	return (((upper_end - bottom_end)/3600)*value)+bottom_end;
 }
 
 void user_init(void)
