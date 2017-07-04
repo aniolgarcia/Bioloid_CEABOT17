@@ -6,7 +6,7 @@
 #include "mtn_library.h"
 #include <stdlib.h>
 
-typedef enum {wait_start,wait_ready,walk} main_states;
+typedef enum {wait_start, wait_ready, walk, wait_walk} main_states;
 
 void user_init(void)
 {
@@ -36,26 +36,30 @@ void user_loop(void)
                      break;
 
     case wait_ready: if(is_action_running())
-                       state=wait_ready;
-                     else 
-			state=walk;
-			break;
+		      state=wait_ready;
+                    else 
+		      state=wait_walk;
+		    break;
 
-    case walk: //if (is_button_rising_edge(BTN_UP))
-                 //    {
-		       walk_backward();
-		       state= walk; 
-                   //  }
+    case walk:	walk_forward();
+		state= walk; 
 		     
-	      if (is_button_rising_edge(BTN_DOWN))
-                     {
-		       //walk_forward();
-                       mtn_lib_stop_mtn();
-		       //printf("fdsgndnht");
-		       state= walk; 
-                     }
-                   break;
-
-
+		    if (is_button_rising_edge(BTN_DOWN))
+                    {
+		      //walk_forward();
+                      mtn_lib_stop_mtn();
+		      //printf("fdsgndnht");
+		      state= wait_walk; 
+                    }
+		    break;
+    case wait_walk: if(is_button_rising_edge(BTN_UP))
+		    {
+		      state = walk; 
+		    }
+		    else
+		    {
+		      state = wait_walk;
+		    }
+		    break;
   }
 }

@@ -1,0 +1,6 @@
+1. Make (in the code directory)
+2. roscd
+3. cd ..
+4. catkin_make --only-pkg-with-deps bioloid_controller_cm510
+5. roslaunch bioloid_apps ceabot_base.launch mtn_file:=ceabot_motions
+
