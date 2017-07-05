@@ -1,8 +1,8 @@
-PROJECT=sensor_adc7
+PROJECT=intent_laberint
 ########################################################
 # afegir tots els fitxers que s'han de compilar aquí
 ########################################################
-SOURCES=sensor_adc7.c
+SOURCES=intent_laberint.c
 
 OBJS=$(SOURCES:.c=.o)
 SRC_DIR=./
@@ -48,7 +48,7 @@ motion_manager:
 	$(MAKE) -C $(MAN_DIR)
 
 download: $(MAIN_OUT_HEX)
-	/home/humanoides/iri-lab/labrobotica/tools/robotis_tools/trunk/bin/fw_downloader -d /dev/ttyUSB0 -f ./$(PROJECT).hex -p cm510
+	fw_downloader -d /dev/ttyUSB0 -f ./$(PROJECT).hex -p cm510
 
 clean:
 	-rm $(PROJECT).map

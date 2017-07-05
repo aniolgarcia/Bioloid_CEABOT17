@@ -22,13 +22,20 @@ void user_init(void)
 void user_loop(void)
 {
   static main_states state=wait_start;
-  static int adc7;
-	switch(state)
+  //int adc7 = exp_adc_get_avg_channel(ADC7);
+  
+  //adc7 = exp_adc_get_avg_channel(ADC7);
+  cm510_printf("Exp. Board compass: %d\n",exp_compass_get_avg_heading());
+  cm510_printf("Sensor IR adc7: %d\n", exp_adc_get_avg_channel(ADC7)); 
+  user_time_set_period(2000); 
+  
+  
+/*	switch(state)
 	  {
 	    case wait_start: if(is_button_rising_edge(BTN_START))
 		             {
-		               action_set_page(31);
-		               action_start_page();
+		               //action_set_page(31);
+		               //action_start_page();
 		               state=wait_ready;
 		             }
 		             else
@@ -48,4 +55,5 @@ void user_loop(void)
 			      state=read_IRadc7;	
 		             break;
 	    }
+	    */
 }

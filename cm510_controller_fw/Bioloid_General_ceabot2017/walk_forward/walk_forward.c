@@ -52,6 +52,7 @@ void user_loop(void)
 		      state= wait_walk; 
                     }
 		    break;
+		    
     case wait_walk: if(is_button_rising_edge(BTN_UP))
 		    {
 		      state = walk; 
