@@ -57,8 +57,8 @@ void user_loop(void)
   {
     case wait_start: if(is_button_rising_edge(BTN_START))
                      {
-                       //action_set_page(31);
-                       //action_start_page();
+                       action_set_page(31);
+                       action_start_page();
                        state=wait_ready;
                      }
                      else
@@ -71,8 +71,8 @@ void user_loop(void)
                      break;
     case read_sensors: if(is_button_rising_edge(BTN_UP))
 			{
-			  cm510_printf("Exp. Board compass: %d\n",exp_compass_get_avg_heading());
-			  cm510_printf("Exp. Board ADC port 7: %d\n",exp_adc_get_avg_channel(ADC7));
+			  cm510_printf("Exp. Board compass: %d\n", exp_compass_get_avg_heading());
+			  cm510_printf("Exp. Board ADC port 7: %d\n", exp_adc_get_avg_channel(ADC7));
 			  //user_time_set_period(2000);
 			}
 			
