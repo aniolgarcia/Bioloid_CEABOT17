@@ -27,8 +27,6 @@ void user_loop(void)
 {
   static main_states state=wait_start;
   int adc7;
-  cont = 0;
-
 	
   switch(state)
   {
