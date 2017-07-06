@@ -49,18 +49,7 @@ void user_loop(void)
 		    }
 		    break;
 		    
-/*    case wait_stop: if(is_action_running()) //Parada suau (?)
-		    {
-		      state = wait_stop;
-		    }
-		    else
-		    {
-		      mtn_lib_stop_mtn();
-		      state = stop;
-		    }
-		    break;
-*/		      
-    case walk: if (is_button_rising_edge(BTN_DOWN))
+    case walk: if(is_button_rising_edge(BTN_DOWN))
                {
 		  //state = wait_stop;
 		  mtn_lib_stop_mtn();
@@ -68,7 +57,7 @@ void user_loop(void)
                }
                else
 	       {
-		 state = wait_ready;
+		 state = walk;
 	       }
 	       break;
 		    

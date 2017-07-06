@@ -3,12 +3,12 @@
 #include "cm510.h"
 #include "balance.h"
 #include "exp_board.h"
-//#include "mtn_library.h"
-//#include <stdlib.h>
+#include "mtn_library.h"
+#include <stdlib.h>
 
 typedef enum {wait_start,wait_ready, read_sensors} main_states;
-int valor_base;
 
+int valor_base;
 int compass(int valor_base)
 {
         
@@ -25,6 +25,8 @@ int compass(int valor_base)
 	{
 		desviament = desviament + 3600;
 	}
+	
+	desviament = desviament/10;
 	
 	return desviament;
 }
@@ -43,7 +45,7 @@ void user_init(void)
   balance_calibrate_gyro();
   balance_enable_gyro();
   user_time_set_period(100);
-  //mtn_lib_init();
+  mtn_lib_init();
   exp_adc_start();
   exp_compass_start();
 }
@@ -60,6 +62,9 @@ void user_loop(void)
                        //action_set_page(31);
                        //action_start_page();
                        state=wait_ready;
+		       valor_base = exp_compass_get_avg_heading();
+		     
+
                      }
                      else
                        state=wait_start;
@@ -69,11 +74,13 @@ void user_loop(void)
                      else
                        state=read_sensors;
                      break;
-    case read_sensors: if(is_button_rising_edge(BTN_UP))
+    case read_sensors: if(user_time_is_period_done())
 			{
-			  cm510_printf("Exp. Board compass: %d\n", exp_compass_get_avg_heading());
-			  cm510_printf("Exp. Board ADC port 7: %d\n", exp_adc_get_avg_channel(ADC7));
-			  //user_time_set_period(2000);
+			  //cm510_printf("CM510 ADC port 1: %d\n",get_adc_avg_channel(ADC_PORT_2));
+			  //cm510_printf("Exp. Board compass: %d\n",exp_compass_get_avg_heading() );
+			  //cm510_printf("Exp. Board ADC port 7: %d\n",exp_adc_get_avg_channel(ADC7));
+			  cm510_printf("Desviament: %d\n",compass(valor_base));
+			  user_time_set_period(1000);
 			}
 			
                        break;

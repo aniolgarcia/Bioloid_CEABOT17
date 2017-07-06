@@ -1,8 +1,8 @@
-PROJECT=sensors
+PROJECT=walk_forward2
 ########################################################
 # afegir tots els fitxers que s'han de compilar aquí
 ########################################################
-SOURCES=sensors.c
+SOURCES=walk_forward2.c
 
 OBJS=$(SOURCES:.c=.o)
 SRC_DIR=./
