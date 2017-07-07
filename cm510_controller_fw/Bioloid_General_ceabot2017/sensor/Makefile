@@ -1,8 +1,8 @@
-PROJECT=sensor_adc7
+PROJECT=sensor
 ########################################################
 # afegir tots els fitxers que s'han de compilar aquí
 ########################################################
-SOURCES=sensor_adc7.c
+SOURCES=sensor.c
 
 OBJS=$(SOURCES:.c=.o)
 SRC_DIR=./

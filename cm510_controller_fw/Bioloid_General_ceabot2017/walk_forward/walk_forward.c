@@ -24,7 +24,7 @@ void user_loop(void)
   static main_states state=wait_start;
   
    
-
+  // Fa una crida a walk_forward() cada vegada que passa pel wait_ready, mirant primer si hi ha alguna acció executant-se. Moviment continuat.
 
   switch(state)
   {
@@ -44,10 +44,11 @@ void user_loop(void)
 		    }
                     else
 		    {
-                       action_set_page(1);
-                       action_start_page();
-                       state = wait_ready;
-		      state = walk;
+//                        action_set_page(31);
+//                        action_start_page();
+//                        state = wait_ready;
+		       walk_forward();
+		       state = walk;
 		    }
 		    break;
 		    

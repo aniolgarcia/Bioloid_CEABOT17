@@ -59,13 +59,12 @@ void user_loop(void)
                        action_set_page(31);
                        action_start_page();
                        state = wait_ready;
-		       
                      }
                      else
                        state = wait_start;
                      break;
 
-    case wait_ready: if(is_action_running())
+    case wait_ready:if(is_action_running())
 		    {
 		      state = wait_ready;
 		    }
@@ -103,7 +102,7 @@ void user_loop(void)
 		break;
 		
     case correct:   //turn_angle(-compass(valor_base));
-		    if (compass(valor_base) > 20 )
+	       if (compass(valor_base) > 20 )
                {
  		  turn_left();
 // 		  walk_forward_turn_left();
@@ -118,13 +117,7 @@ void user_loop(void)
 	       }
                else
 	       {
-		 mtn_lib_stop_mtn();
-		 action_set_page(31);
-                 action_start_page();
                  state = wait_ready;
-		       
-
-		 
 	       }
 	break;
     

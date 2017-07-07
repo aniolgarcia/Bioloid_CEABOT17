@@ -23,6 +23,8 @@ void user_loop(void)
 {
   static main_states state= wait_start;
   
+  //Fa una crida a walk_forward cada vegada que passa per walk, sense comprovar si hi ha una acció executant-se cada vegada.
+  
   switch(state)
   {
     case wait_start: if(is_button_rising_edge(BTN_START))
