@@ -21,39 +21,37 @@ void user_init(void)
 
 void user_loop(void)
 {
-  static main_states state=wait_start;
-  //int adc7 = exp_adc_get_avg_channel(ADC7);
+  static main_states state=wait_start;  
   
-  //adc7 = exp_adc_get_avg_channel(ADC7);
-  cm510_printf("Exp. Board compass: %d\n",exp_compass_get_avg_heading());
-  cm510_printf("Sensor IR adc7: %d\n", exp_adc_get_avg_channel(ADC7)); 
-  user_time_set_period(2000); 
-  
-  
-/*	switch(state)
-	  {
-	    case wait_start: if(is_button_rising_edge(BTN_START))
-		             {
-		               //action_set_page(31);
-		               //action_start_page();
-		               state=wait_ready;
-		             }
-		             else
-		               state=wait_start;
-		             break;
-	    case wait_ready: if(is_action_running())
-		               state=wait_ready;
-		             else
-		             {
-		               state=read_IRadc7; 
-		             }
-		             break;
-	
-	    case read_IRadc7: adc7 = exp_adc_get_avg_channel(ADC7);
-			      cm510_printf("Sensor IR adc7: %d", adc7); 
-			      user_time_set_period(500); 
-			      state=read_IRadc7;	
-		             break;
-	    }
-	    */
+  switch(state)
+  {
+    case wait_start: if(is_button_rising_edge(BTN_START))
+                     {
+                       state=wait_ready;
+                     }
+                     else
+		     {
+                       state=wait_start;
+		     }
+                     break;
+		     
+    case wait_ready:  if(is_action_running())
+		      {
+			state=wait_ready;
+		      }
+                      else
+		      {
+			state = read_IRadc7;
+		      }
+                     break;
+		     
+    case read_IRadc7: if(user_time_is_period_done())
+		      {
+// 			cm510_printf("Exp. Board ADC port 7: %d\n",exp_adc_get_avg_channel(ADC7));
+// 			cm510_printf("GYRO X: %d\n", get_adc_channel(BALANCE_GYRO_X_CHANNEL));
+ 			cm510_printf("GYRO Y: %d\n", get_adc_channel(BALANCE_GYRO_Y_CHANNEL));
+			user_time_set_period(500);
+		      }
+                      break;
+  }
 }

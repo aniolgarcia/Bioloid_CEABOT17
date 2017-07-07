@@ -71,13 +71,7 @@ void user_loop(void)
 		    }
                     else
 		    {
-		      //walk_forward();
 		      state = walk;
-		        //if(user_time_is_period_done())
-			//{
-			  //turn_left();
-			  //user_time_set_period(1000);
-			//}
 		    }
 		    break;
 		    		     
@@ -94,7 +88,7 @@ void user_loop(void)
                else
 	       {
 		 walk_forward();
-		 state = wait_ready;
+		 state = walk;
 	       }
 	       break;
 		    
@@ -108,13 +102,31 @@ void user_loop(void)
 		}
 		break;
 		
-    case correct:   turn_angle(compass(valor_base));
-		      state = wait_ready; 
+    case correct:   //turn_angle(-compass(valor_base));
+		    if (compass(valor_base) > 20 )
+               {
+ 		  turn_left();
+// 		  walk_forward_turn_left();
 
-		    
-      
-      
-		
+		  state = wait_ready ;
+               }
+               else if(compass(valor_base) < -20)
+	       {
+ 		 turn_right();
+// 		 walk_forward_turn_right();
+		 state = wait_ready;
+	       }
+               else
+	       {
+		 mtn_lib_stop_mtn();
+		 action_set_page(31);
+                 action_start_page();
+                 state = wait_ready;
+		       
+
+		 
+	       }
+	break;
     
 		
   }

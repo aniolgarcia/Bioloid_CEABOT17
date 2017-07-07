@@ -23,9 +23,6 @@ void user_loop(void)
 {
   static main_states state= wait_start;
   
-   
-
-
   switch(state)
   {
     case wait_start: if(is_button_rising_edge(BTN_START))
@@ -44,26 +41,22 @@ void user_loop(void)
 		    }
                     else
 		    {
-		     //walk_forward();
 		      state = walk;
 		    }
 		    break;
 		    
     case walk: if(is_button_rising_edge(BTN_DOWN))
                {
-		  //state = wait_stop;
 		  mtn_lib_stop_mtn();
-		  action_set_page(31);
-                  action_start_page();
+
 		  state = stop;
                }
                else
 	       {
-		 fast_walk_forward();
+ 		 turn_right();
 		 state = walk;
 	       }
-	       //fast_walk_forward();
-	       //state = walk;
+
 	       break;
 		    
     case stop: if(is_button_rising_edge(BTN_UP))
@@ -71,8 +64,6 @@ void user_loop(void)
 		  state = wait_ready;
 		}
 		break;
-		
-    
-		
+
   }
 }

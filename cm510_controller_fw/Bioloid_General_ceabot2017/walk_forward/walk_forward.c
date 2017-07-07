@@ -6,7 +6,7 @@
 #include "mtn_library.h"
 #include <stdlib.h>
 
-typedef enum {wait_start, wait_ready, walk, stop, wait_stop} main_states;
+typedef enum {wait_start, wait_ready, walk, stop} main_states;
 
 void user_init(void)
 {
@@ -44,7 +44,9 @@ void user_loop(void)
 		    }
                     else
 		    {
-		      walk_forward();
+                       action_set_page(1);
+                       action_start_page();
+                       state = wait_ready;
 		      state = walk;
 		    }
 		    break;
