@@ -48,8 +48,8 @@ void balance_loop(void)
 
     balance_offsets[8] = (uint16_t)y_error1;
     balance_offsets[9] = (uint16_t)y_error1;
-    balance_offsets[12] = (uint16_t)x_error1;
-    balance_offsets[13] = (uint16_t)-x_error1;
+    balance_offsets[12] = (uint16_t)x_error1 + 50;
+    balance_offsets[13] = (uint16_t)-x_error1 - 100;
     balance_offsets[14] = (uint16_t)x_error2;
     balance_offsets[15] = (uint16_t)-x_error2;
     balance_offsets[16] = (uint16_t)-y_error2;

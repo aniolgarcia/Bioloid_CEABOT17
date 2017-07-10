@@ -66,7 +66,7 @@ void user_loop(void)
                        state = wait_start;
                      break;
 
-    case wait_ready: valor_actual = exp_compass_get_avg_heading();
+    case wait_ready: //valor_actual = exp_compass_get_avg_heading();
 		    if(is_action_running())
 		    {
 		      state = wait_ready;
@@ -74,7 +74,7 @@ void user_loop(void)
                     else
 		    {
 		      //walk_forward_compensating(valor_base, valor_actual);
-// 		      walk_forward();
+		      //walk_forward();
 		      state = walk;
 		    }
 		    break;
@@ -85,9 +85,19 @@ void user_loop(void)
 		  mtn_lib_stop_mtn();
 		  state = stop;
                }
-               else if(compass(valor_base) > 30 || compass(valor_base) < -30)
+               else if(compass(valor_base) > 15)
 	       {
-		 state = correct;
+		  mtn_lib_stop_mtn();
+		 turn_left();
+		  mtn_lib_stop_mtn();
+		  state = wait_ready;
+	       }
+	       else if(compass(valor_base) < -15)
+	       {
+		  mtn_lib_stop_mtn();
+		 turn_right();
+		  mtn_lib_stop_mtn();
+		 state = wait_ready;
 	       }
                else
 	       {

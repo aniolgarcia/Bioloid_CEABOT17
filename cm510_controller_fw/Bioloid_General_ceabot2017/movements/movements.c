@@ -37,15 +37,17 @@ void user_loop(void)
 
     case wait_ready: if(is_action_running())
                        state=wait_ready;
-                     else 
+                     else
+		     {
 			state=move;
+		     }
 			break;
 
     case move: if (is_button_rising_edge(BTN_UP))
                      {
                  //walk_forward();
-		 walk_backward();
-		 //turn_left();
+		 //walk_backward();
+		 turn_left();
 		 //turn_right();
 		 //walk_left();
 		 //walk_right();
@@ -78,11 +80,13 @@ void user_loop(void)
 		 //stairs_down_process(void);
 		 //walk_left_compensating (int comp_ini, int comp_act);
 		 //walk_right_compensating (int comp_ini, int comp_act);
+// 		 mtn_lib_stop_mtn();
+		 state = wait_ready;
                    }
 		     
 		     if (is_button_rising_edge(BTN_DOWN))
                        {
-                       mtn_lib_stop();   
+                       walk_forward();   
 		       state= wait_ready; 
                        }
                    break;
