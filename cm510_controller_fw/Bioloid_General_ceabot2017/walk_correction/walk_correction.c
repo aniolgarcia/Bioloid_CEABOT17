@@ -73,7 +73,8 @@ void user_loop(void)
 		    }
                     else
 		    {
-		      walk_forward_compensating(valor_base, valor_actual);
+		      //walk_forward_compensating(valor_base, valor_actual);
+// 		      walk_forward();
 		      state = walk;
 		    }
 		    break;
@@ -84,14 +85,13 @@ void user_loop(void)
 		  mtn_lib_stop_mtn();
 		  state = stop;
                }
-               else if(compass(valor_base) > 20 || compass(valor_base) < -20)
+               else if(compass(valor_base) > 30 || compass(valor_base) < -30)
 	       {
 		 state = correct;
 	       }
                else
 	       {
-		 
-		 //walk_forward();
+		 walk_forward();
 		 state = wait_ready;
 	       }
 	       break;
@@ -108,7 +108,7 @@ void user_loop(void)
 		
     case correct: if(is_action_running())
 		  {
-		    mtn_lib_stop_mtn();
+		    //mtn_lib_stop_mtn();
 		    //action_stop_page();
 		    state = correct;
 		  }
