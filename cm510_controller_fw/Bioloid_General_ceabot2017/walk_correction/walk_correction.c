@@ -8,7 +8,7 @@
 
 typedef enum {wait_start, wait_ready, walk, stop, correct} main_states;
 
-int valor_base;
+int valor_base, valor_actual;
 
 int compass(int valor_base)
 {
@@ -45,6 +45,7 @@ void user_init(void)
 }
 
 
+
 void user_loop(void)
 {
   static main_states state=wait_start;
@@ -56,6 +57,7 @@ void user_loop(void)
     case wait_start: if(is_button_rising_edge(BTN_START))
                      {
 		       valor_base = exp_compass_get_avg_heading();
+		       valor_actual = valor_base;
                        action_set_page(31);
                        action_start_page();
                        state = wait_ready;
@@ -64,12 +66,14 @@ void user_loop(void)
                        state = wait_start;
                      break;
 
-    case wait_ready:if(is_action_running())
+    case wait_ready: valor_actual = exp_compass_get_avg_heading();
+		    if(is_action_running())
 		    {
 		      state = wait_ready;
 		    }
                     else
 		    {
+		      walk_forward_compensating(valor_base, valor_actual);
 		      state = walk;
 		    }
 		    break;
@@ -86,8 +90,9 @@ void user_loop(void)
 	       }
                else
 	       {
-		 walk_forward();
-		 state = walk;
+		 
+		 //walk_forward();
+		 state = wait_ready;
 	       }
 	       break;
 		    
@@ -101,15 +106,27 @@ void user_loop(void)
 		}
 		break;
 		
-    case correct:   //turn_angle(-compass(valor_base));
-	       if (compass(valor_base) > 20 )
+    case correct: if(is_action_running())
+		  {
+		    mtn_lib_stop_mtn();
+		    //action_stop_page();
+		    state = correct;
+		  }
+		  else
+		  {
+		    turn_angle(-compass(valor_base));	
+		    state = wait_ready;
+		  }
+      
+		  
+	       /*if (compass(valor_base) > 150 )
                {
  		  turn_left();
 // 		  walk_forward_turn_left();
 
 		  state = wait_ready ;
                }
-               else if(compass(valor_base) < -20)
+               else if(compass(valor_base) < -150)
 	       {
  		 turn_right();
 // 		 walk_forward_turn_right();
@@ -118,7 +135,7 @@ void user_loop(void)
                else
 	       {
                  state = wait_ready;
-	       }
+	       }*/
 	break;
     
 		
