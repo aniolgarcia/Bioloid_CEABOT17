@@ -60,7 +60,7 @@ void user_loop(void)
 		               state=wait_start;
 			     }
 		             break;
-	    case wait_ready: if(is_action_running())
+	    case wait_ready: if(is_action_running())  
 			     {
 			       state=wait_ready;
 			       cm510_printf("Action running");

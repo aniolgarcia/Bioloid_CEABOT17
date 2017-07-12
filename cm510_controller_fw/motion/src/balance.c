@@ -46,10 +46,13 @@ void balance_loop(void)
     y_error1=gyro_y*BALANCE_ANKLE_ROLL_GAIN;//4.0/20.0;
     y_error2=gyro_y*BALANCE_HIP_ROLL_GAIN;//4.0/40.0;
 
+//Definit a aquí els offsets seguint el format següent:
+//balance_offsets[ID del servo] = (uint16_t)tipus d'error segons l'articulació on està el servo + offset    
+    
     balance_offsets[8] = (uint16_t)y_error1;
     balance_offsets[9] = (uint16_t)y_error1; 
-    balance_offsets[11] = (uint16_t)x_error1 - 20;
-    balance_offsets[12] = (uint16_t)x_error1 + 20;
+    balance_offsets[11] = (uint16_t)x_error1 - 30;
+    balance_offsets[12] = (uint16_t)x_error1 + 30;
     balance_offsets[13] = (uint16_t)-x_error1;
     balance_offsets[14] = (uint16_t)x_error2;
     balance_offsets[15] = (uint16_t)-x_error2;
@@ -58,10 +61,12 @@ void balance_loop(void)
   }
 }
 
-// void balance_set_offset(uint8_t index, int8_t offset)
-// {
-//   balance_offsets[index] = ((get_adc_channel(BALANCE_GYRO_X_CHANNEL)-balance_x_gyro_center)*BALANCE_KNEE_GAIN) + offset;
-// }
+//Intent frustrat de funció per definir offsets de manera externa. Pendent d'implementar correctament
+/* void balance_set_offset(uint8_t index, int8_t offset)
+{
+  balance_offsets[index] = ((get_adc_channel(BALANCE_GYRO_X_CHANNEL)-balance_x_gyro_center)*BALANCE_KNEE_GAIN) + offset;
+}
+*/
 
 int16_t balance_get_offset(uint8_t index)
 {
@@ -87,9 +92,6 @@ void balance_init(void)
   {
     balance_offsets[i]=0;
   }
-  
-//   balance_offsets[13] = -70;
-//    balance_offsets[12] = 100;
 } 
 
 fallen_t balance_robot_has_fallen(void)

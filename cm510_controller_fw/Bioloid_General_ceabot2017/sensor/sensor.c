@@ -6,6 +6,10 @@
 #include "mtn_library.h"
 #include <stdlib.h>
 
+//Programa base per llegir qualsevol dels sensors del robot. Simplement imprimirà per serial el valor del snesor seleccionat. 
+//Està fet per tal que no sigui necessari moure cap motor, exceptuant quan hi hagi offsets a balance.c, que sí que els farà (pendent d'arreglar) 
+
+
 typedef enum {wait_start,wait_ready,read_sensor} main_states;
 
 int valor_base;
@@ -29,7 +33,7 @@ int compass(int valor_base)
 	
 	return desviament;
 }
-
+ 
 
 int compass_correction(int value, int upper_end, int bottom_end)
 {
@@ -77,11 +81,11 @@ void user_loop(void)
 		      }
                      break;
 		      
-    case read_sensor: if(user_time_is_period_done()) 
+    case read_sensor: if(user_time_is_period_done())  
 		      {
-//  			cm510_printf("Exp. Board ADC port 7: %d\n",exp_adc_get_avg_channel(ADC7));
+ 			cm510_printf("Exp. Board ADC port 7: %d\n",exp_adc_get_avg_channel(ADC7));
 //  			cm510_printf("CM510 ADC port 1: %d\n",get_adc_avg_channel(ADC_PORT_2));
- 			cm510_printf("Exp. Board compass: %d\n", exp_compass_get_avg_heading()); 
+//  			cm510_printf("Exp. Board compass: %d\n", exp_compass_get_avg_heading()); 
 //  			cm510_printf("Desviament: %d\n",compass(valor_base));
 //   			cm510_printf("GYRO X: %d  ", get_adc_channel(BALANCE_GYRO_X_CHANNEL));
 //  			cm510_printf("GYRO Y: %d\n", get_adc_channel(BALANCE_GYRO_Y_CHANNEL));

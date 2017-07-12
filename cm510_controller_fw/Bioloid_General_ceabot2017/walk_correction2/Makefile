@@ -1,8 +1,8 @@
-PROJECT=intent_laberint
+PROJECT=walk_correction2
 ########################################################
 # afegir tots els fitxers que s'han de compilar aquí
 ########################################################
-SOURCES=intent_laberint.c
+SOURCES=walk_correction2.c
 
 OBJS=$(SOURCES:.c=.o)
 SRC_DIR=./

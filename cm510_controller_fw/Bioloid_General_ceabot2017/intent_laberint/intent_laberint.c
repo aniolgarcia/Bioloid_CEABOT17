@@ -6,7 +6,7 @@
 #include "mtn_library.h"
 #include <stdlib.h>
 
-typedef enum {wait_start, wait_ready, wait_cmd, walk_l, walk_r} main_states;
+typedef enum {wait_start, wait_ready, wait_cmd, walk_l, walk_r, stop} main_states;
 
 int cont = 0;
 
@@ -18,7 +18,8 @@ void user_init(void)
   balance_enable_gyro();
   user_time_set_period(100);
   mtn_lib_init();
-  cont = 0;
+  exp_adc_start();
+  exp_compass_start();
 }
 
 
@@ -50,7 +51,7 @@ void user_loop(void)
 		      }
 		      else
 		      {
-			state = wait_cmd;
+			state = walk_l;
 		      }
 		      break;
 
@@ -70,11 +71,10 @@ void user_loop(void)
 		      user_time_set_period(500);
 		      state = wait_ready;
 		    }
-		    else if (is_button_rising_edge(BTN_DOWN))
+		    else if (is_button_rising_edge(BTN_DOWN)) 
                     {
 		      //walk_forward();
-                      mtn_lib_stop_mtn();
-		      //printf("fdsgndnht");
+                      mtn_lib_stop_mtn(); 
 		      state= wait_ready; 
                     }
                     else
@@ -83,21 +83,18 @@ void user_loop(void)
 		    }
 		    break;
 		    
-    case walk_l:    cm510_printf("Inici walk_l %d", cont);
-		    if(cont < 5)
+    case walk_l: 
+      if(exp_adc_get_avg_channel(ADC7) < 450 && !is_button_rising_edge(BTN_DOWN))
 		    {
+		      cm510_printf("Dins del rang: %d\n", exp_adc_get_avg_channel(ADC7));
 		      walk_left();
-		      user_time_set_period(1000);		      
-		      cont = cont + 1;
 		      state = walk_l;
-		      cm510_printf("dins walk_l %d", cont);
-		        
 		    }
 		    else
 		    {
-		      cont = 0;
+		      cm510_printf("Fora de rang: %d", exp_adc_get_avg_channel(ADC7));
 		      mtn_lib_stop_mtn();
-		      state = wait_cmd;		      
+		      state = stop;		      
 		    }
 		    break;
 		    
@@ -115,6 +112,16 @@ void user_loop(void)
 		      state = wait_cmd;		      
 		    }
 		    break;
+		    
+    case stop: if(is_button_rising_edge(BTN_UP))
+		{
+		  state = wait_ready;
+		}
+		else
+		{
+		  state = stop; 
+		}
+		break;
   }
 }
 		      

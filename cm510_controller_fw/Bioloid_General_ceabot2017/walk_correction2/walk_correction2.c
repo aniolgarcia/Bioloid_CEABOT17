@@ -8,6 +8,12 @@
 
 typedef enum {wait_start, wait_ready, walk, stop, correct_l, correct_r} main_states;
 
+typedef uint8_t (*fnct_ptr)(void);
+
+fnct_ptr fnct_l=turn_left;
+fnct_ptr fnct_r=turn_right;
+
+
 int valor_base, valor_actual;
 
 int compass(int valor_base)
@@ -85,12 +91,14 @@ void user_loop(void)
 		  mtn_lib_stop_mtn();
 		  state = stop;
                }
-               else if(compass(valor_base) > 10) 
+               else if(compass(valor_base) > 20) 
 	       {
+			fnct_l();
  			state = correct_l;
 	       }
-	       else if(compass(valor_base) < -10)
+	       else if(compass(valor_base) < -20)
 	       {
+			fnct_r();
 			state = correct_r; 
 	       }
                else
@@ -106,15 +114,27 @@ void user_loop(void)
 		}
 		else
 		{
-		  state = stop; 
+		  state = stop;
 		}
 		break;
 		
-    case correct_l: walk_forward_turn_left();
-		    state = walk;
+    case correct_l: if(fnct_l() == 0x00)
+		    {
+		      state = walk;
+		    }
+		    else
+		    {
+		      state = correct_l;
+		    }
 
-    case correct_r: walk_forward_turn_right();
-		    state = walk;
+    case correct_r: if(fnct_r() == 0x00)
+		    {
+		      state = walk;
+		    }
+		    else
+		    {
+		      state = correct_r;
+		    }
 		  
 	       /*if (compass(valor_base) > 150 )
                {
@@ -137,4 +157,4 @@ void user_loop(void)
     
 		
   }
-}
+} 

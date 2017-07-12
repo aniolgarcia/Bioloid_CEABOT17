@@ -6,6 +6,9 @@
 #include "mtn_library.h"
 #include <stdlib.h>
 
+  //Fa una crida a walk_forward cada vegada que passa per walk, sense comprovar si hi ha una acció executant-se cada vegad a.
+
+
 typedef enum {wait_start, wait_ready, walk, stop} main_states;
 
 void user_init(void)
@@ -16,7 +19,7 @@ void user_init(void)
   balance_enable_gyro();
   user_time_set_period(100);
   mtn_lib_init();
-//   balance_set_offset(11, -20);
+//   balance_set_offset(11, -20); //intents de definir offsets fora de balance.c. Encara no està implementada la funció.
 //   balance_set_offset(12, 20); 
 }
 
@@ -25,7 +28,6 @@ void user_loop(void)
 {
   static main_states state= wait_start;
   
-  //Fa una crida a walk_forward cada vegada que passa per walk, sense comprovar si hi ha una acció executant-se cada vegad a.
     
   switch(state)   
   {  
@@ -57,7 +59,7 @@ void user_loop(void)
                }
                else
 	       {
- 		 turn_right();
+ 		 walk_forward();
 		 state = walk;
 	       }
 
