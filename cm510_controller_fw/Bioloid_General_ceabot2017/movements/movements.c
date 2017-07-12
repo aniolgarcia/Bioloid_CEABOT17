@@ -45,9 +45,9 @@ void user_loop(void)
 
     case move: if (is_button_rising_edge(BTN_UP))
                      {
-                 //walk_forward();
+                 walk_forward(); 
 		 //walk_backward();
-		 turn_left();
+		 //turn_left();
 		 //turn_right();
 		 //walk_left();
 		 //walk_right();

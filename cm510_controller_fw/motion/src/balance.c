@@ -7,7 +7,7 @@
 #include "adc.h"
 #include "buzzer.h"
 #include "user_time.h"
-
+ 
 // external functions
 extern void buzzer_start_alarm(note_t note,uint16_t on_time_100ms,uint16_t off_time_100ms);
 extern void buzzer_stop_alarm(void);
@@ -47,15 +47,21 @@ void balance_loop(void)
     y_error2=gyro_y*BALANCE_HIP_ROLL_GAIN;//4.0/40.0;
 
     balance_offsets[8] = (uint16_t)y_error1;
-    balance_offsets[9] = (uint16_t)y_error1;
-    balance_offsets[12] = (uint16_t)x_error1 + 50;
-    balance_offsets[13] = (uint16_t)-x_error1 - 100;
+    balance_offsets[9] = (uint16_t)y_error1; 
+    balance_offsets[11] = (uint16_t)x_error1 - 20;
+    balance_offsets[12] = (uint16_t)x_error1 + 20;
+    balance_offsets[13] = (uint16_t)-x_error1;
     balance_offsets[14] = (uint16_t)x_error2;
     balance_offsets[15] = (uint16_t)-x_error2;
     balance_offsets[16] = (uint16_t)-y_error2;
     balance_offsets[17] = (uint16_t)-y_error2;
   }
 }
+
+// void balance_set_offset(uint8_t index, int8_t offset)
+// {
+//   balance_offsets[index] = ((get_adc_channel(BALANCE_GYRO_X_CHANNEL)-balance_x_gyro_center)*BALANCE_KNEE_GAIN) + offset;
+// }
 
 int16_t balance_get_offset(uint8_t index)
 {
@@ -64,11 +70,11 @@ int16_t balance_get_offset(uint8_t index)
 
 void balance_get_all_offsets(int16_t **offsets)
 {
-  *offsets=&balance_offsets[0];
+  *offsets=&balance_offsets[0]; 
 }
 
 // public functions
-void balance_init(void)
+void balance_init(void) 
 {
   uint8_t i;
 
@@ -78,8 +84,13 @@ void balance_init(void)
   balance_enabled=0x00;
   balance_robot_fallen_state=robot_standing;
   for(i=0;i<MANAGER_MAX_NUM_SERVOS;i++)
+  {
     balance_offsets[i]=0;
-}
+  }
+  
+//   balance_offsets[13] = -70;
+//    balance_offsets[12] = 100;
+} 
 
 fallen_t balance_robot_has_fallen(void)
 {

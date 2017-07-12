@@ -36,7 +36,7 @@ void user_init(void)
   serial_console_init(57600);
   balance_init();
   balance_calibrate_gyro();
-  balance_enable_gyro();
+  balance_enable_gyro(); 
   user_time_set_period(100);
   mtn_lib_init();
   exp_compass_start();
@@ -63,13 +63,15 @@ void user_loop(void)
 	    case wait_ready: if(is_action_running())
 			     {
 			       state=wait_ready;
+			       cm510_printf("Action running");
 			     }
 		             else
 		             {
 		               state= torna; 
 		             }
 		             break;
-	    case torna: if(compass(valor_base) > 5)
+	    case torna: cm510_printf("Dins torna"); 
+	      if(compass(valor_base) > 5)
 			{
 			  turn_left();
 			  state = wait_ready;
@@ -85,4 +87,5 @@ void user_loop(void)
 			}
 			break;
 	  }
-}
+} 
+ 

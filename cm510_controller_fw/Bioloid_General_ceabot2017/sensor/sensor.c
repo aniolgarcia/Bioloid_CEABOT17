@@ -76,17 +76,18 @@ void user_loop(void)
 			state = read_sensor;
 		      }
                      break;
-		     
-    case read_sensor: if(user_time_is_period_done())
+		      
+    case read_sensor: if(user_time_is_period_done()) 
 		      {
 //  			cm510_printf("Exp. Board ADC port 7: %d\n",exp_adc_get_avg_channel(ADC7));
 //  			cm510_printf("CM510 ADC port 1: %d\n",get_adc_avg_channel(ADC_PORT_2));
-//  			cm510_printf("Exp. Board compass: %d\n",exp_compass_get_avg_heading() );
+ 			cm510_printf("Exp. Board compass: %d\n", exp_compass_get_avg_heading()); 
 //  			cm510_printf("Desviament: %d\n",compass(valor_base));
-  			cm510_printf("GYRO X: %d  ", get_adc_channel(BALANCE_GYRO_X_CHANNEL));
- 			cm510_printf("GYRO Y: %d\n", get_adc_channel(BALANCE_GYRO_Y_CHANNEL));
+//   			cm510_printf("GYRO X: %d  ", get_adc_channel(BALANCE_GYRO_X_CHANNEL));
+//  			cm510_printf("GYRO Y: %d\n", get_adc_channel(BALANCE_GYRO_Y_CHANNEL));
 			user_time_set_period(500);
 		      }
+		      state = read_sensor;
                       break;
-  }
+  } 
 }
