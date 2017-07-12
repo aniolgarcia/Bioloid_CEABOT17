@@ -6,10 +6,11 @@
 #include "mtn_library.h"
 #include <stdlib.h>
 
+//Modificació del walk correction seguint un dels exemples del robot Dexter i utilitzant funcions que no acabem de saber ben bé què fan. No es recomana pujar-lo al robot per si de cas.
+
 typedef enum {wait_start, wait_ready, walk, stop, correct_l, correct_r} main_states;
 
 typedef uint8_t (*fnct_ptr)(void);
-
 fnct_ptr fnct_l=turn_left;
 fnct_ptr fnct_r=turn_right;
 

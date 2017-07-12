@@ -6,7 +6,7 @@
 #include "mtn_library.h"
 #include <stdlib.h>
 
-  //Fa una crida a walk_forward cada vegada que passa per walk, sense comprovar si hi ha una acció executant-se cada vegad a.
+//Fa una crida a walk_forward cada vegada que passa per walk, sense comprovar si hi ha una acció executant-se cada vegada.
 
 
 typedef enum {wait_start, wait_ready, walk, stop} main_states;

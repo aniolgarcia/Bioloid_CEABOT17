@@ -6,6 +6,9 @@
 #include "mtn_library.h"
 #include <stdlib.h>
 
+//Programa per comprovar la brúixola. Al engegar fixa la posició i quan algú el desvia d'aquesta posició, hi torna automàticament. 
+
+
 typedef enum {wait_start,wait_ready, torna} main_states;
 
 int valor_base;

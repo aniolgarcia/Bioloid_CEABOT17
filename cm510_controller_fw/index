@@ -1,0 +1,52 @@
+########################################################
+# Documentació i referència
+######################################################## 
+
+# Breu descripció de cada programa
+
+  -compass: llegeix brúixola. Fer servir sensor en comptes d'aquest.
+  -do_nothing: fa la posició inicial (action_set_page(31)) i no fa res més.
+  -gir: Programa per fer debug de la brúixola. Fixa una direcció inicial i quan el gires hi torna
+  -intent_laberint: Ara per ara camina cap a l'esquerra fins que troba una paret
+  -movements: Programa per provar moviments
+  -sensor: fa lectures de qualsevol dels sensors i les imprimeix per serial
+  -vision: Ara per ara és un INTENT de fer girar el robot 45 graus amb una mica de precisió
+  -walk_correction: Fa caminar el robot recte corregint segons el compass (no acaba d'encadenar bé els moviments)
+  -walk_correction2: Versió del walk_correction utilitzant funcions extranyes
+  -walk_forward/walk_forward2: Fan caminar el robot recte sense modificacions
+
+
+A cada programa, després de les llibreries hi ha una petita explicació més específica.
+
+# Coses a tenir en compte:
+
+  -Hi ha 2 funcions turn_angle(), una a /examples/walk_straight/walk_straight.c i una altra a /motion/src/mtn_library.c. En principi nosaltres fem servir la de mtn_library.c. S'ha de tenir en compte que turn_angle() de mtn_library.c agafa un angle en un rang d'entre [0, 360] (que després multiplica per 10), i no de [0, 3600] com se suposa que dona la brúixola.
+  
+  -A /motion/src/mtn_library.c hi ha la funció walk_forward_compensating(), que entenem que fa el que pretenem fer nosaltres a walk_corretion.c i walk_correction2.c, pot ser útil.
+  
+  -Si es vol modificar els offsets (normalment per canviar la inclinació del robot), s'ha de fer a /motion/src/balance.c. En el propi fitxer ja hi ha comentaris sobre com fer-ho. Un com modificat l'arxiu de balance.c, cal fer un make a /motion i tornar a fer un make en el directori del programa que s'està intentant compilar. Ara mateix hi ha un offset de 30 graus a cadascun dels genolls del robot perquè sense offsets ell mateix es tirava enrere i queia. És importatn saber que les els motors es posicionen segons els offsets fins i tot abans d'apretar START i executar la pàgina 31.
+  
+  -Per esperar un temps, no és suficient utilitzar la funció user_time_set_period(n), aquesta només posa el rellorge del robot a un temps determinat, i s'ha de comprovar manualment si aquest temps ha passat. Per fer-ho, hi ha la funció user_time_is_period_done(), que retorna true si ha passat els n milisegons definits per user_time_set_period(n) i false en cas contrari. Hi ha un exemple funcional d'això a /Bioloid_General_ceabot2017/sensor/sensor.c.
+  
+  -S'ha enganxat una mica de cinta adhesiva als peus del robot per augmentar la fricció i fer que no rellisqui. Això pot (s'ha de comprovar) afectar als moviments, ja que hi ha la possibilitat de que algun d'aquests arrossegui els peus.
+  
+# Sensors
+
+  -Compass: teòricament té un rang de [0, 3600]. S'ha de vigilar perquè algunes funcions agafen un rang de [0, 360].
+  
+  -IR: Rang de [82, 500] per al de llarga distància (aproximadament). Com més pròxim és l'objecte, més augmenta el valor, encara que a uns 5 o 6 cm del sensor el valor torna a decrèixer al apropar l'objecte.
+  
+  -Gyro: Mesuren velocitat angular en º/s (?) amb un rang de [45, 455]. S'ha de vigilar perquè a vegades el giroscopi que monitoritza l'eix x està connectat al port de l'eix y i al revés.
+  
+  Si els sensors retornen sempre valors incoherents i fixos, el més probable és que s'haigi de reescriure el firmware de la placa d'expansió. Hi ha documentació del procediment a l'apartat 5.1 del document Humanoids.pdf, (../Humanoids.pdf).
+  
+# Preguntes
+  
+   Q:walk_forward() fa una passa o camina indefinidament?
+   A:fa només una passa, per tal d'aconseguir moviment continuat s'aha d'anar cridant constantment.
+   
+   Q: mtn_lib_stop_mtn() què fa exactament? Acaba el moviment en sec o el finalitza i el posa en una posició bona per començar l'altre moviment?
+   A: En principi para sobtadament. Suposem que els enllaços entre moviments són dins de les pròpies funions de moviments. Cal investigar-ho més.
+   
+   Q:Com podem fer els moviments fluids? Com els hem d'encadenar? Com podem fer que acabin i no en comenci un altre fins que la posició per fer-ho no sigui la bona?
+   A: ??????? 42

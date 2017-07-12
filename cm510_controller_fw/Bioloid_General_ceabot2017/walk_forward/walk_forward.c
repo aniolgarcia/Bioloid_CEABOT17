@@ -6,6 +6,10 @@
 #include "mtn_library.h"
 #include <stdlib.h>
 
+
+// Fa una crida a walk_forward() cada vegada que passa pel wait_ready, mirant primer si hi ha alguna acció executant-se. Moviment continuat.
+
+
 typedef enum {wait_start, wait_ready, walk, stop} main_states;
 
 void user_init(void)
@@ -22,9 +26,6 @@ void user_init(void)
 void user_loop(void)
 {
   static main_states state=wait_start;
-  
-   
-  // Fa una crida a walk_forward() cada vegada que passa pel wait_ready, mirant primer si hi ha alguna acció executant-se. Moviment continuat.
 
   switch(state)
   {
@@ -44,9 +45,6 @@ void user_loop(void)
 		    }
                     else
 		    {
-//                        action_set_page(31);
-//                        action_start_page();
-//                        state = wait_ready;
 		       walk_forward();
 		       state = walk;
 		    }
@@ -64,7 +62,7 @@ void user_loop(void)
 		    break;
 */		      
     case walk: if (is_button_rising_edge(BTN_DOWN))
-               {
+               { 
 		  //state = wait_stop;
 		  mtn_lib_stop_mtn();
 		  state = stop;

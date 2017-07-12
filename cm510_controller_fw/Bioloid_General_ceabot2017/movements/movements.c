@@ -6,6 +6,8 @@
 #include "mtn_library.h"
 #include <stdlib.h>
 
+//Manera senzilla de provar què fa cada funció de la llibreria de moviment. Cada vegada que s'apreta el botó amunt fa una crida a la funció que hi hagi dins el case move sense cridar mnt_lib_stop_mtn(), que només es crida al apretar el botó avall.
+
 typedef enum {wait_start,wait_ready,move} main_states;
 
 void user_init(void)
@@ -44,7 +46,7 @@ void user_loop(void)
 			break;
 
     case move: if (is_button_rising_edge(BTN_UP))
-                     {
+               {
                  walk_forward(); 
 		 //walk_backward();
 		 //turn_left();
@@ -82,14 +84,13 @@ void user_loop(void)
 		 //walk_right_compensating (int comp_ini, int comp_act);
 // 		 mtn_lib_stop_mtn();
 		 state = wait_ready;
-                   }
-		     
-		     if (is_button_rising_edge(BTN_DOWN))
-                       {
-                       walk_forward();   
-		       state= wait_ready; 
-                       }
-                   break;
+                }
+		else if (is_button_rising_edge(BTN_DOWN))
+                {
+                  mtn_lib_stop_mtn();   
+		  state= wait_ready; 
+                }
+                break;
 
 
   }

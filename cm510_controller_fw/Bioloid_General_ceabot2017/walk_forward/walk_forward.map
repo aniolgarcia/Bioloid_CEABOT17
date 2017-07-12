@@ -1953,7 +1953,7 @@ END GROUP
  .debug_abbrev  0x0000000000001e05      0x272 ../../communications/lib/libcomm.a(serial_console.o)
  .debug_abbrev  0x0000000000002077      0x1eb ../../communications/lib/libcomm.a(dynamixel.o)
 
-.debug_line     0x0000000000000000     0x28d9
+.debug_line     0x0000000000000000     0x28d7
  *(.debug_line)
  .debug_line    0x0000000000000000      0x117 walk_forward.o
  .debug_line    0x0000000000000117      0x178 ../../controllers/lib/libcontrollers.a(cm510.o)
@@ -1964,15 +1964,15 @@ END GROUP
  .debug_line    0x0000000000000769      0x257 ../../motion/lib/libmotion_manager.a(motion_manager.o)
  .debug_line    0x00000000000009c0      0x260 ../../motion/lib/libmotion_manager.a(action.o)
  .debug_line    0x0000000000000c20       0xb0 ../../motion/lib/libmotion_manager.a(motion_pages.o)
- .debug_line    0x0000000000000cd0      0x14e ../../motion/lib/libmotion_manager.a(balance.o)
- .debug_line    0x0000000000000e1e      0xec9 ../../motion/lib/libmotion_manager.a(mtn_library.o)
- .debug_line    0x0000000000001ce7      0x142 ../../motion/lib/libmotion_manager.a(pan_tilt.o)
- .debug_line    0x0000000000001e29      0x1a7 ../../dyn_devices/lib/libdyn_devices.a(dyn_servos.o)
- .debug_line    0x0000000000001fd0      0x366 ../../dyn_devices/lib/libdyn_devices.a(exp_board.o)
- .debug_line    0x0000000000002336       0xa3 ../../dyn_devices/lib/libdyn_devices.a(dyn_common.o)
- .debug_line    0x00000000000023d9      0x215 ../../communications/lib/libcomm.a(dynamixel_master.o)
- .debug_line    0x00000000000025ee       0xfd ../../communications/lib/libcomm.a(serial_console.o)
- .debug_line    0x00000000000026eb      0x1ee ../../communications/lib/libcomm.a(dynamixel.o)
+ .debug_line    0x0000000000000cd0      0x14c ../../motion/lib/libmotion_manager.a(balance.o)
+ .debug_line    0x0000000000000e1c      0xec9 ../../motion/lib/libmotion_manager.a(mtn_library.o)
+ .debug_line    0x0000000000001ce5      0x142 ../../motion/lib/libmotion_manager.a(pan_tilt.o)
+ .debug_line    0x0000000000001e27      0x1a7 ../../dyn_devices/lib/libdyn_devices.a(dyn_servos.o)
+ .debug_line    0x0000000000001fce      0x366 ../../dyn_devices/lib/libdyn_devices.a(exp_board.o)
+ .debug_line    0x0000000000002334       0xa3 ../../dyn_devices/lib/libdyn_devices.a(dyn_common.o)
+ .debug_line    0x00000000000023d7      0x215 ../../communications/lib/libcomm.a(dynamixel_master.o)
+ .debug_line    0x00000000000025ec       0xfd ../../communications/lib/libcomm.a(serial_console.o)
+ .debug_line    0x00000000000026e9      0x1ee ../../communications/lib/libcomm.a(dynamixel.o)
 
 .debug_frame    0x0000000000000000     0x1ff4
  *(.debug_frame)

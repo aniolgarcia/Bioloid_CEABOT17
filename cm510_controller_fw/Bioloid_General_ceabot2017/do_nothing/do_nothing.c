@@ -6,6 +6,8 @@
 #include "mtn_library.h"
 #include <stdlib.h>
 
+//Es posa en posició inicial i no fa res més. Útil per veure efectes dels offsets.
+
 typedef enum {wait_start, do_nothing} main_states;
 
 
