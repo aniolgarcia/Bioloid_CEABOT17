@@ -11,6 +11,7 @@
 typedef enum {wait_start, wait_ready, wait_cmd, walk_l, walk_r, stop} main_states;
 
 int cont = 0;
+int valor_base, valor_actual;
 
 void user_init(void)
 {
@@ -24,6 +25,27 @@ void user_init(void)
   exp_compass_start();
 }
 
+int compass(int valor_base)
+{
+        
+	int nou_valor, desviament;
+	
+	nou_valor = exp_compass_get_avg_heading();
+	desviament = nou_valor - valor_base;
+	//Com que el desviament no pot ser més de 180, si es passa és que ha passat de 360 o 0
+	if(desviament > 1800)
+	{
+		desviament = desviament - 3600;
+	}
+	else if(desviament < -1800)
+	{
+		desviament = desviament + 3600;
+	}
+	
+	desviament = desviament/10;
+	
+	return desviament;
+}
 
 
 void user_loop(void)
@@ -37,6 +59,8 @@ void user_loop(void)
 		      {
 		       action_set_page(31);
 		       action_start_page();
+		       valor_base = exp_compass_get_avg_heading();
+		       valor_actual = valor_base;
 		       state=wait_ready;
 		       cont = 0;
 		      }
@@ -84,30 +108,55 @@ void user_loop(void)
 		    }
 		    break;
 		    
-    case walk_l:    if(exp_adc_get_avg_channel(ADC7) < 450 && !is_button_rising_edge(BTN_DOWN))
+    case walk_l:    if(exp_adc_get_avg_channel(ADC5) < 300 && !is_button_rising_edge(BTN_DOWN))
 		    {
 		      walk_left();
+		      if(compass(valor_base) > 10) 
+		      {
+			mtn_lib_stop_mtn();
+			walk_forward_turn_left();
+			state = walk_l;
+
+		      }
+		      else if(compass(valor_base) < -10)
+		      {	
+			mtn_lib_stop_mtn();
+			walk_forward_turn_right();
+			state = walk_l;
+
+		      }
 		      state = walk_l;
 		    }
 		    else
 		    {
 		      mtn_lib_stop_mtn();
-		      state = stop;		      
+		      state = walk_r;		      
 		    }
 		    break;
 		    
-   case walk_r: if(cont < 5)
+   case walk_r:    if(exp_adc_get_avg_channel(ADC6) < 300 && !is_button_rising_edge(BTN_DOWN))
 		    {
 		      walk_right();
-		      cont = cont + 1;
+		      if(compass(valor_base) > 10) 
+		      {
+			mtn_lib_stop_mtn();
+			walk_forward_turn_left();
+			state = walk_l;
+
+		      }
+		      else if(compass(valor_base) < -10)
+		      {
+			mtn_lib_stop_mtn();
+			walk_forward_turn_right();
+			state = walk_l;
+
+		      }
 		      state = walk_r;
-		        
 		    }
 		    else
 		    {
-		      cont = 0;
 		      mtn_lib_stop_mtn();
-		      state = wait_cmd;		      
+		      state = stop;		      
 		    }
 		    break;
 		    

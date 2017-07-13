@@ -4,7 +4,7 @@
 
 # Breu descripció de cada programa
 
-  -compass: llegeix brúixola. Fer servir sensor en comptes d'aquest.
+  -compass: llegeix brúixola. Fer servir sensor.c en comptes d'aquest.
   -do_nothing: fa la posició inicial (action_set_page(31)) i no fa res més.
   -gir: Programa per fer debug de la brúixola. Fixa una direcció inicial i quan el gires hi torna
   -intent_laberint: Ara per ara camina cap a l'esquerra fins que troba una paret

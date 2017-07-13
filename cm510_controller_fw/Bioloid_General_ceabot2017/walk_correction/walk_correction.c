@@ -90,10 +90,12 @@ void user_loop(void)
                else if(compass(valor_base) > 10) 
 	       {
  			state = correct_l;
+
 	       }
 	       else if(compass(valor_base) < -10)
 	       {
-			state = correct_r; 
+			state = correct_r;
+
 	       }
                else
 	       {
@@ -112,11 +114,20 @@ void user_loop(void)
 		}
 		break;
 		
-    case correct_l: walk_forward_turn_left();
+    case correct_l: //action_set_page(31);
+                    //action_start_page();
+	      	    mtn_lib_stop_mtn();
+		      
+		      walk_forward_turn_left();
+		      state = walk;
+		      
+    case correct_r: //action_set_page(31);
+                    //action_start_page();
+      		    mtn_lib_stop_mtn();
+		    
+		    walk_forward_turn_right();
 		    state = walk;
-
-    case correct_r: walk_forward_turn_right();
-		    state = walk;
+		    
 		  
 	       /*if (compass(valor_base) > 150 )
                {
