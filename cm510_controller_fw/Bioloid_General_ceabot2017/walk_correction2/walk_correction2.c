@@ -49,6 +49,7 @@ void user_init(void)
   mtn_lib_init();
   exp_adc_start();
   exp_compass_start();
+ 
 }
 
 

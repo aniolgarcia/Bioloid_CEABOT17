@@ -8,7 +8,7 @@
 
 //Intent inical de l'estructura del laberint. Ara mateix només funcionen els estats wait_start, wait_ready i walk_l, i el que fa és caminar lateralment fins a trobar un objecte amb el sensor IR. Els altres estats tan sols s'han utilitzat per fer proves i no sempre reflecteixen l'estructura correcta.
 
-typedef enum {wait_start, wait_ready, wait_cmd, walk_l, walk_r, stop} main_states;
+typedef enum {wait_start, wait_ready, wait_cmd, walk_l, walk_r, walk_f, walk_return, turn, stop} main_states;
 
 int cont = 0;
 int valor_base, valor_actual;
@@ -80,33 +80,33 @@ void user_loop(void)
 		      }
 		      break;
 
-// Estat utilitzat per fer proves de girs, molt probablement no estarà al programa final
-    case wait_cmd: if(is_button_rising_edge(BTN_LEFT))
-		    {
-		      state = walk_l;
-		    }
-		    else if(is_button_rising_edge(BTN_RIGHT))
-		    {
-		      state = walk_r; 
-		    }
-		    else if(is_button_rising_edge(BTN_UP))
-		    {
-		      adc7 = exp_adc_get_avg_channel(ADC7);
-		      cm510_printf("Sensor IR adc7: %d", adc7); 
-		      user_time_set_period(500);
-		      state = wait_ready;
-		    }
-		    else if (is_button_rising_edge(BTN_DOWN)) 
-                    {
-		      //walk_forward();
-                      mtn_lib_stop_mtn(); 
-		      state= wait_ready; 
-                    }
-                    else
-		    {
-		      state = wait_ready;
-		    }
-		    break;
+// // Estat utilitzat per fer proves de girs, molt probablement no estarà al programa final
+//     case wait_cmd: if(is_button_rising_edge(BTN_LEFT))
+// 		    {
+// 		      state = walk_l;
+// 		    }
+// 		    else if(is_button_rising_edge(BTN_RIGHT))
+// 		    {
+// 		      state = walk_r; 
+// 		    }
+// 		    else if(is_button_rising_edge(BTN_UP))
+// 		    {
+// 		      adc7 = exp_adc_get_avg_channel(ADC7);
+// 		      cm510_printf("Sensor IR adc7: %d", adc7); 
+// 		      user_time_set_period(500);
+// 		      state = wait_ready;
+// 		    }
+// 		    else if (is_button_rising_edge(BTN_DOWN)) 
+//                     {
+// 		      //walk_forward();
+//                       mtn_lib_stop_mtn(); 
+// 		      state= wait_ready; 
+//                     }
+//                     else
+// 		    {
+// 		      state = wait_ready;
+// 		    }
+// 		    break;
 		    
     case walk_l:    if(exp_adc_get_avg_channel(ADC5) < 300 && !is_button_rising_edge(BTN_DOWN))
 		    {
@@ -160,6 +160,34 @@ void user_loop(void)
 		    }
 		    break;
 		    
+		    
+   case walk_f: if(exp_adc_get_avg_channel(ADC7) < 450)
+		{
+		  walk_forward();
+		  state = walk_f;
+		}
+		else
+		{
+		  mtn_lib_stop_mtn();
+		  state = turn;
+		}
+		
+		
+   case turn: turn_angle(180);
+	      valor_base = exp_compass_get_avg_heading();
+	      state = walk_return;
+	      
+   case walk_return: if(exp_adc_get_avg_channel(ADC7) < 450)
+		     {
+		       walk_forward();
+		       state = walk_f;
+		     }
+		     else
+		     {
+		       mtn_lib_stop_mtn();
+		       state = stop;
+		     }
+     
     case stop: if(is_button_rising_edge(BTN_UP))
 		{
 		  state = wait_ready;

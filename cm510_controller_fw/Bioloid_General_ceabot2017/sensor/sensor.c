@@ -83,8 +83,8 @@ void user_loop(void)
 		      
     case read_sensor: if(user_time_is_period_done())  
 		      {
-// 			cm510_printf("Exp. Board ADC port 7: %d   ",exp_adc_get_avg_channel(ADC7));
-// 			cm510_printf("Exp. Board ADC port 6: %d   ",exp_adc_get_avg_channel(ADC6));
+			cm510_printf("Exp. Board ADC port 7: %d   ",exp_adc_get_avg_channel(ADC7));
+			cm510_printf("Exp. Board ADC port 6: %d   ",exp_adc_get_avg_channel(ADC6));
  			cm510_printf("Exp. Board ADC port 4: %d\n",exp_adc_get_avg_channel(ADC4));
 //  			cm510_printf("Exp. Board ADC port 7: %d\n",exp_adc_get_avg_channel(ADC7));
 //  			cm510_printf("CM510 ADC port 1: %d\n",get_adc_avg_channel(ADC_PORT_2));
