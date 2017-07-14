@@ -12,8 +12,8 @@ typedef enum {wait_start, wait_ready, wait_cmd, walk_l, walk_r, walk_f, walk_ret
 
 int cont = 0;
 int valor_base, valor_actual;
-
-void user_init(void)
+ 
+void user_init(void) 
 {
   serial_console_init(57600);
   balance_init();
@@ -79,49 +79,58 @@ void user_loop(void)
 			state = walk_l; //Ara l'enviem a walk_l perquè només volem que tiri cap a l'esquerra.
 		      }
 		      break;
-
-// // Estat utilitzat per fer proves de girs, molt probablement no estarà al programa final
-//     case wait_cmd: if(is_button_rising_edge(BTN_LEFT))
-// 		    {
-// 		      state = walk_l;
-// 		    }
-// 		    else if(is_button_rising_edge(BTN_RIGHT))
-// 		    {
-// 		      state = walk_r; 
-// 		    }
-// 		    else if(is_button_rising_edge(BTN_UP))
-// 		    {
-// 		      adc7 = exp_adc_get_avg_channel(ADC7);
-// 		      cm510_printf("Sensor IR adc7: %d", adc7); 
-// 		      user_time_set_period(500);
-// 		      state = wait_ready;
-// 		    }
-// 		    else if (is_button_rising_edge(BTN_DOWN)) 
-//                     {
-// 		      //walk_forward();
-//                       mtn_lib_stop_mtn(); 
-// 		      state= wait_ready; 
-//                     }
-//                     else
-// 		    {
-// 		      state = wait_ready;
-// 		    }
-// 		    break;
+ 
+// Estat utilitzat per fer proves de girs, molt probablement no estarà al programa final
+    case wait_cmd: if(is_button_rising_edge(BTN_LEFT))
+		    {
+		      state = walk_l;
+		    }
+		    else if(is_button_rising_edge(BTN_RIGHT))
+		    {
+		      state = walk_r; 
+		    }
+		    else if(is_button_rising_edge(BTN_UP))
+		    {
+		      adc7 = exp_adc_get_avg_channel(ADC7);
+		      cm510_printf("Sensor IR adc7: %d", adc7); 
+		      user_time_set_period(500);
+		      state = wait_ready;
+		    }
+		    else if (is_button_rising_edge(BTN_DOWN)) 
+                    {
+		      //walk_forward();
+                      mtn_lib_stop_mtn(); 
+		      state= wait_ready; 
+                    }
+                    else
+		    {
+		      state = wait_ready; 
+		    }
+		    break;
 		    
-    case walk_l:    if(exp_adc_get_avg_channel(ADC5) < 300 && !is_button_rising_edge(BTN_DOWN))
+    case walk_l: if(exp_adc_get_avg_channel(ADC7) < 60)
+		 { 
+		   walk_left();
+		   state = stop;
+		 }
+		 else
+		 {
+		    if(exp_adc_get_avg_channel(ADC4) < 300 && !is_button_rising_edge(BTN_DOWN))
 		    {
 		      walk_left();
-		      if(compass(valor_base) > 10) 
+		      if(compass(valor_base) > 2) 
 		      {
-			mtn_lib_stop_mtn();
-			walk_forward_turn_left();
+// 			mtn_lib_stop_mtn();
+// 			walk_forward_turn_left();
+			turn_left();
 			state = walk_l;
 
 		      }
-		      else if(compass(valor_base) < -10)
+		      else if(compass(valor_base) < -2)
 		      {	
-			mtn_lib_stop_mtn();
-			walk_forward_turn_right();
+// 			mtn_lib_stop_mtn();
+// 			walk_forward_turn_right();
+			turn_right();
 			state = walk_l;
 
 		      }
@@ -132,22 +141,26 @@ void user_loop(void)
 		      mtn_lib_stop_mtn();
 		      state = walk_r;		      
 		    }
+		 }
 		    break;
 		    
-   case walk_r:    if(exp_adc_get_avg_channel(ADC6) < 300 && !is_button_rising_edge(BTN_DOWN))
+    case walk_r: if(exp_adc_get_avg_channel(ADC6) < 300 && !is_button_rising_edge(BTN_DOWN))
 		    {
+		      
 		      walk_right();
-		      if(compass(valor_base) > 10) 
+		      if(compass(valor_base) > 2) 
 		      {
-			mtn_lib_stop_mtn();
-			walk_forward_turn_left();
+// 			mtn_lib_stop_mtn();
+// 			walk_forward_turn_left();
+			turn_left();
 			state = walk_l;
-
+ 
 		      }
-		      else if(compass(valor_base) < -10)
+		      else if(compass(valor_base) < -2)
 		      {
-			mtn_lib_stop_mtn();
-			walk_forward_turn_right();
+// 			mtn_lib_stop_mtn();
+// 			walk_forward_turn_right();
+			turn_right();
 			state = walk_l;
 
 		      }

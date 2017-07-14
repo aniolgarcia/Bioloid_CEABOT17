@@ -41,6 +41,7 @@ TPages mtn_pages[]={{F_S_L,F_S_R,F_M_L,F_M_R,F_E_L,F_E_R}, //mtn_fwd
                     {RT_S_L,RT_S_R,RT_M_L,RT_M_R,RT_E_L,RT_E_R},
                     {L_S_L,L_S_R,L_M_L,L_M_R,L_E_L,L_E_R},
                     {R_S_L,R_S_R,R_M_L,R_M_R,R_E_L,R_E_R},
+// 		    {R_S_R,R_S_L,R_M_R,R_M_L,R_E_R,R_E_L}, //Al caminar a la dreta, comença amb el peu esquerre, i ho hauria de fer amb el dret...
                     {FLT_S_L,FLT_S_R,FLT_M_L,FLT_M_R,FLT_E_L,FLT_E_R},
                     {FRT_S_L,FRT_S_R,FRT_M_L,FRT_M_R,FRT_E_L,FRT_E_R},
                     {BLT_S_L,BLT_S_R,BLT_M_L,BLT_M_R,BLT_E_L,BLT_E_R},
