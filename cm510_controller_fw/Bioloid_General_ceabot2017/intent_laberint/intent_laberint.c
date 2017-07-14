@@ -80,34 +80,34 @@ void user_loop(void)
 		      }
 		      break;
  
-// Estat utilitzat per fer proves de girs, molt probablement no estarà al programa final
-    case wait_cmd: if(is_button_rising_edge(BTN_LEFT))
-		    {
-		      state = walk_l;
-		    }
-		    else if(is_button_rising_edge(BTN_RIGHT))
-		    {
-		      state = walk_r; 
-		    }
-		    else if(is_button_rising_edge(BTN_UP))
-		    {
-		      adc7 = exp_adc_get_avg_channel(ADC7);
-		      cm510_printf("Sensor IR adc7: %d", adc7); 
-		      user_time_set_period(500);
-		      state = wait_ready;
-		    }
-		    else if (is_button_rising_edge(BTN_DOWN)) 
-                    {
-		      //walk_forward();
-                      mtn_lib_stop_mtn(); 
-		      state= wait_ready; 
-                    }
-                    else
-		    {
-		      state = wait_ready; 
-		    }
-		    break;
-		    
+// // Estat utilitzat per fer proves de girs, molt probablement no estarà al programa final
+//     case wait_cmd: if(is_button_rising_edge(BTN_LEFT))
+// 		    {
+// 		      state = walk_l;
+// 		    }
+// 		    else if(is_button_rising_edge(BTN_RIGHT))
+// 		    {
+// 		      state = walk_r; 
+// 		    }
+// 		    else if(is_button_rising_edge(BTN_UP))
+// 		    {
+// 		      adc7 = exp_adc_get_avg_channel(ADC7);
+// 		      cm510_printf("Sensor IR adc7: %d", adc7); 
+// 		      user_time_set_period(500);
+// 		      state = wait_ready;
+// 		    }
+// 		    else if (is_button_rising_edge(BTN_DOWN)) 
+//                     {
+// 		      //walk_forward();
+//                       mtn_lib_stop_mtn(); 
+// 		      state= wait_ready; 
+//                     }
+//                     else
+// 		    {
+// 		      state = wait_ready; 
+// 		    }
+// 		    break;
+
     case walk_l: if(exp_adc_get_avg_channel(ADC7) < 60)
 		 { 
 		   walk_left();
@@ -118,7 +118,7 @@ void user_loop(void)
 		    if(exp_adc_get_avg_channel(ADC4) < 300 && !is_button_rising_edge(BTN_DOWN))
 		    {
 		      walk_left();
-		      if(compass(valor_base) > 2) 
+		      if(compass(valor_base) > 15) 
 		      {
 // 			mtn_lib_stop_mtn();
 // 			walk_forward_turn_left();
@@ -126,7 +126,7 @@ void user_loop(void)
 			state = walk_l;
 
 		      }
-		      else if(compass(valor_base) < -2)
+		      else if(compass(valor_base) < -15)
 		      {	
 // 			mtn_lib_stop_mtn();
 // 			walk_forward_turn_right();
@@ -148,7 +148,7 @@ void user_loop(void)
 		    {
 		      
 		      walk_right();
-		      if(compass(valor_base) > 2) 
+		      if(compass(valor_base) > 15) 
 		      {
 // 			mtn_lib_stop_mtn();
 // 			walk_forward_turn_left();
@@ -156,7 +156,7 @@ void user_loop(void)
 			state = walk_l;
  
 		      }
-		      else if(compass(valor_base) < -2)
+		      else if(compass(valor_base) < -15)
 		      {
 // 			mtn_lib_stop_mtn();
 // 			walk_forward_turn_right();

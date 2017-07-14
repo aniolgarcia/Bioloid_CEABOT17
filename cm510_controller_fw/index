@@ -26,6 +26,12 @@ A cada programa, després de les llibreries hi ha una petita explicació més es
   
   -Si es vol modificar els offsets (normalment per canviar la inclinació del robot), s'ha de fer a /motion/src/balance.c. En el propi fitxer ja hi ha comentaris sobre com fer-ho. Un com modificat l'arxiu de balance.c, cal fer un make a /motion i tornar a fer un make en el directori del programa que s'està intentant compilar. Ara mateix hi ha un offset de 30 graus a cadascun dels genolls del robot perquè sense offsets ell mateix es tirava enrere i queia. És importatn saber que les els motors es posicionen segons els offsets fins i tot abans d'apretar START i executar la pàgina 31.
   
+  -Si es vol modificar les definicions del robot al simulador, primer cal modificar l'arxiu bioloid_ceabot.xacro (/home/humanoides/iri-lab/iri_ws/src/bioloid_robot/bioloid_description/urdf/bioloid_ceabot.xacro) i després l'arxiu bioloid_ceabot.yaml (/iri-lab/iri_ws/src/bioloid_robot/bioloid_control/config/bioloid_ceabot.yaml). Exemple pel sensor de IR:
+  
+  <xacro:sharp_ir name="nom" parent="a on s'enganxa" update_rate="20" fov="0.05" min_range="0.1" max_range="0.8">
+    <origin xyz="posoció realtiva a parent (x y z)" rpy="orientació (x y z)" />
+  </xacro:sharp_ir>
+  
   -Per esperar un temps, no és suficient utilitzar la funció user_time_set_period(n), aquesta només posa el rellorge del robot a un temps determinat, i s'ha de comprovar manualment si aquest temps ha passat. Per fer-ho, hi ha la funció user_time_is_period_done(), que retorna true si ha passat els n milisegons definits per user_time_set_period(n) i false en cas contrari. Hi ha un exemple funcional d'això a /Bioloid_General_ceabot2017/sensor/sensor.c.
   
   -S'ha enganxat una mica de cinta adhesiva als peus del robot per augmentar la fricció i fer que no rellisqui. Això pot (s'ha de comprovar) afectar als moviments, ja que hi ha la possibilitat de que algun d'aquests arrossegui els peus.
@@ -47,9 +53,6 @@ A cada programa, després de les llibreries hi ha una petita explicació més es
    
    Q: mtn_lib_stop_mtn() què fa exactament? Acaba el moviment en sec o el finalitza i el posa en una posició bona per començar l'altre moviment?
    A: En principi para sobtadament. Suposem que els enllaços entre moviments són dins de les pròpies funions de moviments. Cal investigar-ho més.
-   
-   Q: Com es configura el model de robot que utilitza el simulador? Com se li afegiexen sensors?
-   A:???
    
    Q:Com podem fer els moviments fluids? Com els hem d'encadenar? Com podem fer que acabin i no en comenci un altre fins que la posició per fer-ho no sigui la bona?
    A: ??????? 42

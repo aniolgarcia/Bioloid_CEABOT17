@@ -119,7 +119,7 @@ void user_loop(void)
       
 //		    Sense els mtn_lib_stop_mtn() sembla que funciona millor, si més no en el simulador.
 
-// 	      	    mtn_lib_stop_mtn();
+	      	    mtn_lib_stop_mtn();
 		      
 		    walk_forward_turn_left();
 		    state = walk;
@@ -128,7 +128,7 @@ void user_loop(void)
                     //action_start_page();
 
 //       	    Sense els mtn_lib_stop_mtn() sembla que funciona millor, si més no en el simulador, però m'ha semblat observar que al fer servir els lib_stop_motion feia les parades i enllaços entre moviments correctament... S'hauria de mirar perquè ho fa...
-// 		    mtn_lib_stop_mtn();
+		    mtn_lib_stop_mtn();
 		    
 		    walk_forward_turn_right();
 		    state = walk;
