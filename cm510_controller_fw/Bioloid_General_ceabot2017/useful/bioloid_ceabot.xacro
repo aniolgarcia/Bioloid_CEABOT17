@@ -1,0 +1,84 @@
+<robot name="bioloid" xmlns:xacro="http://www.ros.org/wiki/xacro">
+ 
+  <xacro:include filename="$(find bioloid_description)/urdf/bioloid_low_res.xacro" />
+  <xacro:include filename="$(find bioloid_description)/urdf/bioloid_ceabot.gazebo" />
+  <xacro:include filename="$(find bioloid_description)/urdf/sensors/sharp_ir.xacro" />
+  <xacro:include filename="$(find bioloid_description)/urdf/sensors/feet_ir.xacro" />
+  <xacro:include filename="$(find bioloid_description)/urdf/pan_tilt.xacro" />
+  <xacro:include filename="$(find bioloid_description)/urdf/sensors/ids_xs.xacro" />
+
+  <xacro:arg name="use_pan_tilt" default="false"/>
+
+  <xacro:sharp_ir name="IR1" parent="base_link" update_rate="20" fov="0.05" min_range="0.1" max_range="0.8">
+    <origin xyz="0 0.0 0.035" rpy="-1.5707 -1.5707 0" />
+  </xacro:sharp_ir>
+  <xacro:feet_ir left_parent="left_leg_ankle_roll" right_parent="right_leg_ankle_roll" update_rate="20" range="0.01"/>
+
+  <link name="battery_pack">
+    <collision>
+      <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://bioloid_description/meshes/bounding_boxes/battery_bb.stl" />
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://bioloid_description/meshes/bounding_boxes/battery_bb.stl" />
+      </geometry>
+      <material name="Grey">
+        <color rgba="0.79 0.82 0.93 1.0"/>
+      </material>
+    </visual>
+    <inertial>
+      <mass value="0.083" />
+      <origin xyz="-0.00750000 0.00000000 0.00000000" rpy="0 0 0"/>
+      <inertia ixx="0.00004236" ixy="0.00000000" ixz="0.00000000" iyy="0.00001003" iyz="0.00000000" izz="0.00003545" />
+    </inertial>
+  </link>
+
+  <joint name="j_battery" type="fixed">
+    <parent link="base_link"/>
+    <child link="battery_pack"/>
+    <origin xyz="0 -0.06 -0.022" rpy="-1.5707 -1.5707 0" />
+  </joint>
+
+  <link name="controller">
+    <collision>
+      <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://bioloid_description/meshes/bounding_boxes/cm510_bb.stl" />
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://bioloid_description/meshes/bounding_boxes/cm510_bb.stl" />
+      </geometry>
+      <material name="Grey">
+        <color rgba="0.79 0.82 0.93 1.0"/>
+      </material>
+    </visual>
+    <inertial>
+      <mass value="0.0513" />
+      <origin xyz="-0.01301673 -0.00039419 0.00111614" rpy="0 0 0"/>
+      <inertia ixx="0.00004774" ixy="0.00000038" ixz="-0.00000094" iyy="0.00002476" iyz="-0.00000030" izz="0.00004497" />
+    </inertial>
+  </link>
+
+  <joint name="j_controller" type="fixed">
+    <parent link="base_link"/>
+    <child link="controller"/>
+    <origin xyz="0 -0.01 -0.022" rpy="-1.5707 -1.5707 0" />
+  </joint>
+
+  <xacro:if value="$(arg use_pan_tilt)">
+    <xacro:pan_tilt parent="base_link">
+      <origin xyz="0.0 0.022 0.005" rpy="1.5707 0 3.1415" />
+    </xacro:pan_tilt> 
+
+    <xacro:ids_xs name="bioloid_cam" parent="head">
+      <origin xyz="0.02 0.01 0.0" rpy="-1.5707 0 0" />
+    </xacro:ids_xs> 
+  </xacro:if>
+</robot>

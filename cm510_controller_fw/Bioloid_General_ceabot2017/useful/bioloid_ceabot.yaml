@@ -1,0 +1,131 @@
+bioloid:
+  # Publish all joint states -----------------------------------
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50
+
+  bioloid_cm510_cont:
+    type: effort_controllers/BioloidControllerCM510
+    adc2_frame: IR1_link
+    adc3_frame: gyro_x
+    adc4_frame: gyro_y
+    exp_adc1_frame: IR2_link
+    exp_adc8_frame: IR3_link
+    exp_board_id: 192
+    exp_gpio0_frame: left_front_fwd_ir_link
+    exp_gpio1_frame: left_front_dwn_ir_link
+    exp_gpio2_frame: left_lateral_dwn_ir_link
+    exp_gpio3_frame: right_front_fwd_ir_link
+    exp_gpio4_frame: right_front_dwn_ir_link
+    exp_gpio5_frame: right_lateral_dwn_ir_link
+    serial_console_device: /dev/pts/3
+    joints:
+      - j_shoulder_r
+      - j_shoulder_l
+      - j_high_arm_r
+      - j_high_arm_l
+      - j_low_arm_r
+      - j_low_arm_l
+      - j_pelvis_yaw_r
+      - j_pelvis_yaw_l
+      - j_pelvis_roll_r
+      - j_pelvis_roll_l
+      - j_pelvis_pitch_r
+      - j_pelvis_pitch_l
+      - j_knee_r
+      - j_knee_l
+      - j_ankle_pitch_r
+      - j_ankle_pitch_l
+      - j_ankle_roll_r
+      - j_ankle_roll_l
+    gains:
+      j_shoulder_l:
+        punch: 32
+        margin: 1
+        slope: 32
+        max_torque: 1.5
+      j_high_arm_l:
+        punch: 32
+        margin: 1
+        slope: 32
+        max_torque: 1.5
+      j_low_arm_l:
+        punch: 32
+        margin: 1
+        slope: 32
+        max_torque: 1.5
+      j_shoulder_r:
+        punch: 32
+        margin: 1
+        slope: 32
+        max_torque: 1.5
+      j_high_arm_r:
+        punch: 32
+        margin: 1
+        slope: 32
+        max_torque: 1.5
+      j_low_arm_r:
+        punch: 32
+        margin: 1
+        slope: 32
+        max_torque: 1.5
+      j_pelvis_yaw_l:
+        punch: 32
+        margin: 1
+        slope: 32
+        max_torque: 1.5
+      j_pelvis_roll_l:
+        punch: 32
+        margin: 1
+        slope: 32
+        max_torque: 1.5
+      j_pelvis_pitch_l:
+        punch: 32
+        margin: 1
+        slope: 32
+        max_torque: 1.5
+      j_knee_l:
+        punch: 32
+        margin: 1
+        slope: 32
+        max_torque: 1.5
+      j_ankle_pitch_l:
+        punch: 32
+        margin: 1
+        slope: 32
+        max_torque: 1.5
+      j_ankle_roll_l:
+        punch: 32
+        margin: 1
+        slope: 32
+        max_torque: 1.5
+      j_pelvis_yaw_r:
+        punch: 32
+        margin: 1
+        slope: 32
+        max_torque: 1.5
+      j_pelvis_roll_r:
+        punch: 32
+        margin: 1
+        slope: 32
+        max_torque: 1.5
+      j_pelvis_pitch_r:
+        punch: 32
+        margin: 1
+        slope: 32
+        max_torque: 1.5
+      j_knee_r:
+        punch: 32
+        margin: 1
+        slope: 32
+        max_torque: 1.5
+      j_ankle_pitch_r:
+        punch: 32
+        margin: 1
+        slope: 32
+        max_torque: 1.5
+      j_ankle_roll_r:
+        punch: 32
+        margin: 1
+        slope: 32
+        max_torque: 1.5

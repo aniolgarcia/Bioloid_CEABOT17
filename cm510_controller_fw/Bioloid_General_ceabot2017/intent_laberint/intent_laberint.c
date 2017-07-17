@@ -6,9 +6,18 @@
 #include "mtn_library.h"
 #include <stdlib.h>
 
+typedef int bool;
+#define true 1
+#define false 0
+
 //Intent inical de l'estructura del laberint. Ara mateix només funcionen els estats wait_start, wait_ready i walk_l, i el que fa és caminar lateralment fins a trobar un objecte amb el sensor IR. Els altres estats tan sols s'han utilitzat per fer proves i no sempre reflecteixen l'estructura correcta.
 
 typedef enum {wait_start, wait_ready, wait_cmd, walk_l, walk_r, walk_f, walk_return, turn, stop} main_states;
+
+const bool simulat = true;
+adc_t davant, esquerra, dreta;
+
+
 
 int cont = 0;
 int valor_base, valor_actual;
@@ -23,6 +32,20 @@ void user_init(void)
   mtn_lib_init();
   exp_adc_start();
   exp_compass_start();
+  
+  if(simulat == true)
+  {
+    davant = ADC3;
+    esquerra = ADC4;
+    dreta = ADC5;
+  }
+  else
+  {
+    davant = ADC4;
+    esquerra = ADC5;
+    dreta = ADC6;
+  }
+ 
 }
 
 int compass(int valor_base)
@@ -51,7 +74,6 @@ int compass(int valor_base)
 void user_loop(void)
 {
   static main_states state=wait_start;
-  int adc7;
 	
   switch(state)
   {
@@ -76,7 +98,7 @@ void user_loop(void)
 		      }
 		      else
 		      {
-			state = walk_l; //Ara l'enviem a walk_l perquè només volem que tiri cap a l'esquerra.
+			state = walk_r; //Ara l'enviem a walk_l perquè només volem que tiri cap a l'esquerra.
 		      }
 		      break;
  
@@ -97,7 +119,7 @@ void user_loop(void)
 // 		      state = wait_ready;
 // 		    }
 // 		    else if (is_button_rising_edge(BTN_DOWN)) 
-//                     {
+//                     { 
 // 		      //walk_forward();
 //                       mtn_lib_stop_mtn(); 
 // 		      state= wait_ready; 
@@ -108,60 +130,69 @@ void user_loop(void)
 // 		    }
 // 		    break;
 
-    case walk_l: if(exp_adc_get_avg_channel(ADC7) < 60)
+    case walk_l: if(exp_adc_get_avg_channel(davant) < 60)
 		 { 
 		   walk_left();
 		   state = stop;
 		 }
 		 else
 		 {
-		    if(exp_adc_get_avg_channel(ADC4) < 300 && !is_button_rising_edge(BTN_DOWN))
+		   printf("Davant: %d", exp_adc_get_avg_channel(davant));
+		   printf("  Esquerra: %d\n", exp_adc_get_avg_channel(esquerra)); 
+		    if(exp_adc_get_avg_channel(esquerra) > 100 && !is_button_rising_edge(BTN_DOWN))
 		    {
 		      walk_left();
-		      if(compass(valor_base) > 15) 
+		      if(compass(valor_base) > 5) 
 		      {
 // 			mtn_lib_stop_mtn();
-// 			walk_forward_turn_left();
 			turn_left();
 			state = walk_l;
 
 		      }
-		      else if(compass(valor_base) < -15)
+		      else if(compass(valor_base) < -5)
 		      {	
 // 			mtn_lib_stop_mtn();
-// 			walk_forward_turn_right();
 			turn_right();
 			state = walk_l;
 
-		      }
+		      } 
 		      state = walk_l;
-		    }
+		    } 
 		    else
-		    {
+		    { 
 		      mtn_lib_stop_mtn();
-		      state = walk_r;		      
+		      state = stop;		      
 		    }
 		 }
 		    break;
 		    
-    case walk_r: if(exp_adc_get_avg_channel(ADC6) < 300 && !is_button_rising_edge(BTN_DOWN))
+    case walk_r: if(exp_adc_get_avg_channel(davant) < 60)
+		 { 
+		   walk_right();
+		   state = stop;
+		 }
+		 else
+		 {
+		   printf("Davant: %d", exp_adc_get_avg_channel(davant));
+		   printf("  Dreta: %d\n", exp_adc_get_avg_channel(dreta));
+		    if(exp_adc_get_avg_channel(dreta) > 100 && !is_button_rising_edge(BTN_DOWN))
 		    {
 		      
 		      walk_right();
-		      if(compass(valor_base) > 15) 
+		      if(compass(valor_base) > 5) 
 		      {
 // 			mtn_lib_stop_mtn();
 // 			walk_forward_turn_left();
 			turn_left();
-			state = walk_l;
+			state = walk_r;
  
 		      }
-		      else if(compass(valor_base) < -15)
+		      else if(compass(valor_base) < -5)
 		      {
 // 			mtn_lib_stop_mtn();
 // 			walk_forward_turn_right();
 			turn_right();
-			state = walk_l;
+			state = walk_r;
 
 		      }
 		      state = walk_r;
@@ -169,12 +200,14 @@ void user_loop(void)
 		    else
 		    {
 		      mtn_lib_stop_mtn();
-		      state = stop;		      
+		      state = walk_l;		      
 		    }
+		 }
 		    break;
 		    
 		    
-   case walk_f: if(exp_adc_get_avg_channel(ADC7) < 450)
+   case walk_f: printf("Davant: %d", exp_adc_get_avg_channel(davant));
+		if(exp_adc_get_avg_channel(davant) < 450)
 		{
 		  walk_forward();
 		  state = walk_f;
@@ -190,7 +223,7 @@ void user_loop(void)
 	      valor_base = exp_compass_get_avg_heading();
 	      state = walk_return;
 	      
-   case walk_return: if(exp_adc_get_avg_channel(ADC7) < 450)
+   case walk_return: if(exp_adc_get_avg_channel(davant) < 450)
 		     {
 		       walk_forward();
 		       state = walk_f;
@@ -201,7 +234,8 @@ void user_loop(void)
 		       state = stop;
 		     }
      
-    case stop: if(is_button_rising_edge(BTN_UP))
+    case stop: 	printf("STOP!\n");
+		if(is_button_rising_edge(BTN_UP))
 		{
 		  state = wait_ready;
 		}

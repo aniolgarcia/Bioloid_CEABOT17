@@ -41,6 +41,7 @@ int compass_correction(int value, int upper_end, int bottom_end)
 }
 
 
+
 void user_init(void)
 {
   serial_console_init(57600);
@@ -57,9 +58,9 @@ void user_init(void)
 void user_loop(void)
 {
   static main_states state=wait_start;  
-  
+   
   switch(state)
-  {
+  { 
     case wait_start: if(is_button_rising_edge(BTN_START))
                      {
                        state=wait_ready;
@@ -83,7 +84,9 @@ void user_loop(void)
 		      
     case read_sensor: if(user_time_is_period_done())  
 		      {
-			cm510_printf("%d\n", exp_adc_get_avg_channel(ADC7));
+			printf("Davant (4): %d\n", exp_adc_get_avg_channel(ADC4));
+			printf("Esquerre (5): %d\n", exp_adc_get_avg_channel(ADC5));
+			printf("Dreta (6): %d\n", exp_adc_get_avg_channel(ADC3));
 // 			cm510_printf("Exp. Board ADC port 6: %d   ",exp_adc_get_avg_channel(ADC6));
 //  			cm510_printf("Exp. Board ADC port 4: %d\n",exp_adc_get_avg_channel(ADC4));
 //  			cm510_printf("Exp. Board ADC port 7: %d\n",exp_adc_get_avg_channel(ADC7));

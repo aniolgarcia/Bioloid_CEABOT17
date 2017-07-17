@@ -158,7 +158,7 @@ int cm510_scanf(const char *fmt, ...)
 
 uint8_t cm510_read(uint8_t *data,uint8_t len)
 {
-  uint8_t i;
+  uint8_t i=0;
 
   for(i=0;i<len;i++)
   {
