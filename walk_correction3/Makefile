@@ -1,8 +1,8 @@
-PROJECT=sensor
+PROJECT=walk_correction3
 ########################################################
 # afegir tots els fitxers que s'han de compilar aquí
 ########################################################
-SOURCES=sensor.c
+SOURCES=walk_correction3.c
 
 OBJS=$(SOURCES:.c=.o)
 SRC_DIR=./

@@ -39,6 +39,8 @@ A cada programa, després de les llibreries hi ha una petita explicació més es
   
   -S'ha enganxat una mica de cinta adhesiva als peus del robot per augmentar la fricció i fer que no rellisqui. Això pot (s'ha de comprovar) afectar als moviments, ja que hi ha la possibilitat de que algun d'aquests arrossegui els peus.
   
+  
+  
 # Sensors
 
   -Compass: teòricament té un rang de [0, 3600]. S'ha de vigilar perquè algunes funcions agafen un rang de [0, 360].
