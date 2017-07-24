@@ -12,7 +12,15 @@ typedef int bool; //Definim el boleà, que en C no existeix
 #define true 1
 #define false 0
 
-typedef enum {wait_start, wait_ready, walk_l, walk_r, walk_f, stop, correct_l, correct_r} main_states; //Estats de la màquina d'estats
+typedef enum {wait_start, wait_ready, walk_l, walk_r, walk_f, turn, walk_return, stop, correct_l, correct_r} main_states; //Estats de la màquina d'estats
+
+typedef uint8_t (*fnct_ptr)(void);
+fnct_ptr fnct_r = turn_right;
+// fnct_ptr fnct_r = turn_angle(15);
+
+fnct_ptr fnct_l = turn_left;
+// fnct_ptr fnct_l = turn_angle(-15);
+
 main_states prev; //Variable per guardar els estats abans de corregir
 
 
@@ -24,7 +32,9 @@ adc_t davant, esquerra, dreta;
 
 int cont = 0;
 int valor_base, valor_actual;
-int comp_error = 20;
+static int comp_error = 20;
+static int dist_frontal = 80;
+static int dist_lateral = 250;
  
 void user_init(void) //S'executa una sola vegada (setup de l'arduino)
 {
@@ -75,6 +85,17 @@ int compass(int valor_base)
 	return desviament;
 }
 
+int suma_angles (int a, int b)
+{
+	int res = a+b;
+	if (res < 0 ) res+=3600;
+	else if (res>3600){
+		res-=3600;
+	}
+	return res;
+
+}
+
 
 void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o a while(1))
 {
@@ -102,8 +123,8 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
 		     }
                      else
 		     {
-		       walk_right(); //Comencem caminant cap a la dreta (perquè sí)
-		       state=walk_r; 
+		       walk_left(); //Comencem caminant cap a l'esquerra (perquè camina millor)
+		       state=walk_l; 
 		     }
                      break;
 
@@ -111,7 +132,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
     /* MOVIMENT */
     //Estat per caminar cap a diverses direccions
     
-    case walk_l: if(exp_adc_get_avg_channel(davant) < 80) //Primer mirem si té un forat davant
+    case walk_l: if(exp_adc_get_avg_channel(davant) < dist_frontal) //Primer mirem si té un forat davant
 		 {
 		   //En cas de ser-hi, aturem el moviment lateral i de moment simplment aturem el robot.
 		   mtn_lib_stop_mtn(); 
@@ -126,7 +147,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
 		   }
 		   break;
 		 }
-		 else if(exp_adc_get_avg_channel(esquerra) > 250 || is_button_rising_edge(BTN_DOWN)) //Si troba una paret a l'esquerra vol dir que ha arribat al final del recinte, i com que ja ha coemnçat anant cap a la dreta, simplement para. Aquest és un cas teòricament impossible, però cal considerar-lo. Es pot solucionar enviant-lo altre cop cap a l'esquerra
+		 else if(exp_adc_get_avg_channel(esquerra) > dist_lateral || is_button_rising_edge(BTN_DOWN)) //Si troba una paret a l'esquerra vol dir que ha arribat al final del recinte, i com que ja ha coemnçat anant cap a la dreta, simplement para. Aquest és un cas teòricament impossible, però cal considerar-lo. Es pot solucionar enviant-lo altre cop cap a l'esquerra
 		 {
 		   mtn_lib_stop_mtn();
 		 }
@@ -160,7 +181,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
 		 break;
     
     //Cas idèntic a walk_l, amb la única diferència de que cap a la dreta. De moment aquest és l'estat inicial.
-    case walk_r: if(exp_adc_get_avg_channel(davant) < 60)
+    case walk_r: if(exp_adc_get_avg_channel(davant) < dist_frontal)
 		 {
 		   mtn_lib_stop_mtn();
 		   if(walk_right() == 0x01)
@@ -174,7 +195,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
 		   }
 		   break;
 		 }
-		 else if(exp_adc_get_avg_channel(dreta) > 250 || is_button_rising_edge(BTN_DOWN))
+		 else if(exp_adc_get_avg_channel(dreta) > dist_lateral || is_button_rising_edge(BTN_DOWN))
 		 {
 		   mtn_lib_stop_mtn();
 		 }
@@ -214,7 +235,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
 		 //Com abans, si res l'ha parat, comprovem desviacions.
 		 if(walk_forward() == 0x01)
 		 {
-		   state = stop;
+		   state = turn;
 		 }
 		 else
 		 {
@@ -237,12 +258,53 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
 		 }
 		 break;
 		 
+    case turn: if(turn_angle(-180) == 0x01)
+	       {
+		 state = walk_return;
+		 valor_base = suma_angles(valor_base, 1800);
+	       }
+	       else
+	       {
+		 state  = turn;
+	       }
+	       break;
+	       
+    case walk_return: if(exp_adc_get_avg_channel(davant) > 350)
+		      {
+			mtn_lib_stop_mtn();
+		      }
+		      
+		      //Com abans, si res l'ha parat, comprovem desviacions.
+		      if(walk_forward() == 0x01)
+		      {
+			state = stop;
+		      }
+		      else
+		      {
+			if(compass(valor_base) > comp_error)
+			{
+			  prev = walk_return;
+			  state = correct_l;
+      // 		     walk_left();
+			}
+			else if(compass(valor_base) < -comp_error)
+			{
+			  prev = walk_return;
+			  state = correct_r;
+      // 		     walk_right();
+			}
+			else
+			{
+			  state = walk_return;
+			}
+		      }
+		      break;
 
     /* CORRECIÓ */
     //Casos de correció: paren el moviment de correcció (cridat des d'on s'ha detectat l'error i canviat l'estat i tornen a l'estat on eren mitjançant la variable prev.
     
     case correct_l: /*mtn_lib_stop_mtn();*/
-		    if(turn_left() == 0x01)
+		    if(fnct_l() == 0x01)
 		    {
 		      state = prev;
 		    }
@@ -254,7 +316,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
 		    break;
 		      
     case correct_r: /*mtn_lib_stop_mtn();*/
-		    if(turn_right() == 0x01)
+		    if(fnct_r() == 0x01)
 		    {
 		      state = prev;
 		    }

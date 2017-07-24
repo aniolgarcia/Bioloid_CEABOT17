@@ -1,8 +1,8 @@
-PROJECT=gir
+PROJECT=turn_angle
 ########################################################
 # afegir tots els fitxers que s'han de compilar aquí
 ########################################################
-SOURCES=gir.c
+SOURCES=turn_angle.c
 
 OBJS=$(SOURCES:.c=.o)
 SRC_DIR=./

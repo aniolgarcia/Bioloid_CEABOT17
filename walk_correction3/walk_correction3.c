@@ -40,7 +40,7 @@ int compass(int valor_base)
         
 	int nou_valor, desviament;
 	
-	nou_valor = exp_compass_get_avg_heading();
+	nou_valor = exp_bno055_get_heading();
 	desviament = nou_valor - valor_base;
 	//Com que el desviament no pot ser més de 180, si es passa és que ha passat de 360 o 0
 	if(desviament > 1800)
@@ -66,7 +66,12 @@ void user_init(void)
   user_time_set_period(100);
   mtn_lib_init();
   exp_adc_start();
-  exp_compass_start();
+//   exp_compass_start();
+  exp_bno055_start();
+  if(is_button_pressed(BTN_UP))
+    exp_bno055_erase_calibration();
+  while(exp_bno055_is_calibrated()!=0x01)
+    _delay_ms(100);
 }
 
 
@@ -81,7 +86,7 @@ void user_loop(void)
   {
     case wait_start: if(is_button_rising_edge(BTN_START))
                      {
-		       valor_base = exp_compass_get_avg_heading();
+		       valor_base = exp_bno055_get_heading();
                        action_set_page(31);
                        action_start_page();
                        state=wait_ready;

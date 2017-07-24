@@ -8,7 +8,7 @@
 
 //Programa per intentar fer que el robot camini recte. Quant detecta una desviació de n graus, crida una vegada a la funció turn_left() o turn_right() segons convingui. Alternativament es pot cridar la funció turn_angle() amb l'angle en positiu o negatiu I AMB VALORS ENTRE 0 I 360 (la funció ja multiplica el valor *10) o fer-ho de manera automàtica amb turn_angle(compass(valor_base)).
 
-typedef enum {wait_start, wait_ready, walk, check_compass, stop, correct_l, correct_r} main_states;
+typedef enum {wait_start, wait_ready, walk, stop} main_states;
 
 typedef int bool;
 #define true 1
@@ -40,7 +40,7 @@ int compass(int valor_base)
         
 	int nou_valor, desviament;
 	
-	nou_valor = exp_compass_get_avg_heading();
+	nou_valor = exp_bno055_get_heading();
 	desviament = nou_valor - valor_base;
 	//Com que el desviament no pot ser més de 180, si es passa és que ha passat de 360 o 0
 	if(desviament > 1800)
@@ -66,7 +66,12 @@ void user_init(void)
   user_time_set_period(100);
   mtn_lib_init();
   exp_adc_start();
-  exp_compass_start();
+//   exp_compass_start();
+  exp_bno055_start();
+  if(is_button_pressed(BTN_UP))
+    exp_bno055_erase_calibration();
+  while(exp_bno055_is_calibrated()!=0x01)
+    _delay_ms(100);
 }
 
 
@@ -81,7 +86,7 @@ void user_loop(void)
   {
     case wait_start: if(is_button_rising_edge(BTN_START))
                      {
-		       valor_base = exp_compass_get_avg_heading();
+		       valor_base = exp_bno055_get_heading();
                        action_set_page(31);
                        action_start_page();
                        state=wait_ready;
@@ -96,121 +101,40 @@ void user_loop(void)
 		     }
                      else
 		     {
+		       walk_forward_compensating(valor_base, exp_bno055_get_heading());
 		       state=walk;
 		     }
                      break;
 		     
-    case walk: if(exp_adc_get_avg_channel(ADC6) < 460)
+    case walk: if(is_button_rising_edge(BTN_DOWN))
 	       {
-		  fnct1();
-		  state = check_compass;
+		 mtn_lib_stop_mtn();
+	       }
+	       
+	       if(walk_forward_compensating(valor_base, exp_bno055_get_heading()) == 0x01)
+	       {
+		 state = stop;
 	       }
 	       else
 	       {
-		 mtn_lib_stop_mtn();
-// 		 state = stop;
+		 state = walk;
 	       }
 	       break;
-
-    case check_compass: if(compass(valor_base) > 15)
-			{
-			  mtn_lib_stop_mtn();
-			  if(fnct1() == 0x01)
-			  {
-			    state = correct_l;
-			    fnct2();
-			  }
-			  else
-			  {
-			    state = check_compass;
-			  }
-			}
-			else if(compass(valor_base) < -15)
-			{
-			  mtn_lib_stop_mtn();
-			  if(fnct1() == 0x01)
-			  {
-			    state = correct_r;
-			    fnct3();
-			  }
-			  else
-			  {
-			    state = check_compass;
-			  }
-			}
-			else
-			{
-			  state=walk;
-			}
-			break;
-		   
-      case correct_l: mtn_lib_stop_mtn();
-		      if(fnct2() == 0x01)
-		      {
-			state = walk;
-		      }
-		      else
-		      {
-			state  = correct_l;
-		      }
-		      break;
-		      
-      case correct_r: mtn_lib_stop_mtn();
-		      if(fnct3() == 0x01)
-		      {
-			state = walk;
-		      }
-		      else
-		      {
-			state  = correct_r;
-		      }
-		      break;
-
-
 	       
-//       case correct: if(error_r == true)
-// 		    {
-// 		      mtn_lib_stop_mtn();
-// 		      if(fnct2() == 0x01)
-// 		      {
-// 			error_r = false;
-// 			state = walk;
-// 		      }
-// 		      else
-// 		      {
-// 			state = correct;
-// 		      }
-// 		      
-// 		    }
-// 		    else if(error_l == true)
-// 		    {
-// 		      mtn_lib_stop_mtn();
-// 		      if(fnct3() == 0x01)
-// 		      {
-// 			error_l = false;
-// 			state = walk;
-// 		      }
-// 		      else
-// 		      {
-// 			state = correct;
-// 		      }
-// 		      		      
-// 		    }
-// 		    break;
-		    
+
+    
 
 		      
 		  
 		    
-      case stop: mtn_lib_stop_mtn();
-		 if(fnct1() == 0x01)
-		 {
-		    state = walk;
-		  }
-		  else
-		  {
-		    state = stop;
-		  }
+      case stop: if(is_button_rising_edge(BTN_UP))
+		{
+		  state = wait_ready;
+		}
+		else
+		{
+		  state = stop;
+		}
 		break;
   }
 }

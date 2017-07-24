@@ -35,6 +35,8 @@ A cada programa, després de les llibreries hi ha una petita explicació més es
   
   -Cal tenir en compte que els ports del simulador van un port enrere, és a dit, que el port ADC7 en el simulador és el ADC6.
   
+  -Es pot canviar de compass a bno055 des del Makefile de bioloid_exp_board_fw (Posteriorment s'ha de fer un make clean i make) 
+  
   -Per esperar un temps, no és suficient utilitzar la funció user_time_set_period(n), aquesta només posa el rellorge del robot a un temps determinat, i s'ha de comprovar manualment si aquest temps ha passat. Per fer-ho, hi ha la funció user_time_is_period_done(), que retorna true si ha passat els n milisegons definits per user_time_set_period(n) i false en cas contrari. Hi ha un exemple funcional d'això a /Bioloid_General_ceabot2017/sensor/sensor.c.
   
   -S'ha enganxat una mica de cinta adhesiva als peus del robot per augmentar la fricció i fer que no rellisqui. Això pot (s'ha de comprovar) afectar als moviments, ja que hi ha la possibilitat de que algun d'aquests arrossegui els peus.

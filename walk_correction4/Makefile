@@ -1,8 +1,8 @@
-PROJECT=gir
+PROJECT=walk_correction4
 ########################################################
 # afegir tots els fitxers que s'han de compilar aquí
 ########################################################
-SOURCES=gir.c
+SOURCES=walk_correction4.c
 
 OBJS=$(SOURCES:.c=.o)
 SRC_DIR=./
