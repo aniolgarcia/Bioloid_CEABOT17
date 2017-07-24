@@ -94,7 +94,7 @@ A cada programa, després de les llibreries hi ha una petita explicació més es
 
   -Compass: teòricament té un rang de [0, 3600]. S'ha de vigilar perquè algunes funcions agafen un rang de [0, 360].
   
-  -bno055 (substitueix compass): té un rang de [-1800, 2000] (sí, una mica curiós), però en principi no ha de donar problemes perquè mai s'hauria de desviar tant. Tal com passava amb compass, algunes funcions utilitzen el aquest rang dividit entre 10.
+  -bno055 (substitueix compass): té un rang de [-1800, 2000] (sí, una mica curiós), però en principi no ha de donar problemes perquè mai s'hauria de desviar tant. Tal com passava amb compass, algunes funcions utilitzen aquest rang dividit entre 10.
   
   -IR: Rang de [82, 500] per al de llarga distància (aproximadament). Com més pròxim és l'objecte, més augmenta el valor, encara que a uns 5 o 6 cm del sensor el valor torna a decrèixer al apropar l'objecte.
   
@@ -111,4 +111,4 @@ A cada programa, després de les llibreries hi ha una petita explicació més es
    A: En principi para sobtadament. Suposem que els enllaços entre moviments són dins de les pròpies funions de moviments. Cal investigar-ho més.
    
    Q:Com podem fer els moviments fluids? Com els hem d'encadenar? Com podem fer que acabin i no en comenci un altre fins que la posició per fer-ho no sigui la bona?
-   A: ??????? 42
+   A: Una manera molt senzilla és fent servir les funcions que acaben en _compensating. Aquestes treballen en més baix nivell utilitzant les pàgines directament, i llavors són molt més fluids, ràpids i precisos.
