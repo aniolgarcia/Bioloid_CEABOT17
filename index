@@ -35,17 +35,66 @@ A cada programa, després de les llibreries hi ha una petita explicació més es
   
   -Cal tenir en compte que els ports del simulador van un port enrere, és a dit, que el port ADC7 en el simulador és el ADC6.
   
-  -Es pot canviar de compass a bno055 des del Makefile de bioloid_exp_board_fw (Posteriorment s'ha de fer un make clean i make) 
+  -Es pot canviar de compass a bno055 des del Makefile de bioloid_exp_board_fw (Posteriorment s'ha de fer un make clean i make)
+  
+  -Els giroscopis en el nostre robot per defecte estan al revés. Els valor correcte per a cada port és: 4 pel gyro de l'eix X i 3 pel gyro de l'eix Y. Aquesta configuració es pot canviar a cm510_controller_fw/controller/include/cm510_cfg.h Després de modificar aquest fitxer, per tal que tingui efecte cal fer un make clean i make des de cm510_controller_fw/controller/
   
   -Per esperar un temps, no és suficient utilitzar la funció user_time_set_period(n), aquesta només posa el rellorge del robot a un temps determinat, i s'ha de comprovar manualment si aquest temps ha passat. Per fer-ho, hi ha la funció user_time_is_period_done(), que retorna true si ha passat els n milisegons definits per user_time_set_period(n) i false en cas contrari. Hi ha un exemple funcional d'això a /Bioloid_General_ceabot2017/sensor/sensor.c.
   
   -S'ha enganxat una mica de cinta adhesiva als peus del robot per augmentar la fricció i fer que no rellisqui. Això pot (s'ha de comprovar) afectar als moviments, ja que hi ha la possibilitat de que algun d'aquests arrossegui els peus.
+  
+  -Per definir els offsets ja no s'utilitza balance.c, sinó que hi ha un programa per fer-ho. Carregar l'exemple slave al robot:
+    - Anar a cm510_controller_fw/examples/slave/
+    - make clean
+    - make
+    - sudo modprobe ftdi_sio
+    - make download
+    
+    Encendre la utilitat de definir offsets
+    - Anar a bioloid_robot_driver/build/
+    - sudo rmmod ftdi_sio
+    - Encendre el robot i esperar la lumeta verda
+    - ../bin/bioloid_offset
+    - Seguir les ordres de la pantalla
+    
+  -En general totes les funcions de moviment funcionen d'una manera especial: un com han acabat, retornen 0x01. Això vol dir que per executar-les, se les ha d'anar cridant constantment, tal com es feia fins ara. Si en algun moment es llença un mtn_lib_stop_mtn(), el moviment es comença a parar, però s'ha d'anar cridant de la mateixa manera fins que para. S'ha de tenir en compte que quan es fa un "if(walk_forward() == 0x01)", també s'està cridant la funció, i de fet la majoria de vegades es voldrà fer d'aquesta manera. Aquí hi ha un exemple mínim del funcionament:
+
+    case walk: if(is_button_rising_edge(BTN_DOWN))
+	       {
+		 mtn_lib_stop_mtn();
+	       }
+	       
+	       if(walk_forward() == 0x01) //Només es crida la funció quan es comprova si retorna 0x01
+	       {
+		 state = stop;
+	       }
+	       else
+	       {
+		 state = walk;
+	       }
+	       break;	      
+		  
+		    
+      case stop: if(is_button_rising_edge(BTN_UP))
+		{
+		  state = wait_ready;
+		}
+		else
+		{
+		  state = stop;
+		}
+		break;
+		
+  En aquest exemple (que no és funcional) mentre no s'apreti el botó avall, s'anirà comprovant si el moviment ha acabat, a l'hora que es crida la funció de caminar. Si s'apreta el botó, el moviment no acabarà d'immediat, sinó que ho farà de manera que acabi amb els dos peus junts. De fet, encara que s'hagi apretat el botó, es continuarà cridant la funció de caminar fins que retorni 0x01, indicant que ha acabat. En aquest punt s'anirà a l'estat stop, on s'esperarà que es premi el botó cap amunt per a continuar el moviment.
+    
   
   
   
 # Sensors
 
   -Compass: teòricament té un rang de [0, 3600]. S'ha de vigilar perquè algunes funcions agafen un rang de [0, 360].
+  
+  -bno055 (substitueix compass): té un rang de [-1800, 2000] (sí, una mica curiós), però en principi no ha de donar problemes perquè mai s'hauria de desviar tant. Tal com passava amb compass, algunes funcions utilitzen el aquest rang dividit entre 10.
   
   -IR: Rang de [82, 500] per al de llarga distància (aproximadament). Com més pròxim és l'objecte, més augmenta el valor, encara que a uns 5 o 6 cm del sensor el valor torna a decrèixer al apropar l'objecte.
   
