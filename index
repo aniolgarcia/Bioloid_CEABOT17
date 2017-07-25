@@ -4,17 +4,25 @@
 
 # Breu descripció de cada programa
 
-  -camera: 
+  -camera: Primeres proves de comunicació serial amb el robot. Contràriament al que el nom diu, no es fa servir la càmera en cap moment, sinó que l'informació es pasa manualment pel port serial.
+  -casal: demo de caminar recte i  parar quan trobi un obstacle al davant. Fet per la visita d'un casal d'infants autistes.
   -compass: llegeix brúixola. Fer servir sensor.c en comptes d'aquest.
   -do_nothing: fa la posició inicial (action_set_page(31)) i no fa res més.
   -gir: Programa per fer debug de la brúixola. Fixa una direcció inicial i quan el gires hi torna
   -intent_laberint: Ara per ara camina cap a l'esquerra fins que troba una paret i en trobar-la torna cap a la dreta fins que en troba una altre.
+  -laberint2: Màquina d'estats completa del laberint, amb els comprovadors de les funcions de moviment.
+  -laberint_compensating: Igual que laberint2, però utilitzant el bno055 en lloc del compass i utilitzant les funcions compensating.
   -movements: Programa per provar moviments
   -sensor: fa lectures de qualsevol dels sensors i les imprimeix per serial
+  -turn_angle: Proves de precisió de la funció turn_angle
   -vision: Ara per ara és un INTENT de fer girar el robot 45 graus amb una mica de precisió
+  -vision_cm510: Màquina d'estats base pel programa del cm510 de la prova de visió
   -walk_correction: Fa caminar el robot recte corregint segons el compass (no acaba d'encadenar bé els moviments)
   -walk_correction2: Versió del walk_correction utilitzant funcions extranyes
+  -walk_correction3: Versió del walk_correction2 utilitzant les funcions extranyes correctament (més informació a "coses a tenir en compte")
+  -walk_correction4: Caminar recte però utilitzant les funcions compensating i el bno055.
   -walk_forward/walk_forward2: Fan caminar el robot recte sense modificacions
+  -walk_prova: Camina endavant fins que troba un obstacle. LLavors para i encén un llum esperant que l'obstacle desaparegui.
 
 
 A cada programa, després de les llibreries hi ha una petita explicació més específica.
@@ -57,6 +65,8 @@ A cada programa, després de les llibreries hi ha una petita explicació més es
     - ../bin/bioloid_offset
     - Seguir les ordres de la pantalla
     
+  -Per utilitzar el sensor bno055, cal un acalibració prèvia. Cada programa que l'utilitza té programada una funció que esborra els valors de l'última calibració de la memòria no volàtil si s'apreta el botó amunt en engegar. La pròxima vegada que s'engegui el robot, el programa esperarà una calibració, i en principi no s'hauria d'encendre el llum verd. Per calibrar els giroscopis tan sols cal deixar-los uns quants segons sense fer res. Pel compass, cal dibuixar 8 a l'aire amb el sensor, i per l'acceleròmetre cal posar-lo en almenys 6 orientacions diferents uns quants segons. Per l'acceleròmetre és recomenable que les orientacions perpendiculars als eixos X, Y, Z. Un cop fet tot sixò, s'hauria d'encendre la llumeta verda i llavors ja es podria executar el programa.
+  
   -En general totes les funcions de moviment funcionen d'una manera especial: un com han acabat, retornen 0x01. Això vol dir que per executar-les, se les ha d'anar cridant constantment, tal com es feia fins ara. Si en algun moment es llença un mtn_lib_stop_mtn(), el moviment es comença a parar, però s'ha d'anar cridant de la mateixa manera fins que para. S'ha de tenir en compte que quan es fa un "if(walk_forward() == 0x01)", també s'està cridant la funció, i de fet la majoria de vegades es voldrà fer d'aquesta manera. Aquí hi ha un exemple mínim del funcionament:
 
     case walk: if(is_button_rising_edge(BTN_DOWN))
@@ -85,7 +95,7 @@ A cada programa, després de les llibreries hi ha una petita explicació més es
 		}
 		break;
 		
-  En aquest exemple (que no és funcional) mentre no s'apreti el botó avall, s'anirà comprovant si el moviment ha acabat, a l'hora que es crida la funció de caminar. Si s'apreta el botó, el moviment no acabarà d'immediat, sinó que ho farà de manera que acabi amb els dos peus junts. De fet, encara que s'hagi apretat el botó, es continuarà cridant la funció de caminar fins que retorni 0x01, indicant que ha acabat. En aquest punt s'anirà a l'estat stop, on s'esperarà que es premi el botó cap amunt per a continuar el moviment.
+  En aquest exemple (que no és funcional), mentre no s'apreti el botó avall s'anirà comprovant si el moviment ha acabat, a l'hora que es crida la funció de caminar. Si s'apreta el botó el moviment no acabarà d'immediat, sinó que ho farà de manera que acabi amb els dos peus junts. De fet, encara que s'hagi apretat el botó, es continuarà cridant la funció de caminar fins que retorni 0x01, indicant que ha acabat. En aquest punt s'anirà a l'estat stop, on s'esperarà que es premi el botó cap amunt per a continuar el moviment.
     
   
   

@@ -6,7 +6,7 @@
 #include "mtn_library.h"
 #include <stdlib.h>
 
-//Intent inical de l'estructura del laberint. Ara mateix només funcionen els estats wait_start, wait_ready i walk_l, i el que fa és caminar lateralment fins a trobar un objecte amb el sensor IR. Els altres estats tan sols s'han utilitzat per fer proves i no sempre reflecteixen l'estructura correcta.
+//Intent inical de l'estructura del laberint. L'algorisme funciona correctament, però l'execució no és del tot bona. Hi ha problemes sobretot a l'hora de corregir els errors quan es camina recte.
 
 typedef int bool; //Definim el boleà, que en C no existeix
 #define true 1

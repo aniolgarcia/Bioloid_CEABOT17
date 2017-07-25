@@ -6,7 +6,7 @@
 #include "mtn_library.h"
 #include <stdlib.h>
 
-//Programa per intentar fer que el robot camini recte. Quant detecta una desviació de n graus, crida una vegada a la funció turn_left() o turn_right() segons convingui. Alternativament es pot cridar la funció turn_angle() amb l'angle en positiu o negatiu I AMB VALORS ENTRE 0 I 360 (la funció ja multiplica el valor *10) o fer-ho de manera automàtica amb turn_angle(compass(valor_base)).
+//Programa per testejar la funció turn angle i comprovar la seva precisió. Si s'apreta un botó lateral, el robot gira 45 graus en aquella direcció.
 
 typedef enum {wait_start, wait_ready, gir_dreta, gir_esquerra} main_states;
 

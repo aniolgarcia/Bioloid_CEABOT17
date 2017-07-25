@@ -77,7 +77,7 @@ int user_loop(void)
       turn_angle(30);
     }
     if (data=='B'){
-      toggle_led(LED_DATA);
+      toggle_led(LED_PROGRAM);
       turn_angle(-30);
     }
   }
