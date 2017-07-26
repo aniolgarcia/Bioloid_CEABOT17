@@ -1,8 +1,8 @@
-PROJECT=walk_correction
+PROJECT=vision_cm510
 ########################################################
 # afegir tots els fitxers que s'han de compilar aquí
 ########################################################
-SOURCES=walk_correction.c
+SOURCES=vision_cm510.c
 
 OBJS=$(SOURCES:.c=.o)
 SRC_DIR=./

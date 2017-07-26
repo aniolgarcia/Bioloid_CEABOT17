@@ -1,8 +1,8 @@
-PROJECT=walk_correction
+PROJECT=auto_gir
 ########################################################
 # afegir tots els fitxers que s'han de compilar aquí
 ########################################################
-SOURCES=walk_correction.c
+SOURCES=auto_gir.c
 
 OBJS=$(SOURCES:.c=.o)
 SRC_DIR=./

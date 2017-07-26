@@ -6,13 +6,16 @@
 #include "mtn_library.h"
 #include <stdlib.h>
 
+
 //Programa per intentar fer que el robot camini recte. Quant detecta una desviació de n graus, crida una vegada a la funció turn_left() o turn_right() segons convingui. Alternativament es pot cridar la funció turn_angle() amb l'angle en positiu o negatiu I AMB VALORS ENTRE 0 I 360 (la funció ja multiplica el valor *10) o fer-ho de manera automàtica amb turn_angle(compass(valor_base)).
 
-typedef enum {wait_start, wait_ready, walk, check_compass, stop, correct_l, correct_r} main_states;
+typedef enum {wait_start, wait_ready, walk, stop} main_states;
 
 typedef int bool;
 #define true 1
 #define false 0
+
+
 
 int valor_base, state_aux;
 bool error_r = false;
@@ -69,6 +72,7 @@ int compass(int valor_base)
 	return desviament;
 }
 
+
 void user_init(void)
 {
   serial_console_init(57600);
@@ -113,100 +117,28 @@ void user_loop(void)
 		     }
                      else
 		     {
+		       walk_forward_compensating(valor_base, bno055_correction(exp_bno055_get_heading()));
 		       state=walk;
 		     }
                      break;
 		     
-    case walk: fnct1();
-	       state = check_compass;
-	       break;
-
-    case check_compass: if(compass(valor_base) > 15)
-			{
-			  mtn_lib_stop_mtn();
-			  if(fnct1() == 0x01)
-			  {
-			    state = correct_l;
-			    fnct2();
-			  }
-			  else
-			  {
-			    state = check_compass;
-			  }
-			}
-			else if(compass(valor_base) < -15)
-			{
-			  mtn_lib_stop_mtn();
-			  if(fnct1() == 0x01)
-			  {
-			    state = correct_r;
-			    fnct3();
-			  }
-			  else
-			  {
-			    state = check_compass;
-			  }
-			}
-			else
-			{
-			  state=walk;
-			}
-			break;
-		   
-      case correct_l: mtn_lib_stop_mtn();
-		      if(fnct2() == 0x01)
-		      {
-			state = walk;
-		      }
-		      else
-		      {
-			state  = correct_l;
-		      }
-		      break;
-		      
-      case correct_r: mtn_lib_stop_mtn();
-		      if(fnct3() == 0x01)
-		      {
-			state = walk;
-		      }
-		      else
-		      {
-			state  = correct_r;
-		      }
-		      break;
-
-
+    case walk: if(is_button_rising_edge(BTN_DOWN))
+	       {
+		 mtn_lib_stop_mtn();
+	       }
 	       
-//       case correct: if(error_r == true)
-// 		    {
-// 		      mtn_lib_stop_mtn();
-// 		      if(fnct2() == 0x01)
-// 		      {
-// 			error_r = false;
-// 			state = walk;
-// 		      }
-// 		      else
-// 		      {
-// 			state = correct;
-// 		      }
-// 		      
-// 		    }
-// 		    else if(error_l == true)
-// 		    {
-// 		      mtn_lib_stop_mtn();
-// 		      if(fnct3() == 0x01)
-// 		      {
-// 			error_l = false;
-// 			state = walk;
-// 		      }
-// 		      else
-// 		      {
-// 			state = correct;
-// 		      }
-// 		      		      
-// 		    }
-// 		    break;
-		    
+	       if(walk_forward_compensating(valor_base, bno055_correction(exp_bno055_get_heading())) == 0x01)
+	       {
+		 state = stop;
+	       }
+	       else
+	       {
+		 state = walk;
+	       }
+	       break;
+	       
+
+    
 
 		      
 		  

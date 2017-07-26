@@ -6,10 +6,10 @@ SOURCES=walk_forward.c
 
 OBJS=$(SOURCES:.c=.o)
 SRC_DIR=./
-DEV_DIR=../../dyn_devices/
-COMM_DIR=../../communications/
-CONT_DIR=../../controllers/
-MAN_DIR=../../motion/
+DEV_DIR=../../cm510_controller_fw/dyn_devices/
+COMM_DIR=../../cm510_controller_fw/communications/
+CONT_DIR=../../cm510_controller_fw/controllers/
+MAN_DIR=../../cm510_controller_fw/motion/
 CC=avr-gcc
 OBJCOPY=avr-objcopy
 MMCU=atmega2561

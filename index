@@ -4,36 +4,36 @@
 
 # Breu descripció de cada programa
 
-  -camera: Primeres proves de comunicació serial amb el robot. Contràriament al que el nom diu, no es fa servir la càmera en cap moment, sinó que l'informació es pasa manualment pel port serial.
+  -all_movements: Programa per provar moviments
+  -auto_gir: Programa per fer debug de la brúixola. Fixa una direcció inicial i quan el gires hi torna
   -casal: demo de caminar recte i  parar quan trobi un obstacle al davant. Fet per la visita d'un casal d'infants autistes.
-  -compass: llegeix brúixola. Fer servir sensor.c en comptes d'aquest.
   -do_nothing: fa la posició inicial (action_set_page(31)) i no fa res més.
-  -gir: Programa per fer debug de la brúixola. Fixa una direcció inicial i quan el gires hi torna
-  -intent_laberint: Ara per ara camina cap a l'esquerra fins que troba una paret i en trobar-la torna cap a la dreta fins que en troba una altre.
-  -laberint2: Màquina d'estats completa del laberint, amb els comprovadors de les funcions de moviment.
-  -laberint_compensating: Igual que laberint2, però utilitzant el bno055 en lloc del compass i utilitzant les funcions compensating.
-  -movements: Programa per provar moviments
+  -estructura_laberint: Ara per ara camina cap a l'esquerra fins que troba una paret i en trobar-la torna cap a la dreta fins que en troba una altre.  
+  -laberint: Màquina d'estats completa del laberint, amb els comprovadors de les funcions de moviment.
+  -laberint_compensating: Igual que laberint, però utilitzant el bno055 en lloc del compass i utilitzant les funcions compensating.
+  -lectura_serial: Primeres proves de comunicació serial amb el robot.
+  -moviments_simples: camina o gira per sempre segons el botó que es premi.  
+  -read_compass: llegeix brúixola. Fer servir sensor.c en comptes d'aquest.
   -sensor: fa lectures de qualsevol dels sensors i les imprimeix per serial
   -turn_angle: Proves de precisió de la funció turn_angle
-  -vision: Ara per ara és un INTENT de fer girar el robot 45 graus amb una mica de precisió
   -vision_cm510: Màquina d'estats base pel programa del cm510 de la prova de visió
+  -vision_girs_exactes: Ara per ara és un INTENT de fer girar el robot 45 graus amb una mica de precisió
   -walk_correction: Fa caminar el robot recte corregint segons el compass (no acaba d'encadenar bé els moviments)
-  -walk_correction2: Versió del walk_correction utilitzant funcions extranyes
-  -walk_correction3: Versió del walk_correction2 utilitzant les funcions extranyes correctament (més informació a "coses a tenir en compte")
-  -walk_correction4: Caminar recte però utilitzant les funcions compensating i el bno055.
-  -walk_forward/walk_forward2: Fan caminar el robot recte sense modificacions
+  -walk_correction_compensating: Caminar recte però utilitzant les funcions compensating i el bno055.
+  -walk_forward: Fan caminar el robot recte sense modificacions
   -walk_prova: Camina endavant fins que troba un obstacle. LLavors para i encén un llum esperant que l'obstacle desaparegui.
+
 
 
 A cada programa, després de les llibreries hi ha una petita explicació més específica.
 
 # Coses a tenir en compte:
 
-  -Hi ha 2 funcions turn_angle(), una a /examples/walk_straight/walk_straight.c i una altra a /motion/src/mtn_library.c. En principi nosaltres fem servir la de mtn_library.c. S'ha de tenir en compte que turn_angle() de mtn_library.c agafa un angle en un rang d'entre [0, 360] (que després multiplica per 10), i no de [0, 3600] com se suposa que dona la brúixola.
+  -Hi ha 2 funcions turn_angle(), una a /examples/walk_straight/walk_straight.c i una altra a /motion/src/mtn_library.c. En principi nosaltres fem servir la de mtn_library.c. S'ha de tenir en compte que turn_angle() de mtn_library.c agafa un angle en un rang d'entre [0, 360] (que després multiplica per 10), i no de [0, 3600] com se suposa que dona la brúixola. A més,aquesta funció no està adaptada al bno055!!!
   
   -A /motion/src/mtn_library.c hi ha la funció walk_forward_compensating(), que entenem que fa el que pretenem fer nosaltres a walk_corretion.c i walk_correction2.c, pot ser útil.
   
-  -Si es vol modificar els offsets (normalment per canviar la inclinació del robot), s'ha de fer a /motion/src/balance.c. En el propi fitxer ja hi ha comentaris sobre com fer-ho. Un com modificat l'arxiu de balance.c, cal fer un make a /motion i tornar a fer un make en el directori del programa que s'està intentant compilar. Ara mateix hi ha un offset de 30 graus a cadascun dels genolls del robot perquè sense offsets ell mateix es tirava enrere i queia. És importatn saber que les els motors es posicionen segons els offsets fins i tot abans d'apretar START i executar la pàgina 31.
+  -Si es vol modificar els offsets (normalment per canviar la inclinació del robot), s'ha de fer a /motion/src/balance.c. En el propi fitxer ja hi ha comentaris sobre com fer-ho. Un com modificat l'arxiu de balance.c, cal fer un make a /motion i tornar a fer un make en el directori del programa que s'està intentant compilar. Ara mateix hi ha un offset de 30 graus a cadascun dels genolls del robot perquè sense offsets ell mateix es tirava enrere i queia. És important saber que les els motors es posicionen segons els offsets fins i tot abans d'apretar START i executar la pàgina 31.
   
   -Si es vol modificar les definicions del robot al simulador, primer cal modificar l'arxiu bioloid_ceabot.xacro (/home/humanoides/iri-lab/iri_ws/src/bioloid_robot/bioloid_description/urdf/bioloid_ceabot.xacro) i després l'arxiu bioloid_ceabot.yaml (/iri-lab/iri_ws/src/bioloid_robot/bioloid_control/config/bioloid_ceabot.yaml). Exemple pel sensor de IR:
   
@@ -41,7 +41,7 @@ A cada programa, després de les llibreries hi ha una petita explicació més es
     <origin xyz="posoció realtiva a parent (x y z)" rpy="orientació (x y z)" />
   </xacro:sharp_ir>
   
-  -Cal tenir en compte que els ports del simulador van un port enrere, és a dit, que el port ADC7 en el simulador és el ADC6.
+  -Cal tenir en compte que els ports del simulador van un port enrere, és a dir, que el port ADC7 en el simulador és el ADC6.
   
   -Es pot canviar de compass a bno055 des del Makefile de bioloid_exp_board_fw (Posteriorment s'ha de fer un make clean i make)
   
@@ -51,7 +51,7 @@ A cada programa, després de les llibreries hi ha una petita explicació més es
   
   -S'ha enganxat una mica de cinta adhesiva als peus del robot per augmentar la fricció i fer que no rellisqui. Això pot (s'ha de comprovar) afectar als moviments, ja que hi ha la possibilitat de que algun d'aquests arrossegui els peus.
   
-  -Per definir els offsets ja no s'utilitza balance.c, sinó que hi ha un programa per fer-ho. Carregar l'exemple slave al robot:
+  -Per definir els offsets ja no s'utilitza balance.c, sinó que hi ha un programa per fer-ho. Primer cal definir el robot com a slave a cm510_controller_fw/controllers/include/cm510_cfg.h, i des de cm510_controller_fw/controller der make clean i make. Posteriorment, s'ha de carregar l'exemple "slave" al robot:
     - Anar a cm510_controller_fw/examples/slave/
     - make clean
     - make
@@ -65,7 +65,7 @@ A cada programa, després de les llibreries hi ha una petita explicació més es
     - ../bin/bioloid_offset
     - Seguir les ordres de la pantalla
     
-  -Per utilitzar el sensor bno055, cal un acalibració prèvia. Cada programa que l'utilitza té programada una funció que esborra els valors de l'última calibració de la memòria no volàtil si s'apreta el botó amunt en engegar. La pròxima vegada que s'engegui el robot, el programa esperarà una calibració, i en principi no s'hauria d'encendre el llum verd. Per calibrar els giroscopis tan sols cal deixar-los uns quants segons sense fer res. Pel compass, cal dibuixar 8 a l'aire amb el sensor, i per l'acceleròmetre cal posar-lo en almenys 6 orientacions diferents uns quants segons. Per l'acceleròmetre és recomenable que les orientacions perpendiculars als eixos X, Y, Z. Un cop fet tot sixò, s'hauria d'encendre la llumeta verda i llavors ja es podria executar el programa.
+  -Per utilitzar el sensor bno055, cal un a calibració prèvia. Cada programa que l'utilitza té programada una funció que esborra els valors de l'última calibració de la memòria no volàtil si s'apreta el botó amunt en engegar. La pròxima vegada que s'engegui el robot, el programa esperarà una calibració, i en principi no s'hauria d'encendre el llum verd. Per calibrar els giroscopis tan sols cal deixar-los uns quants segons sense fer res. Pel compass, cal dibuixar 8 a l'aire amb el sensor, i per l'acceleròmetre cal posar-lo en almenys 6 orientacions diferents uns quants segons. Per l'acceleròmetre és recomenable que les orientacions perpendiculars als eixos X, Y, Z. Un cop fet tot sixò, s'hauria d'encendre la llumeta verda i llavors ja es podria executar el programa.
   
   -En general totes les funcions de moviment funcionen d'una manera especial: un com han acabat, retornen 0x01. Això vol dir que per executar-les, se les ha d'anar cridant constantment, tal com es feia fins ara. Si en algun moment es llença un mtn_lib_stop_mtn(), el moviment es comença a parar, però s'ha d'anar cridant de la mateixa manera fins que para. S'ha de tenir en compte que quan es fa un "if(walk_forward() == 0x01)", també s'està cridant la funció, i de fet la majoria de vegades es voldrà fer d'aquesta manera. Aquí hi ha un exemple mínim del funcionament:
 
@@ -74,7 +74,7 @@ A cada programa, després de les llibreries hi ha una petita explicació més es
 		 mtn_lib_stop_mtn();
 	       }
 	       
-	       if(walk_forward() == 0x01) //Només es crida la funció quan es comprova si retorna 0x01
+	       if(walk_forward() == 0x01) //Només es crida la funció quan es comprova si retorna 0x01!
 	       {
 		 state = stop;
 	       }
@@ -104,7 +104,7 @@ A cada programa, després de les llibreries hi ha una petita explicació més es
 
   -Compass: teòricament té un rang de [0, 3600]. S'ha de vigilar perquè algunes funcions agafen un rang de [0, 360].
   
-  -bno055 (substitueix compass): té un rang de [-1800, 2000] (sí, una mica curiós), però en principi no ha de donar problemes perquè mai s'hauria de desviar tant. Tal com passava amb compass, algunes funcions utilitzen aquest rang dividit entre 10.
+  -bno055 (substitueix compass): té un rang de [-1800, -250] U [0, 2050], és a dir, que de -250 salta directament a 0 i després aquests 250 els afegeix al final (1800 + 250 = 2050). Hi ha una funció que es diu bno055_correction que arregla això donant un rang de [-1800, 1800]. Si es vol un rang de [0, 3600] només cal sumar-li 1800 al valor. Tal com passava amb compass, algunes funcions utilitzen aquest rang dividit entre 10.
   
   -IR: Rang de [82, 500] per al de llarga distància (aproximadament). Com més pròxim és l'objecte, més augmenta el valor, encara que a uns 5 o 6 cm del sensor el valor torna a decrèixer al apropar l'objecte.
   
@@ -114,11 +114,11 @@ A cada programa, després de les llibreries hi ha una petita explicació més es
   
 # Preguntes
   
-   Q:walk_forward() fa una passa o camina indefinidament? 
+   Q:walk_forward() (i en general totes les funcions de moviment) fa una passa o camina indefinidament? 
    A:fa només una passa, per tal d'aconseguir moviment continuat s'ha d'anar cridant constantment.
    
    Q: mtn_lib_stop_mtn() què fa exactament? Acaba el moviment en sec o el finalitza i el posa en una posició bona per començar l'altre moviment?
-   A: En principi para sobtadament. Suposem que els enllaços entre moviments són dins de les pròpies funions de moviments. Cal investigar-ho més.
+   A: Aixeca un flag dins la màquina d'estats interna de cada moviment que fa que acabi correcament el moviment (és a dir, que el posa en la posició inicial que comparteixen tots els moviments). No és una parada immediata, sinó que 
    
-   Q:Com podem fer els moviments fluids? Com els hem d'encadenar? Com podem fer que acabin i no en comenci un altre fins que la posició per fer-ho no sigui la bona?
+   Q:Com podem fer els moviments fluids? Com els hem d'encadenar? Com podem fer que acabin i no en comenci un altre fins que la posició per fer-ho no sigui la bona? (Potser utilitzant correctament les funcions de moviment...?)
    A: Una manera molt senzilla és fent servir les funcions que acaben en _compensating. Aquestes treballen en més baix nivell utilitzant les pàgines directament, i llavors són molt més fluids, ràpids i precisos.

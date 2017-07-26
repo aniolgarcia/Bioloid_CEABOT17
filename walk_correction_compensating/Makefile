@@ -1,8 +1,8 @@
-PROJECT=walk_correction
+PROJECT=walk_correction_compensating
 ########################################################
 # afegir tots els fitxers que s'han de compilar aquí
 ########################################################
-SOURCES=walk_correction.c
+SOURCES=walk_correction_compensating.c
 
 OBJS=$(SOURCES:.c=.o)
 SRC_DIR=./

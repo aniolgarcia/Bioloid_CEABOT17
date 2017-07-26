@@ -1,15 +1,15 @@
-PROJECT=walk_correction
+PROJECT=vision_girs_exactes
 ########################################################
 # afegir tots els fitxers que s'han de compilar aquí
 ########################################################
-SOURCES=walk_correction.c
+SOURCES=vision_girs_exactes.c
 
 OBJS=$(SOURCES:.c=.o)
 SRC_DIR=./
-DEV_DIR=../../cm510_controller_fw/dyn_devices/
-COMM_DIR=../../cm510_controller_fw/communications/
-CONT_DIR=../../cm510_controller_fw/controllers/
-MAN_DIR=../../cm510_controller_fw/motion/
+DEV_DIR=../../dyn_devices/
+COMM_DIR=../../communications/
+CONT_DIR=../../controllers/
+MAN_DIR=../../motion/
 CC=avr-gcc
 OBJCOPY=avr-objcopy
 MMCU=atmega2561
@@ -48,7 +48,7 @@ motion_manager:
 	$(MAKE) -C $(MAN_DIR)
 
 download: $(MAIN_OUT_HEX)
-	/home/humanoides/iri-lab/labrobotica/tools/robotis_tools/trunk/bin/fw_downloader -d /dev/ttyUSB0 -f ./$(PROJECT).hex -p cm510
+	fw_downloader -d /dev/ttyUSB0 -f ./$(PROJECT).hex -p cm510
 
 clean:
 	-rm $(PROJECT).map

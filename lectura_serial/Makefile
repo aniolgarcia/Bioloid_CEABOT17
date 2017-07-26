@@ -1,8 +1,8 @@
-PROJECT=walk_correction
+PROJECT=lectura_serial
 ########################################################
 # afegir tots els fitxers que s'han de compilar aquí
 ########################################################
-SOURCES=walk_correction.c
+SOURCES=lectura_serial.c
 
 OBJS=$(SOURCES:.c=.o)
 SRC_DIR=./

@@ -1,8 +1,8 @@
-PROJECT=walk_correction
+PROJECT=moviments_simples
 ########################################################
 # afegir tots els fitxers que s'han de compilar aquí
 ########################################################
-SOURCES=walk_correction.c
+SOURCES=moviments_simples.c
 
 OBJS=$(SOURCES:.c=.o)
 SRC_DIR=./

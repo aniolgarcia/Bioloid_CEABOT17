@@ -7,7 +7,7 @@
 #include <stdlib.h>
 
 
-// Fa una crida a walk_forward() cada vegada que passa pel wait_ready, mirant primer si hi ha alguna acció executant-se. Moviment continuat.
+// Simplement camina endavant fins que s'apreta el boto avall.
 
 
 typedef enum {wait_start, wait_ready, walk, stop} main_states;
@@ -50,26 +50,20 @@ void user_loop(void)
 		    }
 		    break;
 		    
-/*    case wait_stop: if(is_action_running()) //Parada suau (?)
-		    {
-		      state = wait_stop;
-		    }
-		    else
-		    {
-		      mtn_lib_stop_mtn();
-		      state = stop;
-		    }
-		    break;
-*/		      
+		      
     case walk: if (is_button_rising_edge(BTN_DOWN))
                { 
-		  //state = wait_stop;
+
 		  mtn_lib_stop_mtn();
-		  state = stop;
                }
-               else
+
+               if(walk_forward() == 0x01)
 	       {
-		 state = wait_ready;
+		 state = stop; 
+	       }
+	       else
+	       {
+		 state = walk;
 	       }
 	       break;
 		    
