@@ -109,7 +109,7 @@ void user_loop(void)
 // 			printf("Davant (4): %d\n", exp_adc_get_avg_channel(ADC4));
 // 			printf("Esquerre (5): %d\n", exp_adc_get_avg_channel(ADC5));
 // 			printf("Dreta (6): %d\n", exp_adc_get_avg_channel(ADC3));
- 			cm510_printf("Exp. Board ADC port 6: %d\n   ",exp_adc_get_avg_channel(ADC6));
+// 			cm510_printf("Exp. Board ADC port 6: %d\n   ",exp_adc_get_avg_channel(ADC6));
 //   			cm510_printf("Exp. Board ADC port 4: %d\n",exp_adc_get_avg_channel(ADC4));
 //   			cm510_printf("Exp. Board ADC port 7: %d\n",exp_adc_get_avg_channel(ADC7));
 //  			cm510_printf("CM510 ADC port 1: %d\n",get_adc_avg_channel(ADC_PORT_2));
@@ -117,8 +117,8 @@ void user_loop(void)
 // 			cm510_printf("Original: %d  ", exp_bno055_get_heading());
 // 			cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
 // 			cm510_printf("Desviament: %d\n",compass(valor_base));
-//   			cm510_printf("GYRO X: %d  ", get_adc_channel(BALANCE_GYRO_X_CHANNEL));
-//  			cm510_printf("GYRO Y: %d\n", get_adc_channel(BALANCE_GYRO_Y_CHANNEL));
+   			cm510_printf("GYRO X: %d  ", get_adc_channel(BALANCE_GYRO_X_CHANNEL));
+  			cm510_printf("GYRO Y: %d\n", get_adc_channel(BALANCE_GYRO_Y_CHANNEL));
 			user_time_set_period(500);
 		      }
 		      state = read_sensor;
