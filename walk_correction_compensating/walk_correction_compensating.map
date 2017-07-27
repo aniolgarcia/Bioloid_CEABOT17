@@ -2021,7 +2021,7 @@ END GROUP
  .debug_abbrev  0x00000000000021c4      0x149 ../../cm510_controller_fw/communications/lib/libcomm.a(memory.o)
  .debug_abbrev  0x000000000000230d      0x1eb ../../cm510_controller_fw/communications/lib/libcomm.a(dynamixel.o)
 
-.debug_line     0x0000000000000000     0x2bb6
+.debug_line     0x0000000000000000     0x2bb8
  *(.debug_line)
  .debug_line    0x0000000000000000      0x208 walk_correction_compensating.o
  .debug_line    0x0000000000000208      0x186 ../../cm510_controller_fw/controllers/lib/libcontrollers.a(cm510.o)
@@ -2032,16 +2032,16 @@ END GROUP
  .debug_line    0x0000000000000868      0x26e ../../cm510_controller_fw/motion/lib/libmotion_manager.a(motion_manager.o)
  .debug_line    0x0000000000000ad6      0x289 ../../cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
  .debug_line    0x0000000000000d5f       0xb0 ../../cm510_controller_fw/motion/lib/libmotion_manager.a(motion_pages.o)
- .debug_line    0x0000000000000e0f      0x174 ../../cm510_controller_fw/motion/lib/libmotion_manager.a(balance.o)
- .debug_line    0x0000000000000f83      0xec9 ../../cm510_controller_fw/motion/lib/libmotion_manager.a(mtn_library.o)
- .debug_line    0x0000000000001e4c      0x142 ../../cm510_controller_fw/motion/lib/libmotion_manager.a(pan_tilt.o)
- .debug_line    0x0000000000001f8e      0x1a7 ../../cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(dyn_servos.o)
- .debug_line    0x0000000000002135      0x3f4 ../../cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(exp_board.o)
- .debug_line    0x0000000000002529       0xa3 ../../cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(dyn_common.o)
- .debug_line    0x00000000000025cc      0x215 ../../cm510_controller_fw/communications/lib/libcomm.a(dynamixel_master.o)
- .debug_line    0x00000000000027e1       0xfd ../../cm510_controller_fw/communications/lib/libcomm.a(serial_console.o)
- .debug_line    0x00000000000028de       0xea ../../cm510_controller_fw/communications/lib/libcomm.a(memory.o)
- .debug_line    0x00000000000029c8      0x1ee ../../cm510_controller_fw/communications/lib/libcomm.a(dynamixel.o)
+ .debug_line    0x0000000000000e0f      0x176 ../../cm510_controller_fw/motion/lib/libmotion_manager.a(balance.o)
+ .debug_line    0x0000000000000f85      0xec9 ../../cm510_controller_fw/motion/lib/libmotion_manager.a(mtn_library.o)
+ .debug_line    0x0000000000001e4e      0x142 ../../cm510_controller_fw/motion/lib/libmotion_manager.a(pan_tilt.o)
+ .debug_line    0x0000000000001f90      0x1a7 ../../cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(dyn_servos.o)
+ .debug_line    0x0000000000002137      0x3f4 ../../cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(exp_board.o)
+ .debug_line    0x000000000000252b       0xa3 ../../cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(dyn_common.o)
+ .debug_line    0x00000000000025ce      0x215 ../../cm510_controller_fw/communications/lib/libcomm.a(dynamixel_master.o)
+ .debug_line    0x00000000000027e3       0xfd ../../cm510_controller_fw/communications/lib/libcomm.a(serial_console.o)
+ .debug_line    0x00000000000028e0       0xea ../../cm510_controller_fw/communications/lib/libcomm.a(memory.o)
+ .debug_line    0x00000000000029ca      0x1ee ../../cm510_controller_fw/communications/lib/libcomm.a(dynamixel.o)
 
 .debug_frame    0x0000000000000000     0x2184
  *(.debug_frame)
@@ -2106,7 +2106,7 @@ END GROUP
  .debug_str     0x0000000000002e35      0x214 ../../cm510_controller_fw/communications/lib/libcomm.a(dynamixel.o)
                                         0x504 (tamaño antes de la relajación)
 
-.debug_loc      0x0000000000000000     0xa328
+.debug_loc      0x0000000000000000     0xa366
  *(.debug_loc)
  .debug_loc     0x0000000000000000      0x18c walk_correction_compensating.o
  .debug_loc     0x000000000000018c       0x20 ../../cm510_controller_fw/controllers/lib/libcontrollers.a(cm510.o)
@@ -2117,16 +2117,16 @@ END GROUP
  .debug_loc     0x00000000000012dc      0x40a ../../cm510_controller_fw/motion/lib/libmotion_manager.a(motion_manager.o)
  .debug_loc     0x00000000000016e6      0xb48 ../../cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
  .debug_loc     0x000000000000222e      0x1fa ../../cm510_controller_fw/motion/lib/libmotion_manager.a(motion_pages.o)
- .debug_loc     0x0000000000002428      0x553 ../../cm510_controller_fw/motion/lib/libmotion_manager.a(balance.o)
- .debug_loc     0x000000000000297b     0x231b ../../cm510_controller_fw/motion/lib/libmotion_manager.a(mtn_library.o)
- .debug_loc     0x0000000000004c96      0x2b6 ../../cm510_controller_fw/motion/lib/libmotion_manager.a(pan_tilt.o)
- .debug_loc     0x0000000000004f4c     0x1580 ../../cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(dyn_servos.o)
- .debug_loc     0x00000000000064cc     0x11a2 ../../cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(exp_board.o)
- .debug_loc     0x000000000000766e      0x1d5 ../../cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(dyn_common.o)
- .debug_loc     0x0000000000007843     0x1240 ../../cm510_controller_fw/communications/lib/libcomm.a(dynamixel_master.o)
- .debug_loc     0x0000000000008a83      0x398 ../../cm510_controller_fw/communications/lib/libcomm.a(serial_console.o)
- .debug_loc     0x0000000000008e1b      0x3fb ../../cm510_controller_fw/communications/lib/libcomm.a(memory.o)
- .debug_loc     0x0000000000009216     0x1112 ../../cm510_controller_fw/communications/lib/libcomm.a(dynamixel.o)
+ .debug_loc     0x0000000000002428      0x591 ../../cm510_controller_fw/motion/lib/libmotion_manager.a(balance.o)
+ .debug_loc     0x00000000000029b9     0x231b ../../cm510_controller_fw/motion/lib/libmotion_manager.a(mtn_library.o)
+ .debug_loc     0x0000000000004cd4      0x2b6 ../../cm510_controller_fw/motion/lib/libmotion_manager.a(pan_tilt.o)
+ .debug_loc     0x0000000000004f8a     0x1580 ../../cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(dyn_servos.o)
+ .debug_loc     0x000000000000650a     0x11a2 ../../cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(exp_board.o)
+ .debug_loc     0x00000000000076ac      0x1d5 ../../cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(dyn_common.o)
+ .debug_loc     0x0000000000007881     0x1240 ../../cm510_controller_fw/communications/lib/libcomm.a(dynamixel_master.o)
+ .debug_loc     0x0000000000008ac1      0x398 ../../cm510_controller_fw/communications/lib/libcomm.a(serial_console.o)
+ .debug_loc     0x0000000000008e59      0x3fb ../../cm510_controller_fw/communications/lib/libcomm.a(memory.o)
+ .debug_loc     0x0000000000009254     0x1112 ../../cm510_controller_fw/communications/lib/libcomm.a(dynamixel.o)
 
 .debug_macinfo
  *(.debug_macinfo)

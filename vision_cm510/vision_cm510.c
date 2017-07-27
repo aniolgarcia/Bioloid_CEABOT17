@@ -114,8 +114,6 @@ uint8_t gira(int angle){
 	return done;
 }
 
-    uint8_t data = 0;
-    unsigned char num;
 
 void user_init(void)
 {
@@ -135,161 +133,135 @@ void user_init(void)
   {
     _delay_ms(100);
   }
+  cm510_printf("Init");
 
 }
 
+int state = -2;
+unsigned char num;
 
 
-int user_loop(void)
+
+
+void user_loop(void)
 {
-    action_set_page(31);
-    action_start_page();
-    _delay_ms(1000);
-    cm510_write(&data,1);
-    while(1)
-    {
-      do{
-	num=cm510_read(&data,1);
-	_delay_ms(100);
-      }while(num == 0);
-      
-      cm510_write(&data,1);
-      
-      if(data == 1)
-      {
-	cm510_write(&data,1);
-	while(turn_left() != 0x01){
-	  mtn_lib_stop_mtn();
-	  cm510_write(&data,1);
-	}
-      }
-      else if(data == 2)
-      {
-	cm510_write(&data,1);
-      }
-      else if(data == 3)
-      {
-	cm510_write(&data,1);
-      }
-      else if(data == 4)
-      {
-	cm510_write(&data,1);
-      }
-      else if(data == 5)
-      {
-	cm510_write(&data,1);
-      }
-      else if(data == 6)
-      {
-	cm510_write(&data,1);
-      }
-      else if(data == 7)
-      {
-	cm510_write(&data,1);
-      }
-      else if(data == 8)
-      {
-	cm510_write(&data,1);
-      }
-    }
-//   action_set_page(31);
-//   action_start_page();
-// while(1)
-// {
-//       do{
-// 	num=cm510_read(&data,1);
-// 	_delay_ms(100);
-//       }while(num == 0);
-//       
-//   switch(data)
-//   {
-// 	    
-//     case 1: cm510_write(&data,1);
-// // 	    if(gira(-45) == 0x01)
-// // 	    {
-// // 	      data = 0;
-// // 	    }
-// // 	    else
-// // 	    {
-// // 	      data = 1;
-// // 	    }
-// 	    break;
-// 	    
-//     case 2: if(gira(45) == 0x01)
-// 	    {
-// 	      data = 0;
-// 	    }
-// 	    else
-// 	    {
-// 	      data = 2;
-// 	    }
-// 	    cm510_write(&data,1);
-// 	    break;
-// 	    
-//     case 3: if(gira(-90) == 0x01)
-// 	    {
-// 	      data = 0;
-// 	    }
-// 	    else
-// 	    {
-// 	      data = 3;
-// 	    }
-// 	    cm510_write(&data,1);
-// 	    break;
-// 	    
-//     case 4: if(gira(90) == 0x01)
-// 	    {
-// 	      data = 0;
-// 	    }
-// 	    else
-// 	    {
-// 	      data = 4;
-// 	    }
-// 	    cm510_write(&data,1);
-// 	    break;	  
-//     case 5: if(gira(-135) == 0x01)
-// 	    {
-// 	      data = 0;
-// 	    }
-// 	    else
-// 	    {
-// 	      data = 5;
-// 	    }
-// 	    cm510_write(&data,1);
-// 	    break;
-// 	    
-//     case 6: if(gira(135) == 0x01)
-// 	    {
-// 	      data = 0;
-// 	    }
-// 	    else
-// 	    {
-// 	      data = 6;
-// 	    }
-// 	    cm510_write(&data,1);
-// 	    break;
-// 
-//     case 7: if(gira(-180) == 0x01)
-// 	    {
-// 	      data = 0;
-// 	    }
-// 	    else
-// 	    {
-// 	      data = 7;
-// 	    }
-// 	    cm510_write(&data,1);
-// 	    break;
-// 
-//     case 8: if(gira(180) == 0x01)
-// 	    {
-// 	      data = 0;
-// 	    }
-// 	    else
-// 	    {
-// 	      data = 8;
-// 	    }
-// 	    cm510_write(&data,1);
-// 	    break;	      
-//   }
-// }
+  int data;
+  switch(state)
+  {
+    case -2: if(is_button_rising_edge(BTN_START))
+	      {
+		action_set_page(31);
+		action_start_page();
+		data = -1;
+	      }
+	      else
+		data = -2;
+	      break;
+	      
+    case -1: if(is_action_running())
+	     {
+	       data = -1;
+	     }
+	     else
+	     {
+	       data = 0;
+	     }
+	     break;
+	     
+    case 0: cm510_printf("cas 0");
+	    do{
+	      num=cm510_read(&data,1);
+	      _delay_ms(100);
+	    }while(num == 0);
+	    break;
+
+    case 1: cm510_write(&data,1);
+	    if(gira(-45) == 0x01)
+	    {
+	      data = 0;
+	    }
+	    else
+	    {
+	      data = 1;
+	    }
+	    break;
+	    
+    case 2: if(gira(45) == 0x01)
+	    {
+	      data = 0;
+	    }
+	    else
+	    {
+	      data = 2;
+	    }
+	    cm510_write(&data,1);
+
+	    break;
+	    
+    case 3: if(gira(-90) == 0x01)
+	    {
+	      data = 0;
+	    }
+	    else
+	    {
+	      data = 3;
+	    }
+	    cm510_write(&data,1);
+	    break;
+	    
+    case 4: if(gira(90) == 0x01)
+	    {
+	      data = 0;
+	    }
+	    else
+	    {
+	      data = 4;
+	    }
+	    cm510_write(&data,1);
+	    break;	  
+    case 5: if(gira(-135) == 0x01)
+	    {
+	      data = 0;
+	    }
+	    else
+	    {
+	      data = 5;
+	    }
+	    cm510_write(&data,1);
+	    break;
+	    
+    case 6: if(gira(135) == 0x01)
+	    {
+	      data = 0;
+	    }
+	    else
+	    {
+	      data = 6;
+	    }
+	    cm510_write(&data,1);
+	    break;
+
+    case 7: if(gira(-180) == 0x01)
+	    {
+	      data = 0;
+	    }
+	    else
+	    {
+	      data = 7;
+	    }
+	    cm510_write(&data,1);
+	    break;
+
+    case 8: if(gira(180) == 0x01)
+	    {
+	      data = 0;
+	    }
+	    else
+	    {
+	      data = 8;
+	    }
+	    cm510_write(&data,1);
+	    break;	      
+  }
+  state = data;
 }
