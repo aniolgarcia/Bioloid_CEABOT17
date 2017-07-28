@@ -125,6 +125,9 @@ A cada programa, després de les llibreries hi ha una petita explicació més es
    Q:Com podem fer els moviments fluids? Com els hem d'encadenar? Com podem fer que acabin i no en comenci un altre fins que la posició per fer-ho no sigui la bona? (Potser utilitzant correctament les funcions de moviment...?)
    A: Una manera molt senzilla és fent servir les funcions que acaben en _compensating. Aquestes treballen en més baix nivell utilitzant les pàgines directament, i llavors són molt més fluids, ràpids i precisos.
    
+   Q: walk_forward_compensating necessita balance_enable_gyro() o no? Perquè té parts de gir i parts de caminar recte...
+   A: Ni idea, s'ha de fer proves
+   
 #errors
 
 /home/humanoides/iri-lab/labrobotica/tools/robotis_tools/trunk/bin/fw_downloader -d /dev/ttyUSB0 -f ./whatever.hex -p cm510

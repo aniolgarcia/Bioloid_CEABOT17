@@ -6,7 +6,7 @@
 #include "mtn_library.h"
 #include <stdlib.h>
 
-//Intent inical de l'estructura del laberint. Amb aquest programa es pretenen arreglar els errors de laberint2 utilitzant el nou compass i les funcions compensating.
+//Intent inical de l'estructura del laberint. Amb aquest programa es pretenen arreglar els errors de laberint2 utilitzant el nou compass i les funcions compensating. IMPORTANT!: S'ha de descobrir si les funcions compensating necessiten o no el balance_gyro_enabled() !!!
 
 /////////////////////////////////////////////////////////// 
 // Definició de variables i tipus 
@@ -57,7 +57,7 @@ int compass_param(int ini, int actual)
 }
 
 
-
+//Com que el rang és de [-1800, -250(aprox)] U [0, 2050(aprox)], quan passi de -240, simplement li restem 240. 
 int bno055_correction(int value)
 {
 	if(value > -240)
@@ -109,6 +109,7 @@ int suma_angles(int a, int b)
 	return res;
 }
 
+//Funció turn_angle() adaptada a la bno055
 uint8_t gira(int angle){
 	static turn_states s = t_init;
 	static int comp_ini = 0;

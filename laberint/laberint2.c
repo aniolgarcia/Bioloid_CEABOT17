@@ -6,7 +6,7 @@
 #include "mtn_library.h"
 #include <stdlib.h>
 
-//Intent inical de l'estructura del laberint. L'algorisme funciona correctament, però l'execució no és del tot bona. Hi ha problemes sobretot a l'hora de corregir els errors quan es camina recte.
+//Intent inical de l'estructura del laberint. L'algorisme funciona correctament, però l'execució no és del tot bona. Hi ha problemes sobretot a l'hora de corregir els errors quan es camina recte. COMPROVAR QUE ELS balance_enable_gyro ESTIGUIN BEN POSATS!!!!
 
 typedef int bool; //Definim el boleà, que en C no existeix
 #define true 1
@@ -95,7 +95,16 @@ void user_init(void) //S'executa una sola vegada (setup de l'arduino)
   user_time_set_period(100);
   mtn_lib_init();
   exp_adc_start();
-  exp_compass_start();
+//   exp_compass_start();
+  exp_bno055_start();
+  if(is_button_pressed(BTN_UP))
+  {
+    exp_bno055_erase_calibration();
+  }
+  while(exp_bno055_is_calibrated()!=0x01)
+  {
+    _delay_ms(100);
+  }
   
   if(simulat == true)
   {
@@ -149,7 +158,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
     
     case walk_l: if(exp_adc_get_avg_channel(davant) < dist_frontal) //Primer mirem si té un forat davant
 		 {
-		   //En cas de ser-hi, aturem el moviment lateral i de moment simplment aturem el robot.
+		   //En cas de ser-hi, aturem el moviment lateral i caminem endavant.
 		   mtn_lib_stop_mtn(); 
 		   if(walk_left() == 0x01) 
 		   {
@@ -195,7 +204,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
 		 }
 		 break;
     
-    //Cas idèntic a walk_l, amb la única diferència de que cap a la dreta. De moment aquest és l'estat inicial.
+    //Cas idèntic a walk_l, amb la única diferència de que cap a la dreta.
     case walk_r: if(exp_adc_get_avg_channel(davant) < dist_frontal)
 		 {
 		   mtn_lib_stop_mtn();
@@ -272,18 +281,24 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
 		   }
 		 }
 		 break;
-		 
-    case turn: if(turn_angle(-180) == 0x01)
+    //Gira 180 graus per tornar pel camí per on ha vingut.
+    case turn: if(balance_is_gyro_enabled()) //Si el balance està activat, el desactivem
 	       {
-		 state = walk_return;
-		 valor_base = suma_angles(valor_base, 1800);
+		 balance_disable_gyro();
+	       }
+		    
+	       if(turn_angle(-180) == 0x01) //Comprovem si ha completat el gir.
+	       {
+		 state = walk_return; 
+		 valor_base = suma_angles(valor_base, 1800); //Definim el 0 del compass 180 respete l'inicial
+		 balance_enable_gyro(); //Tornem a activar el balance
 	       }
 	       else
 	       {
 		 state  = turn;
 	       }
 	       break;
-	       
+    //Cas per tornar un cop s'ha arribat al final
     case walk_return: if(exp_adc_get_avg_channel(davant) > 350)
 		      {
 			mtn_lib_stop_mtn();
@@ -316,12 +331,17 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
 		      break;
 
     /* CORRECIÓ */
-    //Casos de correció: paren el moviment de correcció (cridat des d'on s'ha detectat l'error i canviat l'estat i tornen a l'estat on eren mitjançant la variable prev.
+    //Casos de correció: Fan *una* iteració del moviment de correcció i el paren. Quan ha acabat tornen a l'estat on eren mitjançant la variable prev. POSSOBLE MILLORA: En lloc de fer una sola iteració, es podria fer que anessin corregint mentre hi hagués error, resultant un moviment més fluid. Ara per ara, es comprova si hi ha error als estats de moviment, i llavors es criden les funcions de moviment entre les correcions.
     
-    case correct_l: /*mtn_lib_stop_mtn();*/
+    case correct_l: if(balance_is_gyro_enabled())
+		    {
+		      balance_disable_gyro();
+		    }
+      
 		    if(fnct_l() == 0x01)
 		    {
 		      state = prev;
+		      balance_enable_gyro();
 		    }
 		    else
 		    {
@@ -330,10 +350,15 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
 		    }
 		    break;
 		      
-    case correct_r: /*mtn_lib_stop_mtn();*/
+    case correct_r: if(balance_is_gyro_enabled())
+		    {
+		      balance_disable_gyro();
+		    }
+		    
 		    if(fnct_r() == 0x01)
 		    {
 		      state = prev;
+		      balance_enable_gyro();
 		    }
 		    else
 		    {
