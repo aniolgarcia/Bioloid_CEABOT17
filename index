@@ -29,7 +29,7 @@ A cada programa, després de les llibreries hi ha una petita explicació més es
 
 # Coses a tenir en compte:
 
-  -Hi ha 2 funcions turn_angle(), una a /examples/walk_straight/walk_straight.c i una altra a /motion/src/mtn_library.c. En principi nosaltres fem servir la de mtn_library.c. S'ha de tenir en compte que turn_angle() de mtn_library.c agafa un angle en un rang d'entre [0, 360] (que després multiplica per 10), i no de [0, 3600] com se suposa que dona la brúixola. A més,aquesta funció no està adaptada al bno055!!!
+  -Hi ha 2 funcions turn_angle(), una a /examples/walk_straight/walk_straight.c i una altra a /motion/src/mtn_library.c. En principi nosaltres fem servir la de mtn_library.c. S'ha de tenir en compte que turn_angle() de mtn_library.c agafa un angle en un rang d'entre [0, 360] (que després multiplica per 10), i no de [0, 3600] com se suposa que dona la brúixola. AQUESTA FUNCIÓ NO ESTÀ ADAPTADA AL BNO055!!! Per aixó en els programes que s'utilitza s'ha copiat fent els canvis necessaris i anomenat "gira()". El funcionament és el mateix que turn_angle().
   
   -A /motion/src/mtn_library.c hi ha la funció walk_forward_compensating(), que entenem que fa el que pretenem fer nosaltres a walk_corretion.c i walk_correction2.c, pot ser útil.
   
@@ -96,6 +96,8 @@ A cada programa, després de les llibreries hi ha una petita explicació més es
 		break;
 		
   En aquest exemple (que no és funcional), mentre no s'apreti el botó avall s'anirà comprovant si el moviment ha acabat, a l'hora que es crida la funció de caminar. Si s'apreta el botó el moviment no acabarà d'immediat, sinó que ho farà de manera que acabi amb els dos peus junts. De fet, encara que s'hagi apretat el botó, es continuarà cridant la funció de caminar fins que retorni 0x01, indicant que ha acabat. En aquest punt s'anirà a l'estat stop, on s'esperarà que es premi el botó cap amunt per a continuar el moviment.
+  
+  -Quan es gira, NO S'HA DE TENIR EL BALANCE ACTIVAT! Si es té activat, no girarà mai correctament. Només cal fer un balance_disabe_gyro() abans de cada gir (i tornar-lo a activar per quan camina recte, que si no caurà...). Hi ha també la funció balance_is_gyro_enabled() que diu si el gyro està activat o no.
     
   
   
@@ -122,3 +124,22 @@ A cada programa, després de les llibreries hi ha una petita explicació més es
    
    Q:Com podem fer els moviments fluids? Com els hem d'encadenar? Com podem fer que acabin i no en comenci un altre fins que la posició per fer-ho no sigui la bona? (Potser utilitzant correctament les funcions de moviment...?)
    A: Una manera molt senzilla és fent servir les funcions que acaben en _compensating. Aquestes treballen en més baix nivell utilitzant les pàgines directament, i llavors són molt més fluids, ràpids i precisos.
+   
+#errors
+
+/home/humanoides/iri-lab/labrobotica/tools/robotis_tools/trunk/bin/fw_downloader -d /dev/ttyUSB0 -f ./whatever.hex -p cm510
+Output device: /dev/ttyUSB0
+Firmware file: ./whatever.hex
+Selected protocol: cm510
+[Exception caught] - virtual void CRS232::hard_open(void*) at /home/humanoides/iri-lab/labrobotica/drivers/comm/trunk/src/serial/rs232.cpp:155
+Error: [CComm class] - [CRS232 class] -  - Impossible to open the serial port.
+ - fw_serial_dev
+
+Sol ser o bé perquè temiu el serial/usb desconectat, o bé perquè teniu un screen/cuteCom/minicom obert ocupant el port o qerquè heu fet un rmmod ftdi_sio. En el primer cas, connecteu-lo, en el segon tanqueu la connexió oberta i en el tercer feu un modprobe ftdi_sio.
+
+[Exception caught] - CBioloidRobot::CBioloidRobot(const string&, std::string&, int, unsigned char) at /home/humanoides/humanoids/bioloid_robot_driver/src/bioloid_robot_driver.cpp:29
+Error: CBioloidRobot error - No FTDI USB devices found
+
+
+[Exception caught] - CDynamixel* CDynamixelServer::get_device(int, dyn_version_t) at /home/humanoides/iri-lab/labrobotica/drivers/dynamixel/trunk/src/dynamixelserver.cpp:805
+Error: Dynamixel server error - No Dynamixel device found with the specified identifier

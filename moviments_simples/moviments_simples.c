@@ -7,22 +7,22 @@
 #include "mtn_library.h"
 #include <stdlib.h>
 
-typedef enum {wait_start,wait_walk_ready,wait_cmd,walk,walk2} main_states;
+typedef enum {wait_start,wait_walk_ready,wait_cmd,walk,walk2,walk3} main_states;
 
 void user_init(void)
 {
   serial_console_init(57600);
   balance_init();
   balance_calibrate_gyro();
-  balance_enable_gyro();
+//   balance_enable_gyro();
   user_time_set_period(100);
   mtn_lib_init();
 }
 
 typedef uint8_t (*fnct_ptr)(void);
 
-//fnct_ptr fnct1=fast_walk_forward;
-fnct_ptr fnct1 = walk_forward;
+fnct_ptr fnct1=fast_walk_forward;
+// fnct_ptr fnct1 = walk_forward;
 //fnct_ptr fnct1 = walk_backward;
 
 fnct_ptr fnct2 = turn_left;
@@ -57,18 +57,30 @@ void user_loop(void)
 			  
     case wait_cmd: if(is_button_rising_edge(BTN_RIGHT))
                    {
-                     fnct1();
-                     state=walk;
+		     if(balance_is_gyro_enabled())
+		     {
+		       balance_disable_gyro();
+		     }
+                     fnct3();
+                     state=walk3;
                    }
                    else if(is_button_rising_edge(BTN_LEFT))
                    {
+		     if(balance_is_gyro_enabled())
+		     {
+		       balance_disable_gyro();
+		     }
                      fnct2();
                      state=walk2;
                    }
-                   else if(is_bitton_rising_edge(BTN_RIGHT))
+                   else if(is_button_rising_edge(BTN_UP))
 		   {
-		     fnct3();
-		     state = walk3;
+		     if(!balance_is_gyro_enabled())
+		     {
+		       balance_enable_gyro();
+		     }
+		     fnct1();
+		     state = walk;
 		   }
                    else 
                      state=wait_cmd;
