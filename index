@@ -41,7 +41,14 @@ A cada programa, després de les llibreries hi ha una petita explicació més es
     <origin xyz="posoció realtiva a parent (x y z)" rpy="orientació (x y z)" />
   </xacro:sharp_ir>
   
-  -Cal tenir en compte que els ports del simulador van un port enrere, és a dir, que el port ADC7 en el simulador és el ADC6.
+  -Cal tenir en compte que els ports del simulador van un port enrere, és a dir, que el port ADC7 en el simulador és el ADC6. Realment això no és així, sinó que el simulador té definits els ports on es connecten els sensors a els fitxers .xacro i .yaml, de manera que ell els tindrà connectats d'aquella manera. Així, en lloc de llegir els ports reals, s'ha de veure els ports del simulador i llegir aquells, que seràn els correctes. Ara per ara, els ports són: 
+		-ADC3: gyro_x
+		-ADC4: gyro_y
+		-ADC2: IR1_link (davant)
+		-(exp_)ADC1: IR2_link (esquerra)
+		-(exp_)ADC8: IR3_link (dreta)
+
+
   
   -Es pot canviar de compass a bno055 des del Makefile de bioloid_exp_board_fw (Posteriorment s'ha de fer un make clean i make)
   
@@ -110,7 +117,7 @@ A cada programa, després de les llibreries hi ha una petita explicació més es
   
   -IR: Rang de [82, 500] per al de llarga distància (aproximadament). Com més pròxim és l'objecte, més augmenta el valor, encara que a uns 5 o 6 cm del sensor el valor torna a decrèixer al apropar l'objecte.
   
-  -Gyro: Mesuren velocitat angular en º/s (?) amb un rang de [45, 455]. S'ha de vigilar perquè a vegades el giroscopi que monitoritza l'eix x està connectat al port de l'eix y i al revés.
+  -Gyro: Mesuren velocitat angular en º/s (?) amb un rang de [45, 455]. S'ha de vigilar perquè a vegades el giroscopi que monitoritza l'eix x està connectat al port de l'eix y i al revés. L'eix X del gyro és sensible a moviments en la direcció endavant o enrere, i l'eix Y és sensible a moviments laterals
   
   Si els sensors retornen sempre valors incoherents i fixos, el més probable és que s'haigi de reescriure el firmware de la placa d'expansió. Hi ha documentació del procediment a l'apartat 5.1 del document Humanoids.pdf, (../Humanoids.pdf).
   
@@ -120,7 +127,7 @@ A cada programa, després de les llibreries hi ha una petita explicació més es
    A:fa només una passa, per tal d'aconseguir moviment continuat s'ha d'anar cridant constantment.
    
    Q: mtn_lib_stop_mtn() què fa exactament? Acaba el moviment en sec o el finalitza i el posa en una posició bona per començar l'altre moviment?
-   A: Aixeca un flag dins la màquina d'estats interna de cada moviment que fa que acabi correcament el moviment (és a dir, que el posa en la posició inicial que comparteixen tots els moviments). No és una parada immediata, sinó que 
+   A: El que realment fa és aixecar un flag dins la màquina d'estats interna de cada moviment que fa que acabi correcament el moviment (és a dir, que el posa en la posició inicial que comparteixen tots els moviments). No és una parada immediata, sinó que s'ha de continuar cridant la funció de moviment (fins i tot després d'haver fet un mtn_lib_stop_motion()!) fins que la funció retorni 0x01. 
    
    Q:Com podem fer els moviments fluids? Com els hem d'encadenar? Com podem fer que acabin i no en comenci un altre fins que la posició per fer-ho no sigui la bona? (Potser utilitzant correctament les funcions de moviment...?)
    A: Una manera molt senzilla és fent servir les funcions que acaben en _compensating. Aquestes treballen en més baix nivell utilitzant les pàgines directament, i llavors són molt més fluids, ràpids i precisos.

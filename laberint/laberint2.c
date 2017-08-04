@@ -6,7 +6,7 @@
 #include "mtn_library.h"
 #include <stdlib.h>
 
-//Intent inical de l'estructura del laberint. L'algorisme funciona correctament, però l'execució no és del tot bona. Hi ha problemes sobretot a l'hora de corregir els errors quan es camina recte. COMPROVAR QUE ELS balance_enable_gyro ESTIGUIN BEN POSATS!!!!
+//Intent inical de l'estructura del laberint. L'algorisme funciona correctament, però l'execució no és del tot bona. Hi ha problemes sobretot a l'hora de corregir els errors quan es camina recte. COMPROVAR QUE ELS balance_enable_gyro ESTIGUIN BEN POSATS I FER balance_disable_gyro() QUAN ES GIRA!!!!
 
 typedef int bool; //Definim el boleà, que en C no existeix
 #define true 1
@@ -80,9 +80,8 @@ int suma_angles (int a, int b)
 
 
 
-int cont = 0;
 int valor_base, valor_actual;
-static int comp_error = 20;
+static int comp_error = 20; //Màxima desviació permesa per la brúixola
 static int dist_frontal = 80;
 static int dist_lateral = 250;
  
@@ -91,7 +90,7 @@ void user_init(void) //S'executa una sola vegada (setup de l'arduino)
   serial_console_init(57600);
   balance_init();
   balance_calibrate_gyro();
-  balance_enable_gyro();
+  balance_enable_gyro(); //Alerta: el gyro està activat per defecte, s'ha de desactivar abans de cada gir i tornar a activar posteriorment.
   user_time_set_period(100);
   mtn_lib_init();
   exp_adc_start();
@@ -290,7 +289,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
 	       if(turn_angle(-180) == 0x01) //Comprovem si ha completat el gir.
 	       {
 		 state = walk_return; 
-		 valor_base = suma_angles(valor_base, 1800); //Definim el 0 del compass 180 respete l'inicial
+		 valor_base = suma_angles(valor_base, 1800); //Definim el 0 del compass desplaçat 180 graus respete l'inicial
 		 balance_enable_gyro(); //Tornem a activar el balance
 	       }
 	       else
@@ -333,7 +332,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
     /* CORRECIÓ */
     //Casos de correció: Fan *una* iteració del moviment de correcció i el paren. Quan ha acabat tornen a l'estat on eren mitjançant la variable prev. POSSOBLE MILLORA: En lloc de fer una sola iteració, es podria fer que anessin corregint mentre hi hagués error, resultant un moviment més fluid. Ara per ara, es comprova si hi ha error als estats de moviment, i llavors es criden les funcions de moviment entre les correcions.
     
-    case correct_l: if(balance_is_gyro_enabled())
+    case correct_l: if(balance_is_gyro_enabled()) //Com que és un gir, si hi ha el gyro activat, el desactivem
 		    {
 		      balance_disable_gyro();
 		    }
@@ -341,7 +340,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
 		    if(fnct_l() == 0x01)
 		    {
 		      state = prev;
-		      balance_enable_gyro();
+		      balance_enable_gyro(); //Després del gir tornem a activar-lo
 		    }
 		    else
 		    {
@@ -352,7 +351,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
 		      
     case correct_r: if(balance_is_gyro_enabled())
 		    {
-		      balance_disable_gyro();
+			balance_disable_gyro();			
 		    }
 		    
 		    if(fnct_r() == 0x01)

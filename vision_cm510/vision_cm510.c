@@ -6,7 +6,7 @@
 #include "mtn_library.h"
 #include <stdlib.h>
 
-//Programa de la banda del cm510 per a la prova de visió. La beaglebone/raspberrypi decodifica la camera i envia un número per serial segons el contingut del QR. El cas 0 de la màquina d'estats llegeix el serial (que mai pot enviar 0, no us preocupeu) i els altres casos són cadascun dels moviments. Cal posar altres sistemes de seguretat, ja que ara mateix estem confiant plenament amb el bno055, i no es contemplen casos com per exemple que es vegin 2 QR, que no en trobi cap, que trobi el codi abans de l'esperat o que no el trobi...
+//Programa de la banda del cm510 per a la prova de visió. La beaglebone/raspberrypi decodifica la camera i envia un número per serial segons el contingut del QR. El cas 0 de la màquina d'estats llegeix el serial (que mai hauria d'enviar 0 o valors negatiu) i els altres casos són cadascun dels moviments. Cal posar altres sistemes de seguretat, ja que ara mateix estem confiant plenament amb el bno055, i no es contemplen casos com per exemple que es vegin 2 QR, que no en trobi cap, que trobi el codi abans de l'esperat o que no el trobi...
 
 int compass_param(int ini, int actual)
 {
@@ -51,6 +51,8 @@ int suma_angles(int a, int b)
 	return res;
 }
 
+
+//La funció gira() és una còpia exacta de turn_angle() de la mtn_library, però utilitzant la bno055 en lloc del compass. Cal arreglar-ho a la llibreria de  moviments.
 typedef enum {t_init,t_middle,t_left,t_right,t_wait_end} turn_states;
 #define err 100 //Màxim error permès a turn.
 uint8_t gira(int angle){
@@ -120,7 +122,7 @@ void user_init(void)
   serial_console_init(57600);
   balance_init();
   balance_calibrate_gyro();
-  balance_enable_gyro();
+//  balance_enable_gyro(); // En aquest cas hem de tenir el gyro desactivat, ja que si no intenta compensar els propis moviments de gir
   user_time_set_period(100);
   mtn_lib_init();
   exp_adc_start();
@@ -145,6 +147,7 @@ unsigned char num;
 
 void user_loop(void)
 {
+  //Hi havia un error al fer el cm510_read de la mateixa vairable sobre la qual s'executa el switch, per tant es fa lectura de "data" i al acabar el switch s'iguala "state" a "data". Dada es torna a declarar a cada iteració del user_loop per assegurar que no agafa qualsevol altre valor. Inicialment "state" = -2
   int data;
   switch(state)
   {
@@ -175,8 +178,7 @@ void user_loop(void)
 	    }while(num == 0);
 	    break;
 
-    case 1: cm510_write(&data,1);
-	    if(gira(-45) == 0x01)
+    case 1: if(gira(-45) == 0x01)
 	    {
 	      data = 0;
 	    }
@@ -184,6 +186,7 @@ void user_loop(void)
 	    {
 	      data = 1;
 	    }
+	    cm510_write(&data,1);
 	    break;
 	    
     case 2: if(gira(45) == 0x01)

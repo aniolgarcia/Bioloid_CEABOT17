@@ -7,7 +7,7 @@
 #include <stdlib.h>
 
 //Programa base per llegir qualsevol dels sensors del robot. Simplement imprimirà per serial el valor del snesor seleccionat. 
-//Està fet per tal que no sigui necessari moure cap motor, exceptuant quan hi hagi offsets a balance.c, que sí que els farà (pendent d'arreglar) 
+//Està fet per tal que no sigui necessari moure cap motor, però si hi ha ofsets definits, sí que es mourà per posar-se a lloc
 
 
 typedef enum {wait_start,wait_ready,read_sensor} main_states;
@@ -17,7 +17,7 @@ int compass_correction(int value, int upper_end, int bottom_end)
 	return (((upper_end - bottom_end)/3600)*value)+bottom_end;
 }
 
-int bno055_correction(int value)
+int bno055_correction(int value) //Com que la bno055 té un rang extrany i a partir de -250 suma 250 a tot, hem de fer una petita correcció per aconseguir rnags normals.
 {
   if(value > -240)
   {
@@ -66,7 +66,7 @@ void user_init(void)
   user_time_set_period(100);
   mtn_lib_init();
   exp_adc_start();
-//   exp_compass_start();
+//   exp_compass_start(); //Ara utilitzem la bno055 en lloc de la brúixola, però es pot connectar i activar igualment, que no interferirà amb el bno055.
   exp_bno055_start();
   if(is_button_pressed(BTN_UP))
     exp_bno055_erase_calibration();
@@ -86,7 +86,7 @@ void user_loop(void)
                        state=wait_ready;
 // 		       valor_base = exp_compass_get_avg_heading();
 // 		       valor_base = exp_bno055_get_heading();
-		       valor_base = bno055_correction(exp_bno055_get_heading());
+		       valor_base = bno055_correction(exp_bno055_get_heading()); 
                      }
                      else
 		     {

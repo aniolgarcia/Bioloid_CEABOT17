@@ -188,7 +188,7 @@ void user_init(void) //S'executa una sola vegada (setup de l'arduino)
   serial_console_init(57600);
   balance_init();
   balance_calibrate_gyro();
-  balance_enable_gyro();
+  balance_enable_gyro(); //Alerta: el gyro està activat per defecte, s'ha de desactivar abans de girar i tornar a aactivar quan ha acabat. No sabem si les funcions *_compensating() necessiten tenir-lo activat o no.
   user_time_set_period(100);
   mtn_lib_init();
   exp_adc_start();
@@ -381,11 +381,16 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
 		 break;
 		 
 		 
-    case turn: if(gira(180) == 0x01)
+    case turn: if(balance_is_gyro_enabled()) //Si el balance està activat, el desactivem
+	       {
+		 balance_disable_gyro();
+	       }
+	       if(gira(180) == 0x01)
 	       {
 		 user_time_set_period(500);
 		 state = walk_return;
 		 valor_base = suma_angles(valor_base, 1800);
+		 balance_enable_gyro(); //Tornem a activar el balance
 	       }
 	       else
 	       {
