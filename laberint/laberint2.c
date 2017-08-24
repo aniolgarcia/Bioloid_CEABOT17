@@ -13,6 +13,9 @@ typedef int bool; //Definim el boleà, que en C no existeix
 #define false 0
 
 typedef enum {wait_start, wait_ready, walk_l, walk_r, walk_f, turn, walk_return, stop, correct_l, correct_r} main_states; //Estats de la màquina d'estats
+typedef enum {t_init,t_middle,t_left,t_right,t_wait_end} turn_states;
+
+#define err 100
 
 typedef uint8_t (*fnct_ptr)(void);
 fnct_ptr fnct_r = turn_right;
@@ -74,6 +77,82 @@ int suma_angles (int a, int b)
 	}
 	return res;
 
+}
+
+int compass_param(int ini, int actual)
+{
+	short int inc = actual - ini;
+	if(inc<-1800)
+	{ 
+	  inc+=3600;
+	}
+	else if(inc>1800)
+	{
+	  inc-=3600;
+	}
+	return inc;
+}
+
+//Funció turn_angle() adaptada a la bno055
+uint8_t gira(int angle){
+	static turn_states s = t_init;
+	static int comp_ini = 0;
+	static int comp_end = 0;
+	int done = 0;
+	
+	switch (s){
+		case t_init:
+			comp_ini = bno055_correction(exp_bno055_get_heading());
+			comp_end = suma_angles (comp_ini,angle*10);
+			
+			s=t_middle;
+			break;
+		case t_middle:
+			if (abs (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end))>err){
+			// ("diff = %d\n",compass_param (bno055_correction(exp_bno055_get_heading()),comp_end));
+				if (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end)>err){
+					s =t_right;
+				}
+				else if (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end)<-err){
+					s=t_left;
+				}
+			}
+			else {
+				s = t_wait_end;		
+			}
+			break;
+		case t_right:
+			if (turn_right()){
+				s = t_wait_end;
+			}
+			else {
+				if (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end)<err){ 
+						mtn_lib_stop_mtn();
+				}
+				else s = t_right;
+				
+			}
+			break;
+			
+		case t_left:
+			if (turn_left()){
+				s = t_wait_end;
+			}
+			else {
+				if (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end)>-err){
+						mtn_lib_stop_mtn();
+				}
+				else s = t_left;
+				
+			}
+			break;
+		case t_wait_end:
+			done =0x01;
+			s = t_init;
+			break;
+	
+	}
+	return done;
 }
 
 
@@ -286,7 +365,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
 		 balance_disable_gyro();
 	       }
 		    
-	       if(turn_angle(-180) == 0x01) //Comprovem si ha completat el gir.
+	       if(gira(-180) == 0x01) //Comprovem si ha completat el gir.
 	       {
 		 state = walk_return; 
 		 valor_base = suma_angles(valor_base, 1800); //Definim el 0 del compass desplaçat 180 graus respete l'inicial
@@ -332,10 +411,10 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
     /* CORRECIÓ */
     //Casos de correció: Fan *una* iteració del moviment de correcció i el paren. Quan ha acabat tornen a l'estat on eren mitjançant la variable prev. POSSOBLE MILLORA: En lloc de fer una sola iteració, es podria fer que anessin corregint mentre hi hagués error, resultant un moviment més fluid. Ara per ara, es comprova si hi ha error als estats de moviment, i llavors es criden les funcions de moviment entre les correcions.
     
-    case correct_l: if(balance_is_gyro_enabled()) //Com que és un gir, si hi ha el gyro activat, el desactivem
-		    {
+    case correct_l:/* if(balance_is_gyro_enabled())*/ //Com que és un gir, si hi ha el gyro activat, el desactivem
+// 		    {
 		      balance_disable_gyro();
-		    }
+// 		    }
       
 		    if(fnct_l() == 0x01)
 		    {
@@ -349,10 +428,10 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
 		    }
 		    break;
 		      
-    case correct_r: if(balance_is_gyro_enabled())
-		    {
+    case correct_r: /*if(balance_is_gyro_enabled())*/
+// 		    {
 			balance_disable_gyro();			
-		    }
+// 		    }
 		    
 		    if(fnct_r() == 0x01)
 		    {

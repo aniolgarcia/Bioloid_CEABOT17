@@ -19,7 +19,7 @@ typedef int bool; //Definim el boleà, que en C no existeix
 
 #define err 100 //Màxim error permès a gira.
 
-typedef enum {wait_start, wait_ready, walk_l, walk_r, walk_f, turn, walk_return, stop, correct_l, correct_r} main_states; //Estats de la màquina d'estats
+typedef enum {wait_start, wait_ready, walk_l, walk_r, ready_walk_f, walk_f, turn, walk_return, stop, correct_l, correct_r} main_states; //Estats de la màquina d'estats
 typedef enum {t_init,t_middle,t_left,t_right,t_wait_end} turn_states;
 
 typedef uint8_t (*fnct_ptr)(void);
@@ -60,9 +60,9 @@ int compass_param(int ini, int actual)
 //Com que el rang és de [-1800, -250(aprox)] U [0, 2050(aprox)], quan passi de -240, simplement li restem 240. 
 int bno055_correction(int value)
 {
-	if(value > -240)
+	if(value > -250)
 	{
-	  return value -240;
+	  return value -250;
 	}
 	else
 	{
@@ -188,7 +188,7 @@ void user_init(void) //S'executa una sola vegada (setup de l'arduino)
   serial_console_init(57600);
   balance_init();
   balance_calibrate_gyro();
-  balance_enable_gyro(); //Alerta: el gyro està activat per defecte, s'ha de desactivar abans de girar i tornar a aactivar quan ha acabat. No sabem si les funcions *_compensating() necessiten tenir-lo activat o no.
+  balance_enable_gyro(); //Alerta: el gyro està activat per defecte, s'ha de desactivar abans de girar i tornar a activar quan ha acabat. No sabem si les funcions *_compensating() necessiten tenir-lo activat o no.
   user_time_set_period(100);
   mtn_lib_init();
   exp_adc_start();
@@ -258,15 +258,81 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
     /* MOVIMENT */
     //Estat per caminar cap a diverses direccions
     
-    //cas de caminar lateralment cap a l'esquerra
-    case walk_l: if(exp_adc_get_avg_channel(davant) < dist_frontal) //Primer mirem si té un forat davant
+//     //cas de caminar lateralment cap a l'esquerra
+//     case walk_l: if(exp_adc_get_avg_channel(davant) < dist_frontal) //Primer mirem si té un forat davant
+// 		 {
+// 		   //En cas de ser-hi, aturem el moviment lateral i el fem caminar endavant.
+// 		   mtn_lib_stop_mtn(); 
+// 		   if(walk_left_compensating(valor_base, bno055_correction(exp_bno055_get_heading())) == 0x01) 
+// 		   {
+// 		     state = ready_walk_f;
+// 		     user_time_set_period(500);
+// 		   }
+// 		   else //En cas contrari, continuem amb el moviment
+// 		   {
+// 		     state = walk_l;
+// 		   }
+// 		   break;
+// 		 }
+// 		 else if(exp_adc_get_avg_channel(esquerra) > dist_lateral || is_button_rising_edge(BTN_DOWN)) //Si troba una paret a l'esquerra vol dir que ha arribat al final del recinte, i com que ja ha coemnçat anant cap a la dreta, simplement para. Aquest és un cas teòricament impossible, però cal considerar-lo. Es pot solucionar enviant-lo altre cop cap a l'esquerra
+// 		 {
+// 		   mtn_lib_stop_mtn();
+// 		 }
+// 		 
+// 		 //Comprovem si algun cas anterior ha fet parar el robot, i al mateix temps cridem la funció de moviment. Si algun cas l'ha fet parar, para. En cas contrari, torna al seu mateix estat.
+// 		 if(walk_left_compensating(valor_base, bno055_correction(exp_bno055_get_heading())) == 0x01)
+// 		 {
+// 		   state = walk_r;		   
+// 		 }
+// 		 else
+// 		 {
+// 		   state = walk_l;	   
+// 		 }
+// 		 break;
+//     
+//     //Cas idèntic a walk_l, amb la única diferència de que cap a la dreta. 
+//     case walk_r: if(exp_adc_get_avg_channel(davant) < dist_frontal)
+// 		 {
+// 		   mtn_lib_stop_mtn();
+// 		   if(walk_right_compensating(valor_base, bno055_correction(exp_bno055_get_heading())) == 0x01)
+// 		   {
+// 		     state = ready_walk_f;
+// 		     user_time_set_period(500);
+// 		   }
+// 		   else
+// 		   {
+// 		     state = walk_r;
+// 		   }
+// 		   break;
+// 		 }
+// 		 else if(exp_adc_get_avg_channel(dreta) > dist_lateral || is_button_rising_edge(BTN_DOWN))
+// 		 {
+// 		   mtn_lib_stop_mtn();
+// 		 }
+// 		 
+// 		 if(walk_right_compensating(valor_base, bno055_correction(exp_bno055_get_heading())) == 0x01)
+// 		 {
+// 		   state = walk_l;
+// 		 }
+// 		 else
+// 		 {
+// 		   state = walk_r;
+// 		 }
+// 		 break;
+// 		 
+    case walk_l:if(!balance_is_gyro_enabled())
+		{
+		  balance_enable_gyro();
+		}
+    
+		 if(exp_adc_get_avg_channel(davant) < dist_frontal) //Primer mirem si té un forat davant
 		 {
-		   //En cas de ser-hi, aturem el moviment lateral i el fem caminar endavant.
+		   //En cas de ser-hi, aturem el moviment lateral i caminem endavant.
 		   mtn_lib_stop_mtn(); 
-		   if(walk_left_compensating(valor_base, bno055_correction(exp_bno055_get_heading())) == 0x01) 
+		   if(walk_left() == 0x01) 
 		   {
-		     state = walk_f;
-		     user_time_set_period(500);
+		     state = ready_walk_f;
+// 		     state = stop;
 		   }
 		   else //En cas contrari, continuem amb el moviment
 		   {
@@ -279,25 +345,47 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
 		   mtn_lib_stop_mtn();
 		 }
 		 
-		 //Comprovem si algun cas anterior ha fet parar el robot, i al mateix temps cridem la funció de moviment. Si algun cas l'ha fet parar, para. En cas contrari, torna al seu mateix estat.
-		 if(walk_left_compensating(valor_base, bno055_correction(exp_bno055_get_heading())) == 0x01)
+		 //Comprovem si algun cas anterior ha fet parar el robot, i al mateix temps cridem la funció de moviment. Si algú l'ha fet parar, para. En cas contrari, comprova si s'ha desviat de la trajectòria inicial.
+		 if(walk_left() == 0x01)
 		 {
+// 		   state = stop; 
 		   state = walk_r;		   
 		 }
 		 else
 		 {
-		   state = walk_l;	   
+		   //Comprovem si s'ha desviat. En cas afirmatiu, guardem l'estat des del qual venim a prev i canviem l'estat a corregir.
+		   if(compass(valor_base) > comp_error)
+		   {
+		     prev = walk_l;
+		     state = correct_l;
+// 		     turn_left();
+		   }
+		   else if(compass(valor_base) < -comp_error)
+		   {
+		     prev = walk_l;
+		     state = correct_r;
+// 		     turn_right();
+		   }
+		   else
+		   {
+		     state = walk_l;
+		   }		   
 		 }
 		 break;
     
-    //Cas idèntic a walk_l, amb la única diferència de que cap a la dreta. 
-    case walk_r: if(exp_adc_get_avg_channel(davant) < dist_frontal)
+    //Cas idèntic a walk_l, amb la única diferència de que cap a la dreta.
+    case walk_r:  if(!balance_is_gyro_enabled())
+		  {
+		    balance_enable_gyro();
+		  }
+		  
+		 if(exp_adc_get_avg_channel(davant) < dist_frontal)
 		 {
 		   mtn_lib_stop_mtn();
-		   if(walk_right_compensating(valor_base, bno055_correction(exp_bno055_get_heading())) == 0x01)
+		   if(walk_right() == 0x01)
 		   {
-		     state = walk_f;
-		     user_time_set_period(500);
+		     state = ready_walk_f;
+// 		     state  = stop;
 		   }
 		   else
 		   {
@@ -310,84 +398,106 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
 		   mtn_lib_stop_mtn();
 		 }
 		 
-		 if(walk_right_compensating(valor_base, bno055_correction(exp_bno055_get_heading())) == 0x01)
+		 if(walk_right() == 0x01)
 		 {
 		   state = walk_l;
-		 }
-		 else
-		 {
-		   state = walk_r;
-		 }
-		 break;		 
-		 
-    //Cas de caminar endavant. Ho fa mentre hi hagi una distància de seguretat
-//     case walk_f: if(user_time_is_period_done())
-// 		 {
-// 		    if(exp_adc_get_avg_channel(davant) > 350)
-// 		    {
-// 		      mtn_lib_stop_mtn();
-// 		    }
-// 		    
-// 		    //Com abans, si res l'ha parat, comprovem desviacions.
-// // 		    if(user_time_is_period_done())
-// // 		    { 
-// 			if(walk_forward_compensating(valor_base, bno055_correction(exp_bno055_get_heading())) == 0x01)
-// 			{
-// 			  state = turn;
-// 			}
-// 			else
-// 			{
-// 			  state = walk_f;
-// // 			  user_time_set_period(100)
-// 			  user_time_set_period(1);
-// 			}
-// // 		    }
-// // 		    else
-// // 		    {
-// // 		      state = walk_f;
-// // 		    }
-// 		 }
-// 		 else
-// 		 {
-// 		   state = walk_f;
-// 		 }
-// 		 break;
-
-    case walk_f: if(exp_adc_get_avg_channel(davant) > 350)
-		 {
-		   mtn_lib_stop_mtn();
-		 }
-		 
-		 //Com abans, si res l'ha parat, comprovem desviacions.
-		 if(walk_forward() == 0x01)
-		 {
-		   state = turn;
+// 		   state = stop;
 		 }
 		 else
 		 {
 		   if(compass(valor_base) > comp_error)
 		   {
-		     prev = walk_f;
+		     prev = walk_r;
 		     state = correct_l;
+// 		     turn_left();
 		   }
 		   else if(compass(valor_base) < -comp_error)
 		   {
-		     prev = walk_f;
+		     prev = walk_r;
 		     state = correct_r;
+// 		     turn_right();
 		   }
 		   else
 		   {
-		     state = walk_f;
+		     state = walk_r;
 		   }
 		 }
+		 break;		
+		 
+//Cas per corregir la desviaió en començar a tirar endavant		  
+    case ready_walk_f:  if(compass(valor_base) > comp_error)
+			{
+			  prev = ready_walk_f;
+			  state = correct_l;
+			}
+			else if(compass(valor_base) < -comp_error)
+			{
+			  prev = ready_walk_f;
+			  state = correct_r;
+			}
+			else
+			{
+			  state = walk_f;
+			}
+			break;
+			
+    //Cas de caminar endavant. Ho fa mentre hi hagi una distància de seguretat
+    case walk_f:    if(!balance_is_gyro_enabled())
+		    {
+		      balance_enable_gyro();
+		    }
+		    
+		    if(exp_adc_get_avg_channel(davant) > 350)
+		    {
+		      mtn_lib_stop_mtn();
+		    }
+		    
+
+		    if(walk_forward_compensating(valor_base, bno055_correction(exp_bno055_get_heading())) == 0x01)
+		    {
+		      state = turn;
+		    }
+		    else
+		    {
+		      state = walk_f;
+		    }
 		 break;
+
+//     case walk_f: if(exp_adc_get_avg_channel(davant) > 350)
+// 		 {
+// 		   mtn_lib_stop_mtn();
+// 		 }
+// 		 
+// 		 //Com abans, si res l'ha parat, comprovem desviacions.
+// 		 if(walk_forward() == 0x01)
+// 		 {
+// 		   state = turn;
+// 		 }
+// 		 else
+// 		 {
+// 		   if(compass(valor_base) > comp_error)
+// 		   {
+// 		     prev = walk_f;
+// 		     state = correct_l;
+// 		   }
+// 		   else if(compass(valor_base) < -comp_error)
+// 		   {
+// 		     prev = walk_f;
+// 		     state = correct_r;
+// 		   }
+// 		   else
+// 		   {
+// 		     state = walk_f;
+// 		   }
+// 		 }
+// 		 break;
 		 
 		 
     case turn: if(balance_is_gyro_enabled()) //Si el balance està activat, el desactivem
 	       {
 		 balance_disable_gyro();
 	       }
-	       if(gira(180) == 0x01)
+	       if(gira(175) == 0x01)
 	       {
 		 user_time_set_period(500);
 		 state = walk_return;
@@ -400,7 +510,12 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
 	       }
 	       break;
 	       
-    case walk_return: if(user_time_is_period_done())
+    case walk_return: 	if(!balance_is_gyro_enabled())
+			{
+			  balance_enable_gyro();
+			}
+			
+			if(user_time_is_period_done())
 			{
 		      		if(exp_adc_get_avg_channel(davant) > 350)
 		      		{	
@@ -427,9 +542,14 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
     /* CORRECIÓ */
     //Casos de correció: paren el moviment de correcció (cridat des d'on s'ha detectat l'error i canviat l'estat i tornen a l'estat on eren mitjançant la variable prev.
     
-    case correct_l: if(walk_forward() == 0x01)
+    case correct_l: if(balance_is_gyro_enabled())
 		    {
-		      state = walk_f;
+		      balance_disable_gyro();
+		    }
+    
+		    if(turn_left() == 0x01)
+		    {
+		      state = prev;
 		    }
 		    else
 		    {
@@ -438,9 +558,14 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
 		    }
 		    break;
 		      
-    case correct_r: if(walk_forward() == 0x01)
+    case correct_r: if(balance_is_gyro_enabled())
+		    {	
+		      balance_disable_gyro();
+		    }
+		    
+		    if(turn_right() == 0x01)
 		    {
-		      state = walk_forward();
+		      state = prev;
 		    }
 		    else
 		    {
