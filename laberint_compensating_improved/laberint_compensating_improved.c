@@ -19,7 +19,7 @@ typedef int bool; //Definim el boleà, que en C no existeix
 
 #define err 100 //Màxim error permès a gira.
 
-typedef enum {wait_start, wait_ready, walk_l, walk_r, ready_walk_f, walk_f, turn, ready_walk_return, walk_return, stop, correct_l, correct_r} main_states; //Estats de la màquina d'estats
+typedef enum {wait_start, wait_ready,wait_5, walk_l, walk_r, ready_walk_f, walk_f, turn, ready_walk_return, walk_return, stop, correct_l, correct_r} main_states; //Estats de la màquina d'estats
 typedef enum {t_init,t_middle,t_left,t_right,t_wait_end} turn_states;
 
 typedef uint8_t (*fnct_ptr)(void); //Parametrització de les funcions per a canvis ràpids
@@ -36,6 +36,7 @@ main_states prev, next; //Variable de tipus main_states (estat) que servirà per
 const bool simulat = false;
 adc_t davant, esquerra, dreta; 
 
+bool forat = false;
 
 /////////////////////////////////////////////////////////// 
 //  Definició de funcions pròpies
@@ -233,19 +234,31 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
     /* INICIALITZACIÓ */
     //Wait_start i wait_ready són les inicialitzacions. El robot s'aixeca i executa la pàgina 31 per posar-se en la posició inicial preparat per caminar.
     
-    case wait_start: if(is_button_rising_edge(BTN_START))
+    case wait_start: 
+					 if(is_button_rising_edge(BTN_START))
                     {
                         valor_base = bno055_correction(exp_bno055_get_heading());
                         action_set_page(31);
                         action_start_page();
-                        state=wait_ready;
+						user_time_set_period(5000);
+                        state=wait_5;
                     }
                     else
                     {
                         state=wait_start;
                     }
                     break;
-		     
+					
+    case wait_5: 	 if(user_time_is_period_done())
+                    {
+                        state=wait_ready;
+                    }
+                    else
+                    {
+                        state=wait_5;
+                    }
+                    break;
+					
     case wait_ready: if(is_action_running())
                     {
                         state=wait_ready;
@@ -284,23 +297,35 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                 {
                     if(exp_adc_get_avg_channel(davant) < dist_frontal) //Comprovem si hi ha un forat davant
                     {
-                        mtn_lib_stop_mtn();
-                        next = ready_walk_f;
-                // 		      next = stop;
+// 						
+//                      mtn_lib_stop_mtn();
+//                      next = ready_walk_f;
+// 						next = stop;
+						if(forat == true) //Comprovem si ja ha trobat un forat abans. Si es així, vol dir que el forat és prou gros.
+						{
+							mtn_lib_stop_mtn(); //el parem definitivament (només si ha trobat dos cops el mateix forat)
+							next = ready_walk_f; //Definim l'estat que s'executarà a continuació
+							forat = false; //Fem un reset del bool;
+						}
+						else
+						{
+							forat = true; //S'ha trobat el forat per primera vegada. Com que no es crida a mtn_lib_stop_mtn, tornarà a entrar en aquest estat, fent alguna passa més
+						}
                     }
-                    else if(exp_adc_get_avg_channel(esquerra) > dist_lateral) //Comprovem si ha arribat a la paret
+                    else if(exp_adc_get_avg_channel(esquerra) > dist_lateral) //Comprovem si ha arribat a la paret i si cal l'enviem cap a l'altre costat
                     {
                         mtn_lib_stop_mtn();
-                    next = walk_r;
+						next = walk_r;
                     }
 
-                    if(walk_left() == 0x01)
+                    if(walk_left() == 0x01) //Si alguna comprovació anterior l'ha fet parar
                     {
-                    state = next;
+						state = next; //L'enviem a l'estat que ha definit aquesta comprovació
+						forat = false; //Ens assegurem que quan es passi a un altre estat, el boleà sigui fals
                     }
-                    else
+                    else //En cas contrari, tornem a aquest mateix estat
                     {
-                    state = walk_l;
+						state = walk_l;
                     }
                 }
                 break;
@@ -331,9 +356,19 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                 {
                     if(exp_adc_get_avg_channel(davant) < dist_frontal) //Comprovem si hi ha un forat davant
                     {
-                        mtn_lib_stop_mtn();
-                        next = ready_walk_f;
-                // 		      next = stop;
+//                         mtn_lib_stop_mtn();
+// 						next = ready_walk_f;
+//						next = stop;
+						if(forat == true)
+						{
+							mtn_lib_stop_mtn();
+							next = ready_walk_f;
+							forat = false;
+						}
+						else
+						{
+							forat = true;
+						}
                     }
                     else if(exp_adc_get_avg_channel(dreta) > dist_lateral) //Comprovem si ha arribat a la paret
                     {
@@ -344,6 +379,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                     if(walk_right() == 0x01)
                     {
                         state = next;
+						forat = false;
                     }
                     else
                     {
@@ -398,9 +434,9 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                 {
                     balance_disable_gyro();
                 }
-                if(gira(180) == 0x01)
+                if(gira(175) == 0x01)
                 {
-                    state = walk_return;
+                    state = walk_return; 
 // 		            state = stop;
                     valor_base = suma_angles(valor_base, 1800);
 // 		            valor_base = 400;
