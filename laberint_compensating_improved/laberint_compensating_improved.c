@@ -105,7 +105,7 @@ int suma_angles(int a, int b)
 	}
 	else if(res>3600)
 	{
-	  res-=3600;
+	  res-=3600;n
 	}
 	return res;
 }
