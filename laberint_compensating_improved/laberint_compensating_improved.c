@@ -8,8 +8,8 @@
 
 //Versió del laberint_compensating amb algunes millores estructurals
 
-/////////////////////////////////////////////////////////// 
-// Definició de variables globals i tipus 
+///////////////////////////////////////////////////////////
+// Definició de variables globals i tipus
 ///////////////////////////////////////////////////////////
 
 
@@ -32,13 +32,13 @@ fnct_ptr fnct_l = turn_left;
 main_states prev, next; //Variable de tipus main_states (estat) que servirà per guardar l'estat anterior a corregir per poder-hi tornar més fàcilment.
 
 
-//Definim variables dels ports, que canvien segons si és una simulació o no ( més detalls a ../index.txt) 
+//Definim variables dels ports, que canvien segons si és una simulació o no ( més detalls a ../index.txt)
 const bool simulat = false;
-adc_t davant, esquerra, dreta; 
+adc_t davant, esquerra, dreta;
 
 bool forat = false;
 
-/////////////////////////////////////////////////////////// 
+///////////////////////////////////////////////////////////
 //  Definició de funcions pròpies
 ///////////////////////////////////////////////////////////
 
@@ -47,7 +47,7 @@ int compass_param(int ini, int actual)
 {
 	short int inc = actual - ini;
 	if(inc<-1800)
-	{ 
+	{
 	  inc+=3600;
 	}
 	else if(inc>1800)
@@ -58,7 +58,7 @@ int compass_param(int ini, int actual)
 }
 
 
-//Com que el rang és de [-1800, -250(aprox)] U [0, 2050(aprox)], quan passi de -250, simplement li restem 250. 
+//Com que el rang és de [-1800, -250(aprox)] U [0, 2050(aprox)], quan passi de -250, simplement li restem 250.
 int bno055_correction(int value)
 {
 	if(value > -250)
@@ -74,9 +74,9 @@ int bno055_correction(int value)
 //Funció per calcular el desviament del robot respecte l'orientació inicial. Agafa angles en un rang de [0, 3600] i els retorna en un rang de [0, 360].
 int compass(int valor_base)
 {
-        
+
 	int nou_valor, desviament;
-	
+
 // 	nou_valor = exp_bno055_get_headig();
 	nou_valor = bno055_correction(exp_bno055_get_heading());
 	desviament = nou_valor - valor_base;
@@ -89,9 +89,9 @@ int compass(int valor_base)
 	{
 		desviament = desviament + 3600;
 	}
-	
+
 	desviament = desviament/10;
-	
+
 	return desviament;
 }
 
@@ -116,12 +116,12 @@ uint8_t gira(int angle){
 	static int comp_ini = 0;
 	static int comp_end = 0;
 	int done = 0;
-	
+
 	switch (s){
 		case t_init:
 			comp_ini = bno055_correction(exp_bno055_get_heading());
 			comp_end = suma_angles (comp_ini,angle*10);
-			
+
 			s=t_middle;
 			break;
 		case t_middle:
@@ -135,7 +135,7 @@ uint8_t gira(int angle){
 				}
 			}
 			else {
-				s = t_wait_end;		
+				s = t_wait_end;
 			}
 			break;
 		case t_right:
@@ -143,14 +143,14 @@ uint8_t gira(int angle){
 				s = t_wait_end;
 			}
 			else {
-				if (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end)<err){ 
+				if (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end)<err){
 						mtn_lib_stop_mtn();
 				}
 				else s = t_right;
-				
+
 			}
 			break;
-			
+
 		case t_left:
 			if (turn_left()){
 				s = t_wait_end;
@@ -160,20 +160,20 @@ uint8_t gira(int angle){
 						mtn_lib_stop_mtn();
 				}
 				else s = t_left;
-				
+
 			}
 			break;
 		case t_wait_end:
 			done =0x01;
 			s = t_init;
 			break;
-	
+
 	}
 	return done;
 }
 
 
-/////////////////////////////////////////////////////////// 
+///////////////////////////////////////////////////////////
 // INIT i variables específiques
 ///////////////////////////////////////////////////////////
 
@@ -185,7 +185,7 @@ int valor_base, valor_actual;
 static int comp_error = 15;
 static int dist_frontal = 80;
 static int dist_lateral = 250;
- 
+
 void user_init(void) //S'executa una sola vegada (setup de l'arduino)
 {
     serial_console_init(57600);
@@ -221,7 +221,7 @@ void user_init(void) //S'executa una sola vegada (setup de l'arduino)
 
 }
 
-/////////////////////////////////////////////////////////// 
+///////////////////////////////////////////////////////////
 // Màquina d'estats
 ///////////////////////////////////////////////////////////
 
@@ -233,8 +233,8 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
     {
     /* INICIALITZACIÓ */
     //Wait_start i wait_ready són les inicialitzacions. El robot s'aixeca i executa la pàgina 31 per posar-se en la posició inicial preparat per caminar.
-    
-    case wait_start: 
+
+    case wait_start:
 					 if(is_button_rising_edge(BTN_START))
                     {
                         valor_base = bno055_correction(exp_bno055_get_heading());
@@ -248,17 +248,17 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                         state=wait_start;
                     }
                     break;
-					
+
     case wait_5: 	 if(user_time_is_period_done())
                     {
-                        state=wait_ready;
+                        state = wait_ready;
                     }
                     else
                     {
-                        state=wait_5;
+                        state = wait_5;
                     }
                     break;
-					
+
     case wait_ready: if(is_action_running())
                     {
                         state=wait_ready;
@@ -270,10 +270,10 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                     }
                     break;
 
-		     
+
     /* MOVIMENT */
     //Estat per caminar cap a diverses direccions
-    
+
     //Caminar lateralment cap a l'esquerra
     case walk_l: if(!balance_is_gyro_enabled())
                 {
@@ -297,7 +297,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                 {
                     if(exp_adc_get_avg_channel(davant) < dist_frontal) //Comprovem si hi ha un forat davant
                     {
-// 						
+//
 //                      mtn_lib_stop_mtn();
 //                      next = ready_walk_f;
 // 						next = stop;
@@ -329,10 +329,10 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                     }
                 }
                 break;
-		  
-		  
-		  
-    
+
+
+
+
     //Cas idèntic a walk_l, amb la única diferència de que cap a la dreta.
     case walk_r: if(!balance_is_gyro_enabled())
                 {
@@ -387,7 +387,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                     }
                 }
                 break;
-		 
+
 //Cas per corregir la desviai<có en començar a tirar endavant
     case ready_walk_f:  if(compass(valor_base) > comp_error)
                         {
@@ -428,7 +428,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                 break;
 
 
-		 
+
     case turn: turn_led_on(LED_AUX);
                 if(balance_is_gyro_enabled()) //Si el balance està activat, el desactivem
                 {
@@ -436,7 +436,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                 }
                 if(gira(175) == 0x01)
                 {
-                    state = walk_return; 
+                    state = walk_return;
 // 		            state = stop;
                     valor_base = suma_angles(valor_base, 1800);
 // 		            valor_base = 400;
@@ -446,7 +446,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                     state  = turn;
                 }
                 break;
-	       
+
     case ready_walk_return: if(compass(valor_base) > comp_error)
                             {
                                 prev = ready_walk_return;
@@ -462,7 +462,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                                 state = walk_return;
                             }
                             break;
-	       
+
     case walk_return: if(!balance_is_gyro_enabled())
                     {
                         balance_enable_gyro();
@@ -485,7 +485,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                     break;
     /* CORRECIÓ */
     //Casos de correció: paren el moviment de correcció (cridat des d'on s'ha detectat l'error i canviat l'estat i tornen a l'estat on eren mitjançant la variable prev.
-    
+
     case correct_l: if(balance_is_gyro_enabled())
                     {
                         balance_disable_gyro();
@@ -501,7 +501,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                         mtn_lib_stop_mtn();
                     }
                     break;
-		      
+
     case correct_r: if(balance_is_gyro_enabled())
                     {
                         balance_disable_gyro();
@@ -517,9 +517,9 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                         mtn_lib_stop_mtn();
                     }
                     break;
-   
- 
-		 
+
+
+
     /* PARADA */
     //Estat estacionari del robot. Possibilitat de tornar a activar el sistema mitjançant un botó.
 
@@ -533,9 +533,8 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                     state = stop;
                 }
                 break;
-		 
-		 
+
+
   }
-  
+
 }
-		      
