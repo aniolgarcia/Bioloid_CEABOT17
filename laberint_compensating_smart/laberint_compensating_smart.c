@@ -388,22 +388,6 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                 }
                 break;
 
-//Cas per corregir la desviai<có en començar a tirar endavant
-    case ready_walk_f:  if(compass(valor_base) > comp_error)
-                        {
-                            prev = ready_walk_f;
-                            state = correct_l;
-                        }
-                        else if(compass(valor_base) < -comp_error)
-                        {
-                            prev = ready_walk_f;
-                            state = correct_r;
-                        }
-                        else
-                        {
-                            state = walk_f;
-                        }
-                        break;
 
     //Cas de caminar endavant. Ho fa mentre hi hagi una distància de seguretat
     case walk_f: if(!balance_is_gyro_enabled())
@@ -413,39 +397,41 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
 
                 if(exp_adc_get_avg_channel(davant) > 350)
                 {
+                    mtn_lib_stop_mtn();
                     if(compass(valor_base) > comp_error)
                     {
                         prev = walk_f;
-                        state = correct_l;
-                        break;
+                        next = correct_l;
+                        //Aquí, si continua veient la paret i estant molt desviat, ha de caminar lateralment cap a l'esquerra
                     }
                     else if(compass(valor_base) < -comp_error)
                     {
                         prev = walk_f;
-                        state = correct_r;
-                        break;
+                        next = correct_r;
+                        //Aquí, si continua veient la paret i estant molt desviat, ha de caminar lateralment cap a la dreta
+
                     }
                     else //Si no s'ha desviat
                     {
-                        mtn_lib_stop_mtn();
+                        next = walk_f;
                     }
                 }
 
 
                 if(walk_forward_compensating(valor_base, bno055_correction(exp_bno055_get_heading())) == 0x01) //Amb quin rang treballa walk_forward_compensating?
                 {
-                    state = turn;
+                    next = turn;
                 }
                 else
                 {
-                    state = walk_f;
+                    next = walk_f;
                 }
+                state = next;
                 break;
 
 
 
-    case turn: turn_led_on(LED_AUX);
-                if(balance_is_gyro_enabled()) //Si el balance està activat, el desactivem
+    case turn:  if(balance_is_gyro_enabled()) //Si el balance està activat, el desactivem
                 {
                     balance_disable_gyro();
                 }
