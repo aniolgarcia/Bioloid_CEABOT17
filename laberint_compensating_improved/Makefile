@@ -1,4 +1,4 @@
-PROJECT=laberint_compensating_imporved
+PROJECT=laberint_compensating_improved
 ########################################################
 # afegir tots els fitxers que s'han de compilar aquí
 ########################################################
