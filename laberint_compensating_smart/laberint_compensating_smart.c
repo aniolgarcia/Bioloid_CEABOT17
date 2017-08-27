@@ -29,7 +29,7 @@ fnct_ptr fnct_r = turn_right;
 fnct_ptr fnct_l = turn_left;
 // fnct_ptr fnct_l = turn_angle(-15);
 
-main_states prev, next; //Variable de tipus main_states (estat) que servirà per guardar l'estat anterior a corregir per poder-hi tornar més fàcilment.
+main_states prev, older_prev, next; //Variable de tipus main_states (estat) que servirà per guardar l'estat anterior a corregir per poder-hi tornar més fàcilment.
 
 
 //Definim variables dels ports, que canvien segons si és una simulació o no ( més detalls a ../index.txt)
@@ -116,7 +116,7 @@ uint8_t gira(int angle){
 	static int comp_ini = 0;
 	static int comp_end = 0;
 	int done = 0;
-
+    angle += 180; //Crec que la funció treballa en un rang de [0, 3600], no en [-1800, 1800]
 	switch (s){
 		case t_init:
 			comp_ini = bno055_correction(exp_bno055_get_heading());
@@ -413,11 +413,26 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
 
                 if(exp_adc_get_avg_channel(davant) > 350)
                 {
-                    mtn_lib_stop_mtn();
+                    if(compass(valor_base) > comp_error)
+                    {
+                        prev = walk_f;
+                        state = correct_l;
+                        break;
+                    }
+                    else if(compass(valor_base) < -comp_error)
+                    {
+                        prev = walk_f;
+                        state = correct_r;
+                        break;
+                    }
+                    else //Si no s'ha desviat
+                    {
+                        mtn_lib_stop_mtn();
+                    }
                 }
 
 
-                if(walk_forward_compensating(valor_base, bno055_correction(exp_bno055_get_heading())) == 0x01)
+                if(walk_forward_compensating(valor_base, bno055_correction(exp_bno055_get_heading())) == 0x01) //Amb quin rang treballa walk_forward_compensating?
                 {
                     state = turn;
                 }
@@ -437,31 +452,20 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                 if(gira(175) == 0x01)
                 {
                     state = walk_return;
-// 		            state = stop;
-                    valor_base = suma_angles(valor_base, 1800);
-// 		            valor_base = 400;
+                    if(valor_base > 0) //Fem que el seu valor base sigui l'oposat al que tenia
+                    {
+                        valor_base -= 1800;
+                    }
+                    else
+                    {
+                        valor_base += 1800;
+                    }
                 }
                 else
                 {
                     state  = turn;
                 }
                 break;
-
-    case ready_walk_return: if(compass(valor_base) > comp_error)
-                            {
-                                prev = ready_walk_return;
-                                state = correct_l;
-                            }
-                            else if(compass(valor_base) < -comp_error)
-                            {
-                                prev = ready_walk_return;
-                                state = correct_r;
-                            }
-                            else
-                            {
-                                state = walk_return;
-                            }
-                            break;
 
     case walk_return: if(!balance_is_gyro_enabled())
                     {
@@ -485,6 +489,20 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                     break;
     /* CORRECIÓ */
     //Casos de correció: paren el moviment de correcció (cridat des d'on s'ha detectat l'error i canviat l'estat i tornen a l'estat on eren mitjançant la variable prev.
+    case check_correction: if(compass(valor_base) > comp_error)
+                {
+                    state = correct_l;
+                }
+                else if(compass(valor_base) < -comp_error)
+                {
+                    state = correct_r;
+                }
+                else
+                {
+                    state = prev;
+                }
+                break;
+
 
     case correct_l: if(balance_is_gyro_enabled())
                     {
@@ -493,7 +511,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
 
                     if(turn_left() == 0x01)
                     {
-                        state = prev;
+                        state = check_correction;
                     }
                     else
                     {
@@ -509,7 +527,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
 
                     if(turn_right() == 0x01)
                     {
-                        state = prev;
+                        state = check_correction;
                     }
                     else
                     {
