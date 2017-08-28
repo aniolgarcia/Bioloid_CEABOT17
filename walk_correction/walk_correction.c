@@ -22,8 +22,8 @@ const int compass_tolerance = 15;
 
 typedef uint8_t (*fnct_ptr)(void);
 
-// fnct_ptr fnct1=fast_walk_forward;
-fnct_ptr fnct1=walk_forward;
+fnct_ptr fnct1=fast_walk_forward;
+// fnct_ptr fnct1=walk_forward;
 //fnct_ptr fnct1=walk_right;
 //fnct_ptr fnct1=walk_backward_turn_left;
 
@@ -99,7 +99,7 @@ void user_loop(void)
     case wait_start: if(is_button_rising_edge(BTN_START))
                      {
 		       valor_base = bno055_correction(exp_bno055_get_heading());
-                       action_set_page(31);
+                       action_set_page(30);
                        action_start_page();
                        state=wait_ready;
                      }
@@ -156,7 +156,10 @@ void user_loop(void)
       case correct_l: mtn_lib_stop_mtn();
 		      if(fnct2() == 0x01)
 		      {
-			state = walk;
+						state = walk;
+                       action_set_page(30);
+                       action_start_page();
+		
 		      }
 		      else
 		      {
@@ -167,7 +170,10 @@ void user_loop(void)
       case correct_r: mtn_lib_stop_mtn();
 		      if(fnct3() == 0x01)
 		      {
-			state = walk;
+					state = walk;
+                       action_set_page(30);
+                       action_start_page();
+			
 		      }
 		      else
 		      {

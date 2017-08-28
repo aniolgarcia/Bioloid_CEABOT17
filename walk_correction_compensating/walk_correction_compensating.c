@@ -102,7 +102,7 @@ void user_loop(void)
   {
     case wait_start: if(is_button_rising_edge(BTN_START))
                      {
-		       valor_base = bno055_correction(exp_bno055_get_heading());
+						valor_base = bno055_correction(exp_bno055_get_heading());
                        action_set_page(31);
                        action_start_page();
                        state=wait_ready;

@@ -8,7 +8,7 @@
 
 //Programa per testejar la funció turn angle i comprovar la seva precisió. Si s'apreta un botó lateral, el robot gira 45 graus en aquella direcció.
 
-typedef enum {wait_start, wait_ready, gir_dreta, gir_esquerra} main_states;
+typedef enum {wait_start, wait_ready, gir_dreta, gir_dreta2, gir_esquerra} main_states;
 typedef enum {t_init,t_middle,t_left,t_right,t_wait_end} turn_states;
 
 
@@ -90,6 +90,7 @@ uint8_t gira(int angle){
 	static int comp_ini = 0;
 	static int comp_end = 0;
 	int done = 0;
+	
 	
 	switch (s){
 		case t_init:
@@ -182,7 +183,7 @@ void user_loop(void)
   {
     case wait_start: if(is_button_rising_edge(BTN_START))
                      {
-		       valor_base = bno055_correction(exp_bno055_get_heading());
+					valor_base = bno055_correction(exp_bno055_get_heading());
                        action_set_page(31);
                        action_start_page();
                        state=wait_ready;
@@ -207,14 +208,19 @@ void user_loop(void)
                      break;
 		     
     case gir_dreta: 
-		  if (gira(45)==0x01){
+		  if (gira(90)==0x01){
+		    state = gir_dreta2;
+	       }
+	       break;
+	case gir_dreta2: 
+		  if (gira(90)==0x01){
 		    state = wait_ready;
 	       }
 	       break;
 	       
 	       
     case gir_esquerra: 
-		  if (gira(-45)==0x01){
+		  if (gira(-180)==0x01){
 		  state = wait_ready;
 	       }
 	       break;

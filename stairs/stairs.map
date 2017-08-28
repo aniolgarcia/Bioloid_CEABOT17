@@ -1,0 +1,2146 @@
+Archive member included because of file (symbol)
+
+/home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(cm510.o)
+                              /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/crtm2561.o (main)
+/home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(gpio.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(cm510.o) (pushbuttons_loop)
+/home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(adc.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(cm510.o) (adc_loop)
+/home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(buzzer.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(cm510.o) (buzzer_loop)
+/home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(user_time.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(cm510.o) (user_time_loop)
+/home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_manager.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(cm510.o) (manager_loop)
+/home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_manager.o) (action_init)
+/home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_pages.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o) (load_page_info)
+/home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(balance.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_manager.o) (balance_loop)
+/home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(mtn_library.o)
+                              main.o (mtn_lib_init)
+/home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(pan_tilt.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_manager.o) (pan_tilt_process)
+/home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel_master.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(cm510.o) (dyn_master_init)
+/home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(serial_console.o)
+                              main.o (serial_console_init)
+/home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel_master.o) (dyn_check_checksum)
+/home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(dyn_servos.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_manager.o) (get_angle_limits)
+/home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(exp_board.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_manager.o) (exp_board_loop_start)
+/home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(dyn_common.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_manager.o) (get_model_number)
+/usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_umulhisi3.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(user_time.o) (__umulhisi3)
+/usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_usmulhisi3.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o) (__usmulhisi3)
+/usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muluhisi3.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o) (__muluhisi3)
+/usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divmodhi4.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(adc.o) (__divmodhi4)
+/usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivmodsi4.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(adc.o) (__udivmodsi4)
+/usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divmodsi4.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o) (__divmodsi4)
+/usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divdi3.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o) (__divdi3)
+/usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivdi3.o)
+                              /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divdi3.o) (__udivdi3_umoddi3)
+/usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muldi3.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o) (__muldi3)
+/usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muldi3_6.o)
+                              /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muldi3.o) (__muldi3_6)
+/usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivmod64.o)
+                              /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divdi3.o) (__udivmod64)
+/usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_negsi2.o)
+                              /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divmodsi4.o) (__negsi2)
+/usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_negdi2.o)
+                              /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divdi3.o) (__negdi2)
+/usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_prologue.o)
+                              /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divdi3.o) (__prologue_saves__)
+/usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_epilogue.o)
+                              /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divdi3.o) (__epilogue_restores__)
+/usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_exit.o)
+                              /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/crtm2561.o (exit)
+/usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_tablejump.o)
+                              main.o (__tablejump2__)
+/usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_copy_data.o)
+                              main.o (__do_copy_data)
+/usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_clear_bss.o)
+                              main.o (__do_clear_bss)
+/usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_ashldi3.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o) (__ashldi3)
+/usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_adddi3.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o) (__adddi3)
+/usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_subdi3.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o) (__subdi3)
+/usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_cmpdi2_s8.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o) (__cmpdi2_s8)
+/usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivmodhi4.o)
+                              /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divmodhi4.o) (__udivmodhi4)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(addsf3.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(balance.o) (__subsf3)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(addsf3x.o)
+                              /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(addsf3.o) (__addsf3x)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(cmpsf2.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(balance.o) (__ltsf2)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(divsf3.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(balance.o) (__divsf3)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(divsf3x.o)
+                              /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(divsf3.o) (__divsf3x)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fixunssfsi.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(balance.o) (__fixunssfsi)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(floatsisf.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(balance.o) (__floatunsisf)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_cmp.o)
+                              /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(cmpsf2.o) (__fp_cmp)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_inf.o)
+                              /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(addsf3x.o) (__fp_inf)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_nan.o)
+                              /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(addsf3x.o) (__fp_nan)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_pscA.o)
+                              /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(addsf3x.o) (__fp_pscA)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_pscB.o)
+                              /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(addsf3x.o) (__fp_pscB)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_round.o)
+                              /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(addsf3.o) (__fp_round)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_split3.o)
+                              /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(addsf3x.o) (__fp_split3)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_zero.o)
+                              /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(addsf3x.o) (__fp_zero)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(mulsf3.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(balance.o) (__mulsf3)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(mulsf3x.o)
+                              /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(mulsf3.o) (__mulsf3x)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(sqrt.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(balance.o) (sqrt)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_mpack.o)
+                              /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(sqrt.o) (__fp_mpack)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_norm2.o)
+                              /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(sqrt.o) (__fp_norm2)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(fdevopen.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(serial_console.o) (fdevopen)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(iob.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(serial_console.o) (__iob)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(printf.o)
+                              main.o (printf)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(puts.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(mtn_library.o) (puts)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(vfprintf_std.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(serial_console.o) (vfprintf)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(vfscanf_std.o)
+                              /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(serial_console.o) (vfscanf)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(calloc.o)
+                              /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(fdevopen.o) (calloc)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(malloc.o)
+                              /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(calloc.o) (malloc)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(isspace.o)
+                              /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(vfscanf_std.o) (isspace)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(strchr_P.o)
+                              /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(vfscanf_std.o) (strchr_P)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(strnlen_P.o)
+                              /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(vfprintf_std.o) (strnlen_P)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(memset.o)
+                              /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(calloc.o) (memset)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(strnlen.o)
+                              /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(vfprintf_std.o) (strnlen)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(fgetc.o)
+                              /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(vfscanf_std.o) (fgetc)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(fputc.o)
+                              /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(vfprintf_std.o) (fputc)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(ungetc.o)
+                              /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(vfscanf_std.o) (ungetc)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(ultoa_invert.o)
+                              /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(vfprintf_std.o) (__ultoa_invert)
+/usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(cty_isfalse.o)
+                              /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(isspace.o) (__ctype_isfalse)
+
+Allocating common symbols
+Common symbol       size              file
+
+adc_voltage_alarm   0x1               /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(adc.o)
+balance_gyro_calibrated
+                    0x1               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(balance.o)
+ipGoalSpeed1024     0x3e              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+exp_board_dac_present
+                    0x1               /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(exp_board.o)
+dyn_master_rx_num_packets
+                    0x1               /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel_master.o)
+user_time_period    0x2               /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(user_time.o)
+step_count          0x2               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(mtn_library.o)
+ipMainSpeed1024     0x3e              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+adc_current_sample  0x1               /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(adc.o)
+dyn_master_return_level
+                    0x1               /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel_master.o)
+tilt_current_angle  0x4               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(pan_tilt.o)
+balance_robot_fallen_state
+                    0x1               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(balance.o)
+adc_avg_values      0xe               /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(adc.o)
+serial_console_tx_num_data
+                    0x1               /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(serial_console.o)
+serial_console_rx_num_data
+                    0x1               /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(serial_console.o)
+balance_offsets     0x40              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(balance.o)
+buzzer_playing_alarm
+                    0x1               /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(buzzer.o)
+action_next_page    0x200             /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+ipAccelAngle1024    0x3e              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+dyn_master_rx_buffer
+                    0x80              /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel_master.o)
+tilt_target_speed   0x4               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(pan_tilt.o)
+pan_moving          0x1               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(pan_tilt.o)
+dyn_master_sent_bytes
+                    0x1               /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel_master.o)
+dyn_master_sent_done
+                    0x1               /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel_master.o)
+pan_target_speed    0x4               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(pan_tilt.o)
+tilt_stoping        0x1               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(pan_tilt.o)
+manager_num_servos  0x1               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_manager.o)
+balance_enabled     0x1               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(balance.o)
+dyn_master_packet_ready
+                    0x1               /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel_master.o)
+bPlayRepeatCount    0x1               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+balance_y_gyro_center
+                    0x2               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(balance.o)
+wUnitTimeNum        0x2               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+buzzer_time_on_100ms
+                    0x2               /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(buzzer.o)
+exp_board_uart_usb_present
+                    0x1               /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(exp_board.o)
+__brkval            0x2               /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(malloc.o)
+user_time_done      0x1               /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(user_time.o)
+action_current_index
+                    0x1               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+user_time_time      0x2               /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(user_time.o)
+pan_servo_id        0x1               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(pan_tilt.o)
+action_current_page
+                    0x200             /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+serial_console_tx_buffer
+                    0x80              /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(serial_console.o)
+dyn_master_tx_buffer
+                    0x80              /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel_master.o)
+tilt_target_angle   0x4               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(pan_tilt.o)
+measureFFL          0x6               main.o
+exp_board_pwm_present
+                    0x1               /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(exp_board.o)
+button_right        0x5               /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(gpio.o)
+pan_current_angle   0x4               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(pan_tilt.o)
+dyn_master_baudrate
+                    0x4               /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel_master.o)
+mtn_lib_start_foot  0x1               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(mtn_library.o)
+tilt_servo_id       0x1               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(pan_tilt.o)
+measureLDR          0x6               main.o
+dyn_master_rx_no_answer
+                    0x1               /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel_master.o)
+action_stop         0x1               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+balance_x_gyro_center
+                    0x2               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(balance.o)
+exp_board_uart_ttl_present
+                    0x1               /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(exp_board.o)
+serial_console_rx_write_ptr
+                    0x1               /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(serial_console.o)
+measureFFR          0x6               main.o
+adc_ch_data         0xe0              /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(adc.o)
+ipMainAngle1024     0x3e              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+serial_console_sending
+                    0x1               /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(serial_console.o)
+tilt_moving         0x1               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(pan_tilt.o)
+mtn_lib_current_foot
+                    0x1               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(mtn_library.o)
+button_left         0x5               /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(gpio.o)
+buzzer_time_off_100ms
+                    0x2               /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(buzzer.o)
+wUnitTimeCount      0x2               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+button_start        0x5               /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(gpio.o)
+data                0x80              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_manager.o)
+mtn_lib_stop        0x1               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(mtn_library.o)
+pan_stoping         0x1               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(pan_tilt.o)
+step_angles         0x3e              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+packets             0x40              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_manager.o)
+ipMovingAngle1024   0x3e              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+buzzer_note         0x2               /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(buzzer.o)
+buzzer_playing      0x1               /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(buzzer.o)
+measureFDL          0x6               main.o
+button_down         0x5               /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(gpio.o)
+adc_current_ch      0x1               /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(adc.o)
+action_step_count   0x1               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+serial_console_rx_buffer
+                    0x80              /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(serial_console.o)
+exp_board_id        0x1               /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(exp_board.o)
+action_finished     0x1               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+wpTargetAngle1024   0x3e              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+servo_ids           0x20              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_manager.o)
+exp_board_int_data  0x37              /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(exp_board.o)
+measureLDL          0x6               main.o
+buzzer_note_freq    0x7               /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(buzzer.o)
+serial_console_rx_read_ptr
+                    0x1               /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(serial_console.o)
+wPauseTime          0x2               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+dyn_master_received_bytes
+                    0x1               /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel_master.o)
+action_is_running   0x1               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+user_time_period_done
+                    0x1               /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(user_time.o)
+exp_board_present   0x1               /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(exp_board.o)
+action_next_index   0x1               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+serial_console_tx_read_ptr
+                    0x1               /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(serial_console.o)
+__flp               0x2               /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(malloc.o)
+bpFinishType        0x1f              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+button_up           0x5               /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(gpio.o)
+wAccelStep          0x2               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+__iob               0x6               /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(iob.o)
+exp_board_num_servos
+                    0x1               /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(exp_board.o)
+dyn_master_rx_timeout_us
+                    0x2               /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel_master.o)
+wpStartAngle1024    0x3e              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+pan_target_angle    0x4               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(pan_tilt.o)
+wUnitTimeTotalNum   0x2               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+ipLastOutSpeed1024  0x3e              /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+adc_values          0xe               /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(adc.o)
+measureFDR          0x6               main.o
+manager_servos      0x200             /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_manager.o)
+bSection            0x1               /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+user_time_single    0x1               /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(user_time.o)
+serial_console_tx_write_ptr
+                    0x1               /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(serial_console.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+text             0x0000000000000000 0x0000000000100000 xr
+data             0x0000000000800200 0x000000000000fe00 rw !x
+eeprom           0x0000000000810000 0x0000000000010000 rw !x
+fuse             0x0000000000820000 0x0000000000000400 rw !x
+lock             0x0000000000830000 0x0000000000000400 rw !x
+signature        0x0000000000840000 0x0000000000000400 rw !x
+user_signatures  0x0000000000850000 0x0000000000000400 rw !x
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+Address of section .data set to 0x800200
+LOAD /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/crtm2561.o
+LOAD main.o
+LOAD small_steps.o
+LOAD /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a
+LOAD /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a
+LOAD /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a
+LOAD /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a
+START GROUP
+LOAD /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a
+LOAD /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a
+LOAD /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a
+END GROUP
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.text
+ *(.rel.text)
+ *(.rel.text.*)
+ *(.rel.gnu.linkonce.t*)
+
+.rela.text
+ *(.rela.text)
+ *(.rela.text.*)
+ *(.rela.gnu.linkonce.t*)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.rodata
+ *(.rel.rodata)
+ *(.rel.rodata.*)
+ *(.rel.gnu.linkonce.r*)
+
+.rela.rodata
+ *(.rela.rodata)
+ *(.rela.rodata.*)
+ *(.rela.gnu.linkonce.r*)
+
+.rel.data
+ *(.rel.data)
+ *(.rel.data.*)
+ *(.rel.gnu.linkonce.d*)
+
+.rela.data
+ *(.rela.data)
+ *(.rela.data.*)
+ *(.rela.gnu.linkonce.d*)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.bss
+ *(.rel.bss)
+
+.rela.bss
+ *(.rela.bss)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.text           0x0000000000000000     0xad6a
+ *(.vectors)
+ .vectors       0x0000000000000000       0xcc /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/crtm2561.o
+                0x0000000000000000                __vectors
+                0x0000000000000000                __vector_default
+ *(.vectors)
+ *(.progmem.gcc*)
+ .progmem.gcc_sw_table
+                0x00000000000000cc       0x1c main.o
+ .progmem.gcc_sw_table
+                0x00000000000000e8      0x200 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(gpio.o)
+ .progmem.gcc_sw_table
+                0x00000000000002e8       0x10 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(mtn_library.o)
+ *(.progmem*)
+ .progmem.data  0x00000000000002f8        0xc /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(vfscanf_std.o)
+                0x0000000000000304                . = ALIGN (0x2)
+                0x0000000000000304                __trampolines_start = .
+ *(.trampolines)
+ .trampolines   0x0000000000000304       0xdc linker stubs
+ *(.trampolines*)
+                0x00000000000003e0                __trampolines_end = .
+ *(.jumptables)
+ *(.jumptables*)
+ *(.lowtext)
+ *(.lowtext*)
+                0x00000000000003e0                __ctors_start = .
+ *(.ctors)
+                0x00000000000003e0                __ctors_end = .
+                0x00000000000003e0                __dtors_start = .
+ *(.dtors)
+                0x00000000000003e0                __dtors_end = .
+ SORT(*)(.ctors)
+ SORT(*)(.dtors)
+ *(.init0)
+ .init0         0x00000000000003e0        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/crtm2561.o
+                0x00000000000003e0                __init
+ *(.init0)
+ *(.init1)
+ *(.init1)
+ *(.init2)
+ .init2         0x00000000000003e0       0x10 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/crtm2561.o
+ *(.init2)
+ *(.init3)
+ *(.init3)
+ *(.init4)
+ .init4         0x00000000000003f0       0x1a /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_copy_data.o)
+                0x00000000000003f0                __do_copy_data
+ .init4         0x000000000000040a       0x10 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_clear_bss.o)
+                0x000000000000040a                __do_clear_bss
+ *(.init4)
+ *(.init5)
+ *(.init5)
+ *(.init6)
+ *(.init6)
+ *(.init7)
+ *(.init7)
+ *(.init8)
+ *(.init8)
+ *(.init9)
+ .init9         0x000000000000041a        0x8 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/crtm2561.o
+ *(.init9)
+ *(.text)
+ .text          0x0000000000000422        0x4 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/crtm2561.o
+                0x0000000000000422                __vector_22
+                0x0000000000000422                __vector_28
+                0x0000000000000422                __vector_1
+                0x0000000000000422                __vector_32
+                0x0000000000000422                __vector_34
+                0x0000000000000422                __vector_24
+                0x0000000000000422                __vector_12
+                0x0000000000000422                __vector_46
+                0x0000000000000422                __bad_interrupt
+                0x0000000000000422                __vector_6
+                0x0000000000000422                __vector_31
+                0x0000000000000422                __vector_35
+                0x0000000000000422                __vector_39
+                0x0000000000000422                __vector_3
+                0x0000000000000422                __vector_23
+                0x0000000000000422                __vector_30
+                0x0000000000000422                __vector_45
+                0x0000000000000422                __vector_11
+                0x0000000000000422                __vector_13
+                0x0000000000000422                __vector_17
+                0x0000000000000422                __vector_19
+                0x0000000000000422                __vector_7
+                0x0000000000000422                __vector_49
+                0x0000000000000422                __vector_41
+                0x0000000000000422                __vector_43
+                0x0000000000000422                __vector_5
+                0x0000000000000422                __vector_33
+                0x0000000000000422                __vector_47
+                0x0000000000000422                __vector_37
+                0x0000000000000422                __vector_4
+                0x0000000000000422                __vector_44
+                0x0000000000000422                __vector_9
+                0x0000000000000422                __vector_2
+                0x0000000000000422                __vector_21
+                0x0000000000000422                __vector_15
+                0x0000000000000422                __vector_29
+                0x0000000000000422                __vector_40
+                0x0000000000000422                __vector_8
+                0x0000000000000422                __vector_26
+                0x0000000000000422                __vector_48
+                0x0000000000000422                __vector_14
+                0x0000000000000422                __vector_10
+                0x0000000000000422                __vector_50
+                0x0000000000000422                __vector_16
+                0x0000000000000422                __vector_18
+                0x0000000000000422                __vector_20
+                0x0000000000000422                __vector_42
+ .text          0x0000000000000426      0x76c main.o
+                0x0000000000000426                compass_diff
+                0x0000000000000448                reset_measures
+                0x00000000000004aa                set_measures
+                0x0000000000000590                user_init
+                0x00000000000005b8                user_loop
+ .text          0x0000000000000b92      0x338 small_steps.o
+                0x0000000000000b92                walk_stairs_SL
+                0x0000000000000bf6                walk_stairs_SR
+                0x0000000000000c5a                walk_back_SL
+                0x0000000000000cbe                walk_back_SR
+                0x0000000000000d22                walk_stairs
+                0x0000000000000d2e                walk_back
+                0x0000000000000d3a                walk_left_SL
+                0x0000000000000d9e                walk_right_SR
+                0x0000000000000e02                turn_right_SR
+                0x0000000000000e66                turn_left_SL
+ .text          0x0000000000000eca       0x14 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(cm510.o)
+                0x0000000000000eca                init_cm510
+ .text          0x0000000000000ede      0x4be /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(gpio.o)
+                0x0000000000000ede                pushbuttons_loop
+                0x00000000000010da                init_leds
+                0x0000000000001148                turn_led_on
+                0x0000000000001178                turn_led_off
+                0x00000000000011a8                toggle_led
+                0x0000000000001202                is_led_on
+                0x000000000000124c                init_buttons
+                0x000000000000125e                is_button_pressed
+                0x00000000000012c8                is_button_rising_edge
+                0x0000000000001332                is_button_falling_edge
+ .text          0x000000000000139c      0xae8 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(adc.o)
+                0x000000000000139c                adc_set_channel
+                0x00000000000013d6                adc_set_sample_period
+                0x000000000000159c                adc_start_conv
+                0x00000000000015a8                adc_is_conversion_done
+                0x00000000000015b2                adc_is_period_done
+                0x00000000000015ba                adc_loop
+                0x000000000000186c                init_adc
+                0x0000000000001e60                get_adc_channel
+                0x0000000000001e72                get_adc_avg_channel
+ .text          0x0000000000001e84      0x366 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(buzzer.o)
+                0x0000000000001e84                buzzer_loop
+                0x0000000000001f64                buzzer_stop_alarm
+                0x0000000000001f7e                buzzer_start_alarm
+                0x0000000000002004                init_buzzer
+                0x00000000000020e8                buzzer_start
+                0x000000000000214a                buzzer_change_note
+                0x0000000000002184                buzzer_change_on_time
+                0x00000000000021a0                buzzer_change_off_time
+                0x00000000000021bc                buzzer_stop
+                0x00000000000021de                buzzer_is_playing
+                0x00000000000021e4                buzzer_is_playing_alarm
+ .text          0x00000000000021ea      0x19e /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(user_time.o)
+                0x00000000000021ea                user_time_loop
+                0x0000000000002258                init_user_time
+                0x00000000000022bc                user_time_set_period
+                0x0000000000002300                user_time_set_one_time
+                0x0000000000002346                user_time_is_period_done
+                0x0000000000002358                user_time_is_done
+                0x000000000000236a                user_time_stop
+ .text          0x0000000000002388      0x4ca /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_manager.o)
+                0x0000000000002388                manager_timer_init
+                0x00000000000023d6                manager_period_done
+                0x00000000000023ec                manager_send_motion_command
+                0x00000000000024fe                manager_set_servo_slope
+                0x000000000000250e                manager_get_servo_slope
+                0x000000000000251e                manager_set_servo_value
+                0x0000000000002530                manager_get_servo_value
+                0x0000000000002542                manager_get_servo_module
+                0x0000000000002552                manager_get_cw_servo_limit
+                0x0000000000002562                manager_get_ccw_servo_limit
+                0x0000000000002572                manager_loop
+                0x00000000000025ae                manager_init
+ .text          0x0000000000002852     0x1190 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+                0x0000000000002852                action_init
+                0x000000000000286e                action_set_page
+                0x0000000000002886                action_start_page
+                0x0000000000002918                action_stop_page
+                0x0000000000002920                is_action_running
+                0x0000000000002926                action_process
+ .text          0x00000000000039e2       0xdc /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_pages.o)
+                0x00000000000039e2                pages_check_checksum
+                0x0000000000003a02                pages_clear_page
+                0x0000000000003a14                pages_copy_page
+                0x0000000000003a32                load_page_info
+ .text          0x0000000000003abe      0x74a /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(balance.o)
+                0x0000000000003abe                balance_loop
+                0x0000000000003c28                balance_get_offset
+                0x0000000000003c3a                balance_get_all_offsets
+                0x0000000000003c46                balance_init
+                0x0000000000003c72                balance_robot_has_fallen
+                0x0000000000003c7c                balance_reset_fall_state
+                0x0000000000003c82                balance_calibrate_gyro
+                0x00000000000041f4                balance_enable_gyro
+                0x00000000000041fc                balance_disable_gyro
+                0x0000000000004202                balance_is_gyro_enabled
+ .text          0x0000000000004208     0x22f2 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(mtn_library.o)
+                0x0000000000004208                mtn_lib_full
+                0x0000000000004338                mtn_lib_left
+                0x0000000000004450                mtn_lib_right
+                0x000000000000456a                change_foot
+                0x0000000000004580                compass_deviation
+                0x00000000000045a8                add_angles
+                0x00000000000045c8                mtn_lib_init
+                0x00000000000045de                mtn_lib_stop_mtn
+                0x00000000000045e6                mtn_lib_set_start_foot
+                0x00000000000045ec                reset_steps
+                0x00000000000045f6                get_steps
+                0x0000000000004600                walk_forward
+                0x0000000000004724                walk_backward
+                0x0000000000004848                turn_left
+                0x0000000000004954                turn_right
+                0x0000000000004a62                walk_left
+                0x0000000000004b6e                walk_right
+                0x0000000000004c7c                walk_forward_turn_left
+                0x0000000000004d88                walk_forward_turn_right
+                0x0000000000004e96                walk_backward_turn_left
+                0x0000000000004fa2                walk_backward_turn_right
+                0x00000000000050b0                walk_forward_left
+                0x00000000000051bc                walk_forward_right
+                0x00000000000052ca                walk_backward_left
+                0x00000000000053d6                walk_backward_right
+                0x00000000000054e4                fast_walk_forward
+                0x0000000000005608                fast_walk_backward
+                0x000000000000572c                fast_turn_left
+                0x000000000000572e                fast_turn_right
+                0x0000000000005730                fast_walk_left
+                0x0000000000005732                fast_walk_right
+                0x0000000000005734                fast_walk_forward_turn_left
+                0x0000000000005736                fast_walk_forward_turn_right
+                0x0000000000005738                fast_walk_backward_turn_left
+                0x000000000000573a                fast_walk_backward_turn_right
+                0x000000000000573c                walk_forward_compensating
+                0x00000000000059e8                walk_backward_compensating
+                0x0000000000005c96                get_up_process
+                0x0000000000005d28                stairs_up_process
+                0x0000000000005e66                stairs_down_process
+                0x0000000000005f26                walk_left_compensating
+                0x00000000000060e0                walk_right_compensating
+                0x0000000000006298                turn_angle
+ .text          0x00000000000064fa      0x988 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(pan_tilt.o)
+                0x00000000000064fa                pan_tilt_init
+                0x00000000000065b4                pan_tilt_move_angles
+                0x0000000000006856                pan_move_angle
+                0x00000000000069b4                pan_set_speed
+                0x00000000000069ee                pan_stop
+                0x00000000000069f6                pan_is_moving
+                0x00000000000069fc                tilt_move_angle
+                0x0000000000006b5a                tilt_set_speed
+                0x0000000000006b94                tilt_stop
+                0x0000000000006b9c                tilt_is_moving
+                0x0000000000006ba2                pan_tilt_process
+ .text          0x0000000000006e82      0x8c0 /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel_master.o)
+                0x0000000000006e82                dyn_master_start_timeout
+                0x0000000000006ea8                dyn_master_cancel_timeout
+                0x0000000000006eb0                dyn_master_timeout
+                0x0000000000006eb6                dyn_master_set_tx_mode
+                0x0000000000006ebc                dyn_master_set_rx_mode
+                0x0000000000006ec2                __vector_27
+                0x0000000000006f48                __vector_25
+                0x0000000000006ffe                dyn_master_wait_transmission
+                0x0000000000007028                dyn_master_send
+                0x000000000000703a                dyn_master_wait_reception
+                0x0000000000007094                dyn_master_init
+                0x0000000000007100                dyn_master_is_init
+                0x0000000000007106                dyn_master_set_rx_timeout
+                0x000000000000711c                dyn_master_set_return_level
+                0x0000000000007122                dyn_master_get_return_level
+                0x0000000000007128                dyn_master_set_baudrate
+                0x0000000000007146                dyn_master_get_baudrate
+                0x0000000000007158                dyn_master_ping
+                0x00000000000071aa                dyn_master_scan
+                0x00000000000071ea                dyn_master_start_read_table
+                0x000000000000725c                dyn_master_wait_read_table
+                0x000000000000729e                dyn_master_read_table
+                0x000000000000734c                dyn_master_read_byte
+                0x0000000000007356                dyn_master_read_word
+                0x0000000000007398                dyn_master_write_table
+                0x0000000000007434                dyn_master_write_byte
+                0x0000000000007456                dyn_master_write_word
+                0x000000000000747e                dyn_master_reg_write
+                0x000000000000751e                dyn_master_action
+                0x0000000000007566                dyn_master_sync_write
+                0x00000000000075e4                dyn_master_bulk_read
+ .text          0x0000000000007742      0x2e4 /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(serial_console.o)
+                0x0000000000007742                serial_console_getchar
+                0x0000000000007786                serial_console_putchar
+                0x0000000000007818                __vector_36
+                0x0000000000007876                __vector_38
+                0x00000000000078da                serial_console_set_baudrate
+                0x00000000000078f8                serial_console_init
+                0x0000000000007940                serial_console_get_num_data
+                0x0000000000007946                cm510_printf
+                0x000000000000796a                cm510_scanf
+                0x000000000000798e                cm510_read
+                0x00000000000079ce                cm510_write
+ .text          0x0000000000007a26      0x4b8 /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel.o)
+                0x0000000000007a26                dyn_set_checksum
+                0x0000000000007a5a                dyn_check_checksum
+                0x0000000000007a90                dyn_copy_packet
+                0x0000000000007aac                dyn_get_id
+                0x0000000000007ab2                dyn_get_length
+                0x0000000000007ab8                dyn_get_instruction
+                0x0000000000007abe                dyn_init_ping_packet
+                0x0000000000007ad6                dyn_init_read_packet
+                0x0000000000007af2                dyn_get_read_length
+                0x0000000000007af8                dyn_get_read_address
+                0x0000000000007afe                dyn_init_write_packet
+                0x0000000000007b40                dyn_get_write_address
+                0x0000000000007b46                dyn_get_write_length
+                0x0000000000007b4e                dyn_get_write_data
+                0x0000000000007b88                dyn_init_reg_write_packet
+                0x0000000000007bca                dyn_get_reg_write_address
+                0x0000000000007bd0                dyn_get_reg_write_length
+                0x0000000000007bd8                dyn_get_reg_write_data
+                0x0000000000007c12                dyn_init_action_packet
+                0x0000000000007c2c                dyn_init_reset_packet
+                0x0000000000007c44                dyn_init_sync_write_packet
+                0x0000000000007cec                dyn_sync_write_id_present
+                0x0000000000007d84                dyn_init_bulk_read_packet
+                0x0000000000007dfe                dyn_bulk_read_id_present
+                0x0000000000007e60                dyn_init_status_packet
+                0x0000000000007e9e                dyn_get_status_error
+                0x0000000000007ea4                dyn_get_read_status_data
+ .text          0x0000000000007ede      0x78a /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(dyn_servos.o)
+                0x0000000000007ede                get_angle_limits
+                0x0000000000007f20                set_angle_limits
+                0x0000000000007f62                get_temperature_limit
+                0x0000000000007f92                set_temperature_limit
+                0x0000000000007faa                get_voltage_limits
+                0x0000000000007fec                set_voltage_limits
+                0x0000000000008028                get_max_torque
+                0x0000000000008062                set_max_torque
+                0x000000000000807a                get_led_alarm
+                0x00000000000080aa                set_led_alarm
+                0x00000000000080c2                get_shd_alarm
+                0x00000000000080f2                set_shd_alarm
+                0x000000000000810a                set_wheel_mode
+                0x0000000000008142                set_joint_mode
+                0x000000000000817a                is_joint_mode
+                0x00000000000081d6                enable_servo
+                0x00000000000081ee                disable_servo
+                0x0000000000008206                is_servo_enabled
+                0x0000000000008236                turn_servo_led_on
+                0x000000000000824e                turn_servo_led_off
+                0x0000000000008266                is_servo_led_on
+                0x0000000000008296                get_compliance_margin
+                0x00000000000082d8                set_compliance_margin
+                0x0000000000008314                get_compliance_slope
+                0x0000000000008356                set_compliance_slope
+                0x0000000000008392                get_pid_params
+                0x0000000000008396                set_pid_params
+                0x000000000000839a                get_target_position
+                0x00000000000083d4                set_target_position
+                0x00000000000083ec                get_target_speed
+                0x0000000000008426                set_target_speed
+                0x000000000000843e                get_torque_limit
+                0x0000000000008478                set_torque_limit
+                0x0000000000008490                get_current_position
+                0x00000000000084ca                get_current_speed
+                0x0000000000008504                get_current_load
+                0x000000000000853e                get_current_voltage
+                0x000000000000856e                get_current_temperature
+                0x000000000000859e                is_moving
+                0x00000000000085ce                is_locked
+                0x00000000000085fe                lock
+                0x0000000000008616                get_punch
+                0x0000000000008650                set_punch
+ .text          0x0000000000008668      0xdb2 /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(exp_board.o)
+                0x0000000000008668                exp_board_loop_start
+                0x000000000000867c                exp_board_loop_read
+                0x0000000000008690                exp_board_loop
+                0x00000000000086a4                exp_board_init
+                0x000000000000876e                exp_board_is_present
+                0x0000000000008774                exp_adc_start
+                0x0000000000008790                exp_adc_stop
+                0x00000000000087ac                exp_adc_is_running
+                0x00000000000087e6                exp_adc_set_average_samples
+                0x0000000000008802                exp_adc_get_average_samples
+                0x0000000000008836                exp_adc_set_sample_period
+                0x0000000000008852                exp_adc_get_sample_period
+                0x0000000000008886                exp_adc_get_channel
+                0x00000000000088a2                exp_adc_get_avg_channel
+                0x00000000000088be                exp_gpio_config
+                0x00000000000088e8                exp_gpio_get_value
+                0x00000000000088f4                exp_gpio_set_value
+                0x000000000000891e                exp_gpio_set_led
+                0x000000000000893a                exp_gpio_clear_led
+                0x0000000000008956                exp_gpio_get_switches
+                0x000000000000898a                exp_pwm_start
+                0x00000000000089b2                exp_pwm_stop
+                0x00000000000089da                exp_pwm_is_running
+                0x0000000000008a16                exp_pwm_enable_ch
+                0x0000000000008a4e                exp_pwm_disable_ch
+                0x0000000000008a86                exp_pwm_is_channel_enabled
+                0x0000000000008ae2                exp_pwm_set_frequency
+                0x0000000000008b0a                exp_pwm_get_frequency
+                0x0000000000008b48                exp_pwm_set_duty_cycle
+                0x0000000000008b7a                exp_pwm_get_duty_cycle
+                0x0000000000008bb8                exp_pwm_num_servos
+                0x0000000000008bbe                exp_dac_start
+                0x0000000000008be6                exp_dac_stop
+                0x0000000000008c0e                exp_dac_is_running
+                0x0000000000008c48                exp_dac_enable_ch
+                0x0000000000008c7e                exp_dac_disable_ch
+                0x0000000000008cb4                exp_dac_is_channel_enabled
+                0x0000000000008d10                exp_dac_set_voltage
+                0x0000000000008d68                exp_dac_get_voltage
+                0x0000000000008dca                exp_compass_start
+                0x0000000000008de6                exp_compass_stop
+                0x0000000000008e02                exp_compass_is_running
+                0x0000000000008e3c                exp_compass_start_calibration
+                0x0000000000008e58                exp_compass_stop_calibration
+                0x0000000000008e74                exp_compass_is_calibrating
+                0x0000000000008eae                exp_compass_get_heading
+                0x0000000000008ec2                exp_compass_get_avg_heading
+                0x0000000000008ed6                exp_compass_set_avg_samples
+                0x0000000000008ef2                exp_compass_get_avg_samples
+                0x0000000000008f26                exp_uart_ttl_start
+                0x0000000000008f4e                exp_uart_ttl_stop
+                0x0000000000008f76                exp_uart_ttl_is_running
+                0x0000000000008fb2                exp_uart_ttl_set_baudrate
+                0x0000000000008fda                exp_uart_ttl_get_baudrate
+                0x0000000000009018                exp_uart_ttl_send_byte
+                0x0000000000009040                exp_uart_ttl_is_sending
+                0x000000000000907c                exp_uart_ttl_send_vector
+                0x000000000000912e                exp_uart_ttl_is_data_available
+                0x000000000000916a                exp_uart_ttl_receive_data
+                0x00000000000091a0                exp_uart_usb_start
+                0x00000000000091c8                exp_uart_usb_stop
+                0x00000000000091f0                exp_uart_usb_is_running
+                0x000000000000922c                exp_uart_usb_set_baudrate
+                0x0000000000009254                exp_uart_usb_get_baudrate
+                0x0000000000009292                exp_uart_usb_send_byte
+                0x00000000000092ba                exp_uart_usb_is_sending
+                0x00000000000092f6                exp_uart_usb_send_vector
+                0x00000000000093a8                exp_uart_usb_is_data_available
+                0x00000000000093e4                exp_uart_usb_receive_data
+ .text          0x000000000000941a       0xca /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(dyn_common.o)
+                0x000000000000941a                get_model_number
+                0x0000000000009454                get_firmware_version
+                0x0000000000009484                set_servo_id
+                0x000000000000949c                get_baudrate
+                0x00000000000094cc                set_baudrate
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_umulhisi3.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_usmulhisi3.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muluhisi3.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divmodhi4.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivmodsi4.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divmodsi4.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divdi3.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivdi3.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muldi3.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muldi3_6.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivmod64.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_negsi2.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_negdi2.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_prologue.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_epilogue.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_exit.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_tablejump.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_copy_data.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_clear_bss.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_ashldi3.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_adddi3.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_subdi3.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_cmpdi2_s8.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivmodhi4.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(addsf3.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(addsf3x.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(cmpsf2.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(divsf3.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(divsf3x.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fixunssfsi.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(floatsisf.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_cmp.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_inf.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_nan.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_pscA.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_pscB.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_round.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_split3.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_zero.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(mulsf3.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(mulsf3x.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(sqrt.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_mpack.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_norm2.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(fdevopen.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(iob.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(printf.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(puts.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(vfprintf_std.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(vfscanf_std.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(calloc.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(malloc.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(isspace.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(strchr_P.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(strnlen_P.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(memset.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(strnlen.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(fgetc.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(fputc.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(ungetc.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(ultoa_invert.o)
+ .text          0x00000000000094e4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(cty_isfalse.o)
+                0x00000000000094e4                . = ALIGN (0x2)
+ *(.text.*)
+ .text.startup  0x00000000000094e4       0x56 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(cm510.o)
+                0x00000000000094e4                main
+ .text.libgcc.mul
+                0x000000000000953a       0x1e /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_umulhisi3.o)
+                0x000000000000953a                __umulhisi3
+ .text.libgcc.div
+                0x0000000000009558        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_umulhisi3.o)
+ .text.libgcc   0x0000000000009558        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_umulhisi3.o)
+ .text.libgcc.prologue
+                0x0000000000009558        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_umulhisi3.o)
+ .text.libgcc.builtins
+                0x0000000000009558        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_umulhisi3.o)
+ .text.libgcc.fmul
+                0x0000000000009558        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_umulhisi3.o)
+ .text.libgcc.fixed
+                0x0000000000009558        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_umulhisi3.o)
+ .text.libgcc.mul
+                0x0000000000009558        0xe /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_usmulhisi3.o)
+                0x0000000000009558                __usmulhisi3
+                0x000000000000955c                __usmulhisi3_tail
+ .text.libgcc.div
+                0x0000000000009566        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_usmulhisi3.o)
+ .text.libgcc   0x0000000000009566        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_usmulhisi3.o)
+ .text.libgcc.prologue
+                0x0000000000009566        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_usmulhisi3.o)
+ .text.libgcc.builtins
+                0x0000000000009566        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_usmulhisi3.o)
+ .text.libgcc.fmul
+                0x0000000000009566        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_usmulhisi3.o)
+ .text.libgcc.fixed
+                0x0000000000009566        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_usmulhisi3.o)
+ .text.libgcc.mul
+                0x0000000000009566       0x16 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muluhisi3.o)
+                0x0000000000009566                __muluhisi3
+ .text.libgcc.div
+                0x000000000000957c        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muluhisi3.o)
+ .text.libgcc   0x000000000000957c        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muluhisi3.o)
+ .text.libgcc.prologue
+                0x000000000000957c        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muluhisi3.o)
+ .text.libgcc.builtins
+                0x000000000000957c        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muluhisi3.o)
+ .text.libgcc.fmul
+                0x000000000000957c        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muluhisi3.o)
+ .text.libgcc.fixed
+                0x000000000000957c        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muluhisi3.o)
+ .text.libgcc.mul
+                0x000000000000957c        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divmodhi4.o)
+ .text.libgcc.div
+                0x000000000000957c       0x28 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divmodhi4.o)
+                0x000000000000957c                __divmodhi4
+                0x000000000000957c                _div
+ .text.libgcc   0x00000000000095a4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divmodhi4.o)
+ .text.libgcc.prologue
+                0x00000000000095a4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divmodhi4.o)
+ .text.libgcc.builtins
+                0x00000000000095a4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divmodhi4.o)
+ .text.libgcc.fmul
+                0x00000000000095a4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divmodhi4.o)
+ .text.libgcc.fixed
+                0x00000000000095a4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divmodhi4.o)
+ .text.libgcc.mul
+                0x00000000000095a4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivmodsi4.o)
+ .text.libgcc.div
+                0x00000000000095a4       0x44 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivmodsi4.o)
+                0x00000000000095a4                __udivmodsi4
+ .text.libgcc   0x00000000000095e8        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivmodsi4.o)
+ .text.libgcc.prologue
+                0x00000000000095e8        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivmodsi4.o)
+ .text.libgcc.builtins
+                0x00000000000095e8        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivmodsi4.o)
+ .text.libgcc.fmul
+                0x00000000000095e8        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivmodsi4.o)
+ .text.libgcc.fixed
+                0x00000000000095e8        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivmodsi4.o)
+ .text.libgcc.mul
+                0x00000000000095e8        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divmodsi4.o)
+ .text.libgcc.div
+                0x00000000000095e8       0x2e /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divmodsi4.o)
+                0x00000000000095e8                __divmodsi4
+ .text.libgcc   0x0000000000009616        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divmodsi4.o)
+ .text.libgcc.prologue
+                0x0000000000009616        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divmodsi4.o)
+ .text.libgcc.builtins
+                0x0000000000009616        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divmodsi4.o)
+ .text.libgcc.fmul
+                0x0000000000009616        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divmodsi4.o)
+ .text.libgcc.fixed
+                0x0000000000009616        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divmodsi4.o)
+ .text.libgcc.mul
+                0x0000000000009616        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divdi3.o)
+ .text.libgcc.div
+                0x0000000000009616       0x62 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divdi3.o)
+                0x0000000000009616                __moddi3
+                0x000000000000961a                __divdi3
+                0x000000000000961c                __divdi3_moddi3
+ .text.libgcc   0x0000000000009678        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divdi3.o)
+ .text.libgcc.prologue
+                0x0000000000009678        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divdi3.o)
+ .text.libgcc.builtins
+                0x0000000000009678        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divdi3.o)
+ .text.libgcc.fmul
+                0x0000000000009678        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divdi3.o)
+ .text.libgcc.fixed
+                0x0000000000009678        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divdi3.o)
+ .text.libgcc.mul
+                0x0000000000009678        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivdi3.o)
+ .text.libgcc.div
+                0x0000000000009678       0x1c /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivdi3.o)
+                0x0000000000009678                __umoddi3
+                0x000000000000967c                __udivdi3
+                0x000000000000967e                __udivdi3_umoddi3
+ .text.libgcc   0x0000000000009694        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivdi3.o)
+ .text.libgcc.prologue
+                0x0000000000009694        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivdi3.o)
+ .text.libgcc.builtins
+                0x0000000000009694        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivdi3.o)
+ .text.libgcc.fmul
+                0x0000000000009694        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivdi3.o)
+ .text.libgcc.fixed
+                0x0000000000009694        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivdi3.o)
+ .text.libgcc.mul
+                0x0000000000009694       0xa0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muldi3.o)
+                0x0000000000009694                __muldi3
+ .text.libgcc.div
+                0x0000000000009734        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muldi3.o)
+ .text.libgcc   0x0000000000009734        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muldi3.o)
+ .text.libgcc.prologue
+                0x0000000000009734        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muldi3.o)
+ .text.libgcc.builtins
+                0x0000000000009734        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muldi3.o)
+ .text.libgcc.fmul
+                0x0000000000009734        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muldi3.o)
+ .text.libgcc.fixed
+                0x0000000000009734        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muldi3.o)
+ .text.libgcc.mul
+                0x0000000000009734       0x12 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muldi3_6.o)
+                0x0000000000009734                __muldi3_6
+ .text.libgcc.div
+                0x0000000000009746        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muldi3_6.o)
+ .text.libgcc   0x0000000000009746        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muldi3_6.o)
+ .text.libgcc.prologue
+                0x0000000000009746        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muldi3_6.o)
+ .text.libgcc.builtins
+                0x0000000000009746        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muldi3_6.o)
+ .text.libgcc.fmul
+                0x0000000000009746        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muldi3_6.o)
+ .text.libgcc.fixed
+                0x0000000000009746        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muldi3_6.o)
+ .text.libgcc.mul
+                0x0000000000009746        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivmod64.o)
+ .text.libgcc.div
+                0x0000000000009746       0xa2 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivmod64.o)
+                0x0000000000009746                __udivmod64
+ .text.libgcc   0x00000000000097e8        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivmod64.o)
+ .text.libgcc.prologue
+                0x00000000000097e8        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivmod64.o)
+ .text.libgcc.builtins
+                0x00000000000097e8        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivmod64.o)
+ .text.libgcc.fmul
+                0x00000000000097e8        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivmod64.o)
+ .text.libgcc.fixed
+                0x00000000000097e8        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivmod64.o)
+ .text.libgcc.mul
+                0x00000000000097e8        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_negsi2.o)
+ .text.libgcc.div
+                0x00000000000097e8       0x10 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_negsi2.o)
+                0x00000000000097e8                __negsi2
+ .text.libgcc   0x00000000000097f8        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_negsi2.o)
+ .text.libgcc.prologue
+                0x00000000000097f8        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_negsi2.o)
+ .text.libgcc.builtins
+                0x00000000000097f8        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_negsi2.o)
+ .text.libgcc.fmul
+                0x00000000000097f8        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_negsi2.o)
+ .text.libgcc.fixed
+                0x00000000000097f8        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_negsi2.o)
+ .text.libgcc.mul
+                0x00000000000097f8        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_negdi2.o)
+ .text.libgcc.div
+                0x00000000000097f8        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_negdi2.o)
+ .text.libgcc   0x00000000000097f8       0x20 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_negdi2.o)
+                0x00000000000097f8                __negdi2
+ .text.libgcc.prologue
+                0x0000000000009818        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_negdi2.o)
+ .text.libgcc.builtins
+                0x0000000000009818        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_negdi2.o)
+ .text.libgcc.fmul
+                0x0000000000009818        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_negdi2.o)
+ .text.libgcc.fixed
+                0x0000000000009818        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_negdi2.o)
+ .text.libgcc.mul
+                0x0000000000009818        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_prologue.o)
+ .text.libgcc.div
+                0x0000000000009818        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_prologue.o)
+ .text.libgcc   0x0000000000009818        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_prologue.o)
+ .text.libgcc.prologue
+                0x0000000000009818       0x38 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_prologue.o)
+                0x0000000000009818                __prologue_saves__
+ .text.libgcc.builtins
+                0x0000000000009850        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_prologue.o)
+ .text.libgcc.fmul
+                0x0000000000009850        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_prologue.o)
+ .text.libgcc.fixed
+                0x0000000000009850        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_prologue.o)
+ .text.libgcc.mul
+                0x0000000000009850        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_epilogue.o)
+ .text.libgcc.div
+                0x0000000000009850        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_epilogue.o)
+ .text.libgcc   0x0000000000009850        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_epilogue.o)
+ .text.libgcc.prologue
+                0x0000000000009850       0x36 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_epilogue.o)
+                0x0000000000009850                __epilogue_restores__
+ .text.libgcc.builtins
+                0x0000000000009886        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_epilogue.o)
+ .text.libgcc.fmul
+                0x0000000000009886        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_epilogue.o)
+ .text.libgcc.fixed
+                0x0000000000009886        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_epilogue.o)
+ .text.libgcc.mul
+                0x0000000000009886        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_exit.o)
+ .text.libgcc.div
+                0x0000000000009886        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_exit.o)
+ .text.libgcc   0x0000000000009886        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_exit.o)
+ .text.libgcc.prologue
+                0x0000000000009886        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_exit.o)
+ .text.libgcc.builtins
+                0x0000000000009886        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_exit.o)
+ .text.libgcc.fmul
+                0x0000000000009886        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_exit.o)
+ .text.libgcc.fixed
+                0x0000000000009886        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_exit.o)
+ .text.libgcc.mul
+                0x0000000000009886        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_tablejump.o)
+ .text.libgcc.div
+                0x0000000000009886        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_tablejump.o)
+ .text.libgcc   0x0000000000009886        0xc /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_tablejump.o)
+                0x0000000000009886                __tablejump2__
+                0x000000000000988a                __tablejump__
+ .text.libgcc.prologue
+                0x0000000000009892        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_tablejump.o)
+ .text.libgcc.builtins
+                0x0000000000009892        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_tablejump.o)
+ .text.libgcc.fmul
+                0x0000000000009892        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_tablejump.o)
+ .text.libgcc.fixed
+                0x0000000000009892        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_tablejump.o)
+ .text.libgcc.mul
+                0x0000000000009892        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_copy_data.o)
+ .text.libgcc.div
+                0x0000000000009892        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_copy_data.o)
+ .text.libgcc   0x0000000000009892        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_copy_data.o)
+ .text.libgcc.prologue
+                0x0000000000009892        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_copy_data.o)
+ .text.libgcc.builtins
+                0x0000000000009892        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_copy_data.o)
+ .text.libgcc.fmul
+                0x0000000000009892        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_copy_data.o)
+ .text.libgcc.fixed
+                0x0000000000009892        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_copy_data.o)
+ .text.libgcc.mul
+                0x0000000000009892        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_clear_bss.o)
+ .text.libgcc.div
+                0x0000000000009892        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_clear_bss.o)
+ .text.libgcc   0x0000000000009892        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_clear_bss.o)
+ .text.libgcc.prologue
+                0x0000000000009892        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_clear_bss.o)
+ .text.libgcc.builtins
+                0x0000000000009892        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_clear_bss.o)
+ .text.libgcc.fmul
+                0x0000000000009892        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_clear_bss.o)
+ .text.libgcc.fixed
+                0x0000000000009892        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_clear_bss.o)
+ .text.libgcc.mul
+                0x0000000000009892        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_ashldi3.o)
+ .text.libgcc.div
+                0x0000000000009892        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_ashldi3.o)
+ .text.libgcc   0x0000000000009892        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_ashldi3.o)
+ .text.libgcc.prologue
+                0x0000000000009892        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_ashldi3.o)
+ .text.libgcc.builtins
+                0x0000000000009892       0x32 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_ashldi3.o)
+                0x0000000000009892                __ashldi3
+ .text.libgcc.fmul
+                0x00000000000098c4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_ashldi3.o)
+ .text.libgcc.fixed
+                0x00000000000098c4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_ashldi3.o)
+ .text.libgcc.mul
+                0x00000000000098c4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_adddi3.o)
+ .text.libgcc.div
+                0x00000000000098c4        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_adddi3.o)
+ .text.libgcc   0x00000000000098c4       0x12 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_adddi3.o)
+                0x00000000000098c4                __adddi3
+ .text.libgcc.prologue
+                0x00000000000098d6        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_adddi3.o)
+ .text.libgcc.builtins
+                0x00000000000098d6        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_adddi3.o)
+ .text.libgcc.fmul
+                0x00000000000098d6        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_adddi3.o)
+ .text.libgcc.fixed
+                0x00000000000098d6        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_adddi3.o)
+ .text.libgcc.mul
+                0x00000000000098d6        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_subdi3.o)
+ .text.libgcc.div
+                0x00000000000098d6        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_subdi3.o)
+ .text.libgcc   0x00000000000098d6       0x12 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_subdi3.o)
+                0x00000000000098d6                __subdi3
+ .text.libgcc.prologue
+                0x00000000000098e8        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_subdi3.o)
+ .text.libgcc.builtins
+                0x00000000000098e8        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_subdi3.o)
+ .text.libgcc.fmul
+                0x00000000000098e8        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_subdi3.o)
+ .text.libgcc.fixed
+                0x00000000000098e8        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_subdi3.o)
+ .text.libgcc.mul
+                0x00000000000098e8        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_cmpdi2_s8.o)
+ .text.libgcc.div
+                0x00000000000098e8        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_cmpdi2_s8.o)
+ .text.libgcc   0x00000000000098e8       0x18 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_cmpdi2_s8.o)
+                0x00000000000098e8                __cmpdi2_s8
+ .text.libgcc.prologue
+                0x0000000000009900        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_cmpdi2_s8.o)
+ .text.libgcc.builtins
+                0x0000000000009900        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_cmpdi2_s8.o)
+ .text.libgcc.fmul
+                0x0000000000009900        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_cmpdi2_s8.o)
+ .text.libgcc.fixed
+                0x0000000000009900        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_cmpdi2_s8.o)
+ .text.libgcc.mul
+                0x0000000000009900        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivmodhi4.o)
+ .text.libgcc.div
+                0x0000000000009900       0x28 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivmodhi4.o)
+                0x0000000000009900                __udivmodhi4
+ .text.libgcc   0x0000000000009928        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivmodhi4.o)
+ .text.libgcc.prologue
+                0x0000000000009928        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivmodhi4.o)
+ .text.libgcc.builtins
+                0x0000000000009928        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivmodhi4.o)
+ .text.libgcc.fmul
+                0x0000000000009928        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivmodhi4.o)
+ .text.libgcc.fixed
+                0x0000000000009928        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivmodhi4.o)
+ .text.avr-libc.fplib
+                0x0000000000009928        0xa /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(addsf3.o)
+                0x0000000000009928                __subsf3
+                0x000000000000992a                __addsf3
+ .text.avr-libc.fplib
+                0x0000000000009932       0xc0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(addsf3x.o)
+                0x000000000000994c                __addsf3x
+ .text.avr-libc.fplib
+                0x00000000000099f2        0x8 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(cmpsf2.o)
+                0x00000000000099f2                __lesf2
+                0x00000000000099f2                __nesf2
+                0x00000000000099f2                __eqsf2
+                0x00000000000099f2                __cmpsf2
+                0x00000000000099f2                __ltsf2
+ .text.avr-libc.fplib
+                0x00000000000099fa        0x4 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(divsf3.o)
+                0x00000000000099fa                __divsf3
+ .text.avr-libc.fplib
+                0x00000000000099fe       0xcc /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(divsf3x.o)
+                0x0000000000009a14                __divsf3x
+                0x0000000000009a18                __divsf3_pse
+ .text.avr-libc.fplib
+                0x0000000000009aca       0x58 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fixunssfsi.o)
+                0x0000000000009aca                __fixunssfsi
+ .text.avr-libc.fplib
+                0x0000000000009b22       0x7a /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(floatsisf.o)
+                0x0000000000009b22                __floatunsisf
+                0x0000000000009b26                __floatsisf
+ .text.avr-libc.fplib
+                0x0000000000009b9c       0x48 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_cmp.o)
+                0x0000000000009b9c                __fp_cmp
+ .text.avr-libc.fplib
+                0x0000000000009be4        0xc /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_inf.o)
+                0x0000000000009be4                __fp_inf
+ .text.avr-libc.fplib
+                0x0000000000009bf0        0x6 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_nan.o)
+                0x0000000000009bf0                __fp_nan
+ .text.avr-libc.fplib
+                0x0000000000009bf6        0xe /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_pscA.o)
+                0x0000000000009bf6                __fp_pscA
+ .text.avr-libc.fplib
+                0x0000000000009c04        0xe /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_pscB.o)
+                0x0000000000009c04                __fp_pscB
+ .text.avr-libc.fplib
+                0x0000000000009c12       0x22 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_round.o)
+                0x0000000000009c12                __fp_round
+ .text.avr-libc.fplib
+                0x0000000000009c34       0x44 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_split3.o)
+                0x0000000000009c34                __fp_split3
+                0x0000000000009c44                __fp_splitA
+ .text.avr-libc.fplib
+                0x0000000000009c78        0xe /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_zero.o)
+                0x0000000000009c78                __fp_zero
+                0x0000000000009c7a                __fp_szero
+ .text.avr-libc.fplib
+                0x0000000000009c86        0x4 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(mulsf3.o)
+                0x0000000000009c86                __mulsf3
+ .text.avr-libc.fplib
+                0x0000000000009c8a       0xc2 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(mulsf3x.o)
+                0x0000000000009c9e                __mulsf3x
+                0x0000000000009ca2                __mulsf3_pse
+ .text.avr-libc.fplib
+                0x0000000000009d4c       0x84 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(sqrt.o)
+                0x0000000000009d54                sqrt
+ .text.avr-libc.fplib
+                0x0000000000009dd0       0x1c /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_mpack.o)
+                0x0000000000009dd0                __fp_mpack
+                0x0000000000009dd4                __fp_mpack_finite
+ .text.avr-libc.fplib
+                0x0000000000009dec        0xe /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_norm2.o)
+                0x0000000000009dec                __fp_norm2
+ .text.avr-libc
+                0x0000000000009dfa       0x96 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(fdevopen.o)
+                0x0000000000009dfa                fdevopen
+ .text.avr-libc
+                0x0000000000009e90       0x24 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(printf.o)
+                0x0000000000009e90                printf
+ .text.avr-libc
+                0x0000000000009eb4       0x5a /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(puts.o)
+                0x0000000000009eb4                puts
+ .text.avr-libc
+                0x0000000000009f0e      0x3f6 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(vfprintf_std.o)
+                0x0000000000009f0e                vfprintf
+ .text.avr-libc
+                0x000000000000a304      0x5a8 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(vfscanf_std.o)
+                0x000000000000a63e                vfscanf
+ .text.avr-libc
+                0x000000000000a8ac       0x38 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(calloc.o)
+                0x000000000000a8ac                calloc
+ .text.avr-libc
+                0x000000000000a8e4      0x24e /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(malloc.o)
+                0x000000000000a8e4                malloc
+                0x000000000000aa14                free
+ .text.avr-libc
+                0x000000000000ab32       0x10 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(isspace.o)
+                0x000000000000ab32                isspace
+ .text.avr-libc
+                0x000000000000ab42       0x16 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(strchr_P.o)
+                0x000000000000ab42                strchr_P
+ .text.avr-libc
+                0x000000000000ab58       0x16 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(strnlen_P.o)
+                0x000000000000ab58                strnlen_P
+ .text.avr-libc
+                0x000000000000ab6e        0xe /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(memset.o)
+                0x000000000000ab6e                memset
+ .text.avr-libc
+                0x000000000000ab7c       0x16 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(strnlen.o)
+                0x000000000000ab7c                strnlen
+ .text.avr-libc
+                0x000000000000ab92       0x7c /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(fgetc.o)
+                0x000000000000ab92                fgetc
+ .text.avr-libc
+                0x000000000000ac0e       0x64 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(fputc.o)
+                0x000000000000ac0e                fputc
+ .text.avr-libc
+                0x000000000000ac72       0x32 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(ungetc.o)
+                0x000000000000ac72                ungetc
+ .text.avr-libc
+                0x000000000000aca4       0xbc /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(ultoa_invert.o)
+                0x000000000000aca4                __ultoa_invert
+ .text.avr-libc
+                0x000000000000ad60        0x6 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(cty_isfalse.o)
+                0x000000000000ad60                __ctype_isfalse
+                0x000000000000ad64                __ctype_istrue
+                0x000000000000ad66                . = ALIGN (0x2)
+ *(.fini9)
+ .fini9         0x000000000000ad66        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_exit.o)
+                0x000000000000ad66                exit
+                0x000000000000ad66                _exit
+ *(.fini9)
+ *(.fini8)
+ *(.fini8)
+ *(.fini7)
+ *(.fini7)
+ *(.fini6)
+ *(.fini6)
+ *(.fini5)
+ *(.fini5)
+ *(.fini4)
+ *(.fini4)
+ *(.fini3)
+ *(.fini3)
+ *(.fini2)
+ *(.fini2)
+ *(.fini1)
+ *(.fini1)
+ *(.fini0)
+ .fini0         0x000000000000ad66        0x4 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_exit.o)
+ *(.fini0)
+                0x000000000000ad6a                _etext = .
+
+.data           0x0000000000800200       0xb4 load address 0x000000000000ad6a
+                0x0000000000800200                PROVIDE (__data_start, .)
+ *(.data)
+ .data          0x0000000000800200        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/crtm2561.o
+ .data          0x0000000000800200        0x0 main.o
+ .data          0x0000000000800200        0x0 small_steps.o
+ .data          0x0000000000800200        0x0 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(cm510.o)
+ .data          0x0000000000800200        0x0 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(gpio.o)
+ .data          0x0000000000800200        0x0 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(adc.o)
+ .data          0x0000000000800200        0x0 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(buzzer.o)
+ .data          0x0000000000800200        0x0 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(user_time.o)
+ .data          0x0000000000800200        0x0 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_manager.o)
+ .data          0x0000000000800200        0x0 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+ .data          0x0000000000800200        0x0 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_pages.o)
+ .data          0x0000000000800200        0x0 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(balance.o)
+ .data          0x0000000000800200       0x60 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(mtn_library.o)
+                0x0000000000800200                mtn_pages
+ .data          0x0000000000800260        0x0 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(pan_tilt.o)
+ .data          0x0000000000800260        0x0 /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel_master.o)
+ .data          0x0000000000800260        0x0 /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(serial_console.o)
+ .data          0x0000000000800260        0x0 /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel.o)
+ .data          0x0000000000800260        0x0 /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(dyn_servos.o)
+ .data          0x0000000000800260        0x0 /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(exp_board.o)
+ .data          0x0000000000800260        0x0 /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(dyn_common.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_umulhisi3.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_usmulhisi3.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muluhisi3.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divmodhi4.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivmodsi4.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divmodsi4.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divdi3.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivdi3.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muldi3.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muldi3_6.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivmod64.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_negsi2.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_negdi2.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_prologue.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_epilogue.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_exit.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_tablejump.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_copy_data.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_clear_bss.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_ashldi3.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_adddi3.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_subdi3.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_cmpdi2_s8.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivmodhi4.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(addsf3.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(addsf3x.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(cmpsf2.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(divsf3.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(divsf3x.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fixunssfsi.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(floatsisf.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_cmp.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_inf.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_nan.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_pscA.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_pscB.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_round.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_split3.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_zero.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(mulsf3.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(mulsf3x.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(sqrt.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_mpack.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_norm2.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(fdevopen.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(iob.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(printf.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(puts.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(vfprintf_std.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(vfscanf_std.o)
+ .data          0x0000000000800260        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(calloc.o)
+ .data          0x0000000000800260        0x6 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(malloc.o)
+                0x0000000000800260                __malloc_heap_end
+                0x0000000000800262                __malloc_heap_start
+                0x0000000000800264                __malloc_margin
+ .data          0x0000000000800266        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(isspace.o)
+ .data          0x0000000000800266        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(strchr_P.o)
+ .data          0x0000000000800266        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(strnlen_P.o)
+ .data          0x0000000000800266        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(memset.o)
+ .data          0x0000000000800266        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(strnlen.o)
+ .data          0x0000000000800266        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(fgetc.o)
+ .data          0x0000000000800266        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(fputc.o)
+ .data          0x0000000000800266        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(ungetc.o)
+ .data          0x0000000000800266        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(ultoa_invert.o)
+ .data          0x0000000000800266        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(cty_isfalse.o)
+ *(.data*)
+ *(.rodata)
+ .rodata        0x0000000000800266        0xe /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(adc.o)
+ *(.rodata*)
+ .rodata.str1.1
+                0x0000000000800274       0x20 main.o
+ .rodata.str1.1
+                0x0000000000800294       0x20 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(mtn_library.o)
+ *(.gnu.linkonce.d*)
+                0x00000000008002b4                . = ALIGN (0x2)
+                0x00000000008002b4                _edata = .
+                0x00000000008002b4                PROVIDE (__data_end, .)
+
+.bss            0x00000000008002b4      0xd86
+                0x00000000008002b4                PROVIDE (__bss_start, .)
+ *(.bss)
+ .bss           0x00000000008002b4        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/crtm2561.o
+ .bss           0x00000000008002b4        0xc main.o
+ .bss           0x00000000008002c0        0x8 small_steps.o
+ .bss           0x00000000008002c8        0x0 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(cm510.o)
+ .bss           0x00000000008002c8        0x0 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(gpio.o)
+ .bss           0x00000000008002c8        0x0 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(adc.o)
+ .bss           0x00000000008002c8        0x5 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(buzzer.o)
+ .bss           0x00000000008002cd        0x2 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(user_time.o)
+ .bss           0x00000000008002cf        0x0 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_manager.o)
+ .bss           0x00000000008002cf        0x0 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+ .bss           0x00000000008002cf        0x0 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_pages.o)
+ .bss           0x00000000008002cf        0x0 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(balance.o)
+ .bss           0x00000000008002cf        0xf /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(mtn_library.o)
+ .bss           0x00000000008002de        0x0 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(pan_tilt.o)
+ .bss           0x00000000008002de        0x2 /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel_master.o)
+                0x00000000008002de                dyn_master_initialized
+ .bss           0x00000000008002e0        0x2 /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(serial_console.o)
+ .bss           0x00000000008002e2        0x0 /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel.o)
+ .bss           0x00000000008002e2        0x0 /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(dyn_servos.o)
+ .bss           0x00000000008002e2        0x0 /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(exp_board.o)
+ .bss           0x00000000008002e2        0x0 /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(dyn_common.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_umulhisi3.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_usmulhisi3.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muluhisi3.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divmodhi4.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivmodsi4.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divmodsi4.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_divdi3.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivdi3.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muldi3.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_muldi3_6.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivmod64.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_negsi2.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_negdi2.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_prologue.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_epilogue.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_exit.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_tablejump.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_copy_data.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_clear_bss.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_ashldi3.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_adddi3.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_subdi3.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_cmpdi2_s8.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/avr6/libgcc.a(_udivmodhi4.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(addsf3.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(addsf3x.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(cmpsf2.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(divsf3.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(divsf3x.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fixunssfsi.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(floatsisf.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_cmp.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_inf.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_nan.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_pscA.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_pscB.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_round.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_split3.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_zero.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(mulsf3.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(mulsf3x.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(sqrt.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_mpack.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_norm2.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(fdevopen.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(iob.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(printf.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(puts.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(vfprintf_std.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(vfscanf_std.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(calloc.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(malloc.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(isspace.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(strchr_P.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(strnlen_P.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(memset.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(strnlen.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(fgetc.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(fputc.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(ungetc.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(ultoa_invert.o)
+ .bss           0x00000000008002e2        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(cty_isfalse.o)
+ *(.bss*)
+ *(COMMON)
+ COMMON         0x00000000008002e2       0x24 main.o
+                0x00000000008002e2                measureFFL
+                0x00000000008002e8                measureLDR
+                0x00000000008002ee                measureFFR
+                0x00000000008002f4                measureFDL
+                0x00000000008002fa                measureLDL
+                0x0000000000800300                measureFDR
+ COMMON         0x0000000000800306       0x19 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(gpio.o)
+                0x0000000000800306                button_right
+                0x000000000080030b                button_left
+                0x0000000000800310                button_start
+                0x0000000000800315                button_down
+                0x000000000080031a                button_up
+ COMMON         0x000000000080031f       0xff /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(adc.o)
+                0x000000000080031f                adc_voltage_alarm
+                0x0000000000800320                adc_current_sample
+                0x0000000000800321                adc_avg_values
+                0x000000000080032f                adc_ch_data
+                0x000000000080040f                adc_current_ch
+                0x0000000000800410                adc_values
+ COMMON         0x000000000080041e        0xf /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(buzzer.o)
+                0x000000000080041e                buzzer_playing_alarm
+                0x000000000080041f                buzzer_time_on_100ms
+                0x0000000000800421                buzzer_time_off_100ms
+                0x0000000000800423                buzzer_note
+                0x0000000000800425                buzzer_playing
+                0x0000000000800426                buzzer_note_freq
+ COMMON         0x000000000080042d        0x7 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(user_time.o)
+                0x000000000080042d                user_time_period
+                0x000000000080042f                user_time_done
+                0x0000000000800430                user_time_time
+                0x0000000000800432                user_time_period_done
+                0x0000000000800433                user_time_single
+ COMMON         0x0000000000800434      0x2e1 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_manager.o)
+                0x0000000000800434                manager_num_servos
+                0x0000000000800435                data
+                0x00000000008004b5                packets
+                0x00000000008004f5                servo_ids
+                0x0000000000800515                manager_servos
+ COMMON         0x0000000000800715      0x65f /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+                0x0000000000800715                ipGoalSpeed1024
+                0x0000000000800753                ipMainSpeed1024
+                0x0000000000800791                action_next_page
+                0x0000000000800991                ipAccelAngle1024
+                0x00000000008009cf                bPlayRepeatCount
+                0x00000000008009d0                wUnitTimeNum
+                0x00000000008009d2                action_current_index
+                0x00000000008009d3                action_current_page
+                0x0000000000800bd3                action_stop
+                0x0000000000800bd4                ipMainAngle1024
+                0x0000000000800c12                wUnitTimeCount
+                0x0000000000800c14                step_angles
+                0x0000000000800c52                ipMovingAngle1024
+                0x0000000000800c90                action_step_count
+                0x0000000000800c91                action_finished
+                0x0000000000800c92                wpTargetAngle1024
+                0x0000000000800cd0                wPauseTime
+                0x0000000000800cd2                action_is_running
+                0x0000000000800cd3                action_next_index
+                0x0000000000800cd4                bpFinishType
+                0x0000000000800cf3                wAccelStep
+                0x0000000000800cf5                wpStartAngle1024
+                0x0000000000800d33                wUnitTimeTotalNum
+                0x0000000000800d35                ipLastOutSpeed1024
+                0x0000000000800d73                bSection
+ COMMON         0x0000000000800d74       0x47 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(balance.o)
+                0x0000000000800d74                balance_gyro_calibrated
+                0x0000000000800d75                balance_robot_fallen_state
+                0x0000000000800d76                balance_offsets
+                0x0000000000800db6                balance_enabled
+                0x0000000000800db7                balance_y_gyro_center
+                0x0000000000800db9                balance_x_gyro_center
+ COMMON         0x0000000000800dbb        0x5 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(mtn_library.o)
+                0x0000000000800dbb                step_count
+                0x0000000000800dbd                mtn_lib_start_foot
+                0x0000000000800dbe                mtn_lib_current_foot
+                0x0000000000800dbf                mtn_lib_stop
+ COMMON         0x0000000000800dc0       0x1e /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(pan_tilt.o)
+                0x0000000000800dc0                tilt_current_angle
+                0x0000000000800dc4                tilt_target_speed
+                0x0000000000800dc8                pan_moving
+                0x0000000000800dc9                pan_target_speed
+                0x0000000000800dcd                tilt_stoping
+                0x0000000000800dce                pan_servo_id
+                0x0000000000800dcf                tilt_target_angle
+                0x0000000000800dd3                pan_current_angle
+                0x0000000000800dd7                tilt_servo_id
+                0x0000000000800dd8                tilt_moving
+                0x0000000000800dd9                pan_stoping
+                0x0000000000800dda                pan_target_angle
+ COMMON         0x0000000000800dde      0x10d /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel_master.o)
+                0x0000000000800dde                dyn_master_rx_num_packets
+                0x0000000000800ddf                dyn_master_return_level
+                0x0000000000800de0                dyn_master_rx_buffer
+                0x0000000000800e60                dyn_master_sent_bytes
+                0x0000000000800e61                dyn_master_sent_done
+                0x0000000000800e62                dyn_master_packet_ready
+                0x0000000000800e63                dyn_master_tx_buffer
+                0x0000000000800ee3                dyn_master_baudrate
+                0x0000000000800ee7                dyn_master_rx_no_answer
+                0x0000000000800ee8                dyn_master_received_bytes
+                0x0000000000800ee9                dyn_master_rx_timeout_us
+ COMMON         0x0000000000800eeb      0x107 /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(serial_console.o)
+                0x0000000000800eeb                serial_console_tx_num_data
+                0x0000000000800eec                serial_console_rx_num_data
+                0x0000000000800eed                serial_console_tx_buffer
+                0x0000000000800f6d                serial_console_rx_write_ptr
+                0x0000000000800f6e                serial_console_sending
+                0x0000000000800f6f                serial_console_rx_buffer
+                0x0000000000800fef                serial_console_rx_read_ptr
+                0x0000000000800ff0                serial_console_tx_read_ptr
+                0x0000000000800ff1                serial_console_tx_write_ptr
+ COMMON         0x0000000000800ff2       0x3e /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(exp_board.o)
+                0x0000000000800ff2                exp_board_dac_present
+                0x0000000000800ff3                exp_board_uart_usb_present
+                0x0000000000800ff4                exp_board_pwm_present
+                0x0000000000800ff5                exp_board_uart_ttl_present
+                0x0000000000800ff6                exp_board_id
+                0x0000000000800ff7                exp_board_int_data
+                0x000000000080102e                exp_board_present
+                0x000000000080102f                exp_board_num_servos
+ COMMON         0x0000000000801030        0x6 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(iob.o)
+                0x0000000000801030                __iob
+ COMMON         0x0000000000801036        0x4 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(malloc.o)
+                0x0000000000801036                __brkval
+                0x0000000000801038                __flp
+                0x000000000080103a                PROVIDE (__bss_end, .)
+                0x000000000000ad6a                __data_load_start = LOADADDR (.data)
+                0x000000000000ae1e                __data_load_end = (__data_load_start + SIZEOF (.data))
+
+.noinit         0x000000000080103a        0x0
+                0x000000000080103a                PROVIDE (__noinit_start, .)
+ *(.noinit*)
+                0x000000000080103a                PROVIDE (__noinit_end, .)
+                0x000000000080103a                _end = .
+                0x000000000080103a                PROVIDE (__heap_start, .)
+
+.eeprom         0x0000000000810000        0x0
+ *(.eeprom*)
+                0x0000000000810000                __eeprom_end = .
+
+.fuse
+ *(.fuse)
+ *(.lfuse)
+ *(.hfuse)
+ *(.efuse)
+
+.lock
+ *(.lock*)
+
+.signature
+ *(.signature*)
+
+.user_signatures
+ *(.user_signatures*)
+
+.stab           0x0000000000000000     0x6d68
+ *(.stab)
+ .stab          0x0000000000000000      0x6e4 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/crtm2561.o
+ .stab          0x00000000000006e4       0x78 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(addsf3.o)
+                                         0x84 (size before relaxing)
+ .stab          0x000000000000075c      0x4bc /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(addsf3x.o)
+                                        0x4c8 (size before relaxing)
+ .stab          0x0000000000000c18       0x90 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(cmpsf2.o)
+                                         0x9c (size before relaxing)
+ .stab          0x0000000000000ca8       0x48 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(divsf3.o)
+                                         0x54 (size before relaxing)
+ .stab          0x0000000000000cf0      0x510 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(divsf3x.o)
+                                        0x51c (size before relaxing)
+ .stab          0x0000000000001200      0x240 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fixunssfsi.o)
+                                        0x24c (size before relaxing)
+ .stab          0x0000000000001440      0x318 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(floatsisf.o)
+                                        0x324 (size before relaxing)
+ .stab          0x0000000000001758      0x1e0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_cmp.o)
+                                        0x1ec (size before relaxing)
+ .stab          0x0000000000001938       0x78 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_inf.o)
+                                         0x84 (size before relaxing)
+ .stab          0x00000000000019b0       0x54 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_nan.o)
+                                         0x60 (size before relaxing)
+ .stab          0x0000000000001a04       0x84 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_pscA.o)
+                                         0x90 (size before relaxing)
+ .stab          0x0000000000001a88       0x84 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_pscB.o)
+                                         0x90 (size before relaxing)
+ .stab          0x0000000000001b0c       0xfc /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_round.o)
+                                        0x108 (size before relaxing)
+ .stab          0x0000000000001c08      0x1d4 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_split3.o)
+                                        0x1e0 (size before relaxing)
+ .stab          0x0000000000001ddc       0x90 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_zero.o)
+                                         0x9c (size before relaxing)
+ .stab          0x0000000000001e6c       0x48 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(mulsf3.o)
+                                         0x54 (size before relaxing)
+ .stab          0x0000000000001eb4      0x4d4 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(mulsf3x.o)
+                                        0x4e0 (size before relaxing)
+ .stab          0x0000000000002388      0x354 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(sqrt.o)
+                                        0x360 (size before relaxing)
+ .stab          0x00000000000026dc       0xe4 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_mpack.o)
+                                         0xf0 (size before relaxing)
+ .stab          0x00000000000027c0       0x84 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libm.a(fp_norm2.o)
+                                         0x90 (size before relaxing)
+ .stab          0x0000000000002844      0x624 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(fdevopen.o)
+                                        0x630 (size before relaxing)
+ .stab          0x0000000000002e68      0x2ac /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(iob.o)
+                                        0x48c (size before relaxing)
+ .stab          0x0000000000003114      0x30c /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(printf.o)
+                                        0x4ec (size before relaxing)
+ .stab          0x0000000000003420      0x36c /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(puts.o)
+                                        0x54c (size before relaxing)
+ .stab          0x000000000000378c      0xb58 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(vfprintf_std.o)
+                                        0xd80 (size before relaxing)
+ .stab          0x00000000000042e4      0xdec /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(vfscanf_std.o)
+                                       0x1008 (size before relaxing)
+ .stab          0x00000000000050d0      0x33c /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(calloc.o)
+                                        0x378 (size before relaxing)
+ .stab          0x000000000000540c      0x708 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(malloc.o)
+                                        0x8e8 (size before relaxing)
+ .stab          0x0000000000005b14       0x9c /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(isspace.o)
+                                         0xa8 (size before relaxing)
+ .stab          0x0000000000005bb0       0x9c /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(strchr_P.o)
+                                         0xa8 (size before relaxing)
+ .stab          0x0000000000005c4c       0x9c /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(strnlen_P.o)
+                                         0xa8 (size before relaxing)
+ .stab          0x0000000000005ce8       0x6c /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(memset.o)
+                                         0x78 (size before relaxing)
+ .stab          0x0000000000005d54       0x9c /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(strnlen.o)
+                                         0xa8 (size before relaxing)
+ .stab          0x0000000000005df0      0x3e4 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(fgetc.o)
+                                        0x5c4 (size before relaxing)
+ .stab          0x00000000000061d4      0x354 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(fputc.o)
+                                        0x534 (size before relaxing)
+ .stab          0x0000000000006528      0x360 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(ungetc.o)
+                                        0x540 (size before relaxing)
+ .stab          0x0000000000006888      0x480 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(ultoa_invert.o)
+                                        0x48c (size before relaxing)
+ .stab          0x0000000000006d08       0x60 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(cty_isfalse.o)
+                                         0x6c (size before relaxing)
+
+.stabstr        0x0000000000000000     0x18f3
+ *(.stabstr)
+ .stabstr       0x0000000000000000     0x18f3 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/crtm2561.o
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment        0x0000000000000000       0x11
+ *(.comment)
+ .comment       0x0000000000000000       0x11 main.o
+                                         0x12 (size before relaxing)
+ .comment       0x0000000000000000       0x12 small_steps.o
+ .comment       0x0000000000000000       0x12 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(cm510.o)
+ .comment       0x0000000000000000       0x12 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(gpio.o)
+ .comment       0x0000000000000000       0x12 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(adc.o)
+ .comment       0x0000000000000000       0x12 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(buzzer.o)
+ .comment       0x0000000000000000       0x12 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(user_time.o)
+ .comment       0x0000000000000000       0x12 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_manager.o)
+ .comment       0x0000000000000000       0x12 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+ .comment       0x0000000000000000       0x12 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_pages.o)
+ .comment       0x0000000000000000       0x12 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(balance.o)
+ .comment       0x0000000000000000       0x12 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(mtn_library.o)
+ .comment       0x0000000000000000       0x12 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(pan_tilt.o)
+ .comment       0x0000000000000000       0x12 /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel_master.o)
+ .comment       0x0000000000000000       0x12 /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(serial_console.o)
+ .comment       0x0000000000000000       0x12 /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel.o)
+ .comment       0x0000000000000000       0x12 /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(dyn_servos.o)
+ .comment       0x0000000000000000       0x12 /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(exp_board.o)
+ .comment       0x0000000000000000       0x12 /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(dyn_common.o)
+ .comment       0x0000000000000000       0x12 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(fdevopen.o)
+ .comment       0x0000000000000000       0x12 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(iob.o)
+ .comment       0x0000000000000000       0x12 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(printf.o)
+ .comment       0x0000000000000000       0x12 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(puts.o)
+ .comment       0x0000000000000000       0x12 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(vfprintf_std.o)
+ .comment       0x0000000000000000       0x12 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(vfscanf_std.o)
+ .comment       0x0000000000000000       0x12 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(calloc.o)
+ .comment       0x0000000000000000       0x12 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(malloc.o)
+ .comment       0x0000000000000000       0x12 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(fgetc.o)
+ .comment       0x0000000000000000       0x12 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(fputc.o)
+ .comment       0x0000000000000000       0x12 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr6/libc.a(ungetc.o)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges  0x0000000000000000      0x268
+ *(.debug_aranges)
+ .debug_aranges
+                0x0000000000000000       0x20 main.o
+ .debug_aranges
+                0x0000000000000020       0x20 small_steps.o
+ .debug_aranges
+                0x0000000000000040       0x28 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(cm510.o)
+ .debug_aranges
+                0x0000000000000068       0x20 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(gpio.o)
+ .debug_aranges
+                0x0000000000000088       0x20 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(adc.o)
+ .debug_aranges
+                0x00000000000000a8       0x20 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(buzzer.o)
+ .debug_aranges
+                0x00000000000000c8       0x20 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(user_time.o)
+ .debug_aranges
+                0x00000000000000e8       0x20 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_manager.o)
+ .debug_aranges
+                0x0000000000000108       0x20 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+ .debug_aranges
+                0x0000000000000128       0x20 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_pages.o)
+ .debug_aranges
+                0x0000000000000148       0x20 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(balance.o)
+ .debug_aranges
+                0x0000000000000168       0x20 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(mtn_library.o)
+ .debug_aranges
+                0x0000000000000188       0x20 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(pan_tilt.o)
+ .debug_aranges
+                0x00000000000001a8       0x20 /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel_master.o)
+ .debug_aranges
+                0x00000000000001c8       0x20 /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(serial_console.o)
+ .debug_aranges
+                0x00000000000001e8       0x20 /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel.o)
+ .debug_aranges
+                0x0000000000000208       0x20 /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(dyn_servos.o)
+ .debug_aranges
+                0x0000000000000228       0x20 /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(exp_board.o)
+ .debug_aranges
+                0x0000000000000248       0x20 /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(dyn_common.o)
+
+.debug_pubnames
+ *(.debug_pubnames)
+
+.debug_info     0x0000000000000000     0xace6
+ *(.debug_info)
+ .debug_info    0x0000000000000000      0x424 main.o
+ .debug_info    0x0000000000000424      0x5cf small_steps.o
+ .debug_info    0x00000000000009f3      0x353 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(cm510.o)
+ .debug_info    0x0000000000000d46      0x354 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(gpio.o)
+ .debug_info    0x000000000000109a      0x4b8 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(adc.o)
+ .debug_info    0x0000000000001552      0x341 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(buzzer.o)
+ .debug_info    0x0000000000001893      0x1b3 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(user_time.o)
+ .debug_info    0x0000000000001a46      0x8cd /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_manager.o)
+ .debug_info    0x0000000000002313      0x741 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+ .debug_info    0x0000000000002a54      0x3fe /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_pages.o)
+ .debug_info    0x0000000000002e52      0x539 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(balance.o)
+ .debug_info    0x000000000000338b     0x2533 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(mtn_library.o)
+ .debug_info    0x00000000000058be      0x429 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(pan_tilt.o)
+ .debug_info    0x0000000000005ce7     0x1083 /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel_master.o)
+ .debug_info    0x0000000000006d6a      0x5dd /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(serial_console.o)
+ .debug_info    0x0000000000007347      0xa01 /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel.o)
+ .debug_info    0x0000000000007d48     0x1465 /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(dyn_servos.o)
+ .debug_info    0x00000000000091ad     0x1873 /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(exp_board.o)
+ .debug_info    0x000000000000aa20      0x2c6 /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(dyn_common.o)
+ *(.gnu.linkonce.wi.*)
+
+.debug_abbrev   0x0000000000000000     0x2427
+ *(.debug_abbrev)
+ .debug_abbrev  0x0000000000000000      0x181 main.o
+ .debug_abbrev  0x0000000000000181      0x124 small_steps.o
+ .debug_abbrev  0x00000000000002a5      0x191 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(cm510.o)
+ .debug_abbrev  0x0000000000000436      0x12e /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(gpio.o)
+ .debug_abbrev  0x0000000000000564      0x254 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(adc.o)
+ .debug_abbrev  0x00000000000007b8      0x128 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(buzzer.o)
+ .debug_abbrev  0x00000000000008e0       0xb9 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(user_time.o)
+ .debug_abbrev  0x0000000000000999      0x2a1 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_manager.o)
+ .debug_abbrev  0x0000000000000c3a      0x1a6 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+ .debug_abbrev  0x0000000000000de0      0x19e /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_pages.o)
+ .debug_abbrev  0x0000000000000f7e      0x1fc /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(balance.o)
+ .debug_abbrev  0x000000000000117a      0x347 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(mtn_library.o)
+ .debug_abbrev  0x00000000000014c1      0x194 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(pan_tilt.o)
+ .debug_abbrev  0x0000000000001655      0x3ac /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel_master.o)
+ .debug_abbrev  0x0000000000001a01      0x272 /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(serial_console.o)
+ .debug_abbrev  0x0000000000001c73      0x1eb /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel.o)
+ .debug_abbrev  0x0000000000001e5e      0x1fa /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(dyn_servos.o)
+ .debug_abbrev  0x0000000000002058      0x2f3 /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(exp_board.o)
+ .debug_abbrev  0x000000000000234b       0xdc /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(dyn_common.o)
+
+.debug_line     0x0000000000000000     0x2c9f
+ *(.debug_line)
+ .debug_line    0x0000000000000000      0x31a main.o
+ .debug_line    0x000000000000031a      0x1bd small_steps.o
+ .debug_line    0x00000000000004d7      0x178 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(cm510.o)
+ .debug_line    0x000000000000064f      0x1ad /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(gpio.o)
+ .debug_line    0x00000000000007fc      0x16e /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(adc.o)
+ .debug_line    0x000000000000096a      0x113 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(buzzer.o)
+ .debug_line    0x0000000000000a7d       0xac /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(user_time.o)
+ .debug_line    0x0000000000000b29      0x257 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_manager.o)
+ .debug_line    0x0000000000000d80      0x260 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+ .debug_line    0x0000000000000fe0       0xb0 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_pages.o)
+ .debug_line    0x0000000000001090      0x149 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(balance.o)
+ .debug_line    0x00000000000011d9      0xed4 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(mtn_library.o)
+ .debug_line    0x00000000000020ad      0x142 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(pan_tilt.o)
+ .debug_line    0x00000000000021ef      0x215 /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel_master.o)
+ .debug_line    0x0000000000002404       0xfd /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(serial_console.o)
+ .debug_line    0x0000000000002501      0x1ee /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel.o)
+ .debug_line    0x00000000000026ef      0x1a7 /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(dyn_servos.o)
+ .debug_line    0x0000000000002896      0x366 /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(exp_board.o)
+ .debug_line    0x0000000000002bfc       0xa3 /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(dyn_common.o)
+
+.debug_frame    0x0000000000000000     0x214c
+ *(.debug_frame)
+ .debug_frame   0x0000000000000000       0x9c main.o
+ .debug_frame   0x000000000000009c       0xf4 small_steps.o
+ .debug_frame   0x0000000000000190       0x34 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(cm510.o)
+ .debug_frame   0x00000000000001c4       0xb4 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(gpio.o)
+ .debug_frame   0x0000000000000278       0xec /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(adc.o)
+ .debug_frame   0x0000000000000364       0xc4 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(buzzer.o)
+ .debug_frame   0x0000000000000428       0x84 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(user_time.o)
+ .debug_frame   0x00000000000004ac      0x164 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_manager.o)
+ .debug_frame   0x0000000000000610       0xdc /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+ .debug_frame   0x00000000000006ec       0x74 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_pages.o)
+ .debug_frame   0x0000000000000760      0x160 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(balance.o)
+ .debug_frame   0x00000000000008c0      0x408 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(mtn_library.o)
+ .debug_frame   0x0000000000000cc8      0x114 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(pan_tilt.o)
+ .debug_frame   0x0000000000000ddc      0x430 /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel_master.o)
+ .debug_frame   0x000000000000120c      0x124 /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(serial_console.o)
+ .debug_frame   0x0000000000001330      0x2b8 /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel.o)
+ .debug_frame   0x00000000000015e8      0x470 /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(dyn_servos.o)
+ .debug_frame   0x0000000000001a58      0x660 /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(exp_board.o)
+ .debug_frame   0x00000000000020b8       0x94 /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(dyn_common.o)
+
+.debug_str      0x0000000000000000     0x2ff7
+ *(.debug_str)
+ .debug_str     0x0000000000000000      0x3f6 main.o
+                                        0x452 (size before relaxing)
+ .debug_str     0x00000000000003f6       0xe7 small_steps.o
+                                        0x22d (size before relaxing)
+ .debug_str     0x00000000000004dd      0x22d /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(cm510.o)
+                                        0x2db (size before relaxing)
+ .debug_str     0x000000000000070a       0xdd /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(gpio.o)
+                                        0x2d9 (size before relaxing)
+ .debug_str     0x00000000000007e7      0x1c5 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(adc.o)
+                                        0x368 (size before relaxing)
+ .debug_str     0x00000000000009ac      0x13a /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(buzzer.o)
+                                        0x301 (size before relaxing)
+ .debug_str     0x0000000000000ae6       0xde /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(user_time.o)
+                                        0x22b (size before relaxing)
+ .debug_str     0x0000000000000bc4      0x325 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_manager.o)
+                                        0x564 (size before relaxing)
+ .debug_str     0x0000000000000ee9      0x395 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+                                        0x5f5 (size before relaxing)
+ .debug_str     0x000000000000127e       0x61 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_pages.o)
+                                        0x284 (size before relaxing)
+ .debug_str     0x00000000000012df      0x182 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(balance.o)
+                                        0x47f (size before relaxing)
+ .debug_str     0x0000000000001461      0x64f /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(mtn_library.o)
+                                        0x976 (size before relaxing)
+ .debug_str     0x0000000000001ab0      0x18d /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(pan_tilt.o)
+                                        0x37a (size before relaxing)
+ .debug_str     0x0000000000001c3d      0x59b /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel_master.o)
+                                        0x734 (size before relaxing)
+ .debug_str     0x00000000000021d8      0x216 /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(serial_console.o)
+                                        0x397 (size before relaxing)
+ .debug_str     0x00000000000023ee      0x214 /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel.o)
+                                        0x503 (size before relaxing)
+ .debug_str     0x0000000000002602      0x2f2 /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(dyn_servos.o)
+                                        0x49f (size before relaxing)
+ .debug_str     0x00000000000028f4      0x6c2 /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(exp_board.o)
+                                        0xa68 (size before relaxing)
+ .debug_str     0x0000000000002fb6       0x41 /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(dyn_common.o)
+                                        0x1ed (size before relaxing)
+
+.debug_loc      0x0000000000000000     0xa25b
+ *(.debug_loc)
+ .debug_loc     0x0000000000000000      0x13e main.o
+ .debug_loc     0x000000000000013e      0x2f8 small_steps.o
+ .debug_loc     0x0000000000000436       0x20 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(cm510.o)
+ .debug_loc     0x0000000000000456      0x503 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(gpio.o)
+ .debug_loc     0x0000000000000959      0xb94 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(adc.o)
+ .debug_loc     0x00000000000014ed       0x4d /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(buzzer.o)
+ .debug_loc     0x000000000000153a       0x4c /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(user_time.o)
+ .debug_loc     0x0000000000001586      0x3b4 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_manager.o)
+ .debug_loc     0x000000000000193a      0xb48 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(action.o)
+ .debug_loc     0x0000000000002482      0x1fa /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(motion_pages.o)
+ .debug_loc     0x000000000000267c      0x553 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(balance.o)
+ .debug_loc     0x0000000000002bcf     0x249e /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(mtn_library.o)
+ .debug_loc     0x000000000000506d      0x2b6 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(pan_tilt.o)
+ .debug_loc     0x0000000000005323     0x1240 /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel_master.o)
+ .debug_loc     0x0000000000006563      0x398 /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(serial_console.o)
+ .debug_loc     0x00000000000068fb     0x1112 /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel.o)
+ .debug_loc     0x0000000000007a0d     0x1580 /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(dyn_servos.o)
+ .debug_loc     0x0000000000008f8d     0x10f9 /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(exp_board.o)
+ .debug_loc     0x000000000000a086      0x1d5 /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(dyn_common.o)
+
+.debug_macinfo
+ *(.debug_macinfo)
+
+.debug_pubtypes
+ *(.debug_pubtypes)
+
+.debug_ranges   0x0000000000000000      0x580
+ *(.debug_ranges)
+ .debug_ranges  0x0000000000000000       0x18 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(cm510.o)
+ .debug_ranges  0x0000000000000018       0x30 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(adc.o)
+ .debug_ranges  0x0000000000000048       0x18 /home/humanoids/humanoids/cm510_controller_fw/controllers/lib/libcontrollers.a(buzzer.o)
+ .debug_ranges  0x0000000000000060      0x450 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(mtn_library.o)
+ .debug_ranges  0x00000000000004b0       0x40 /home/humanoids/humanoids/cm510_controller_fw/motion/lib/libmotion_manager.a(pan_tilt.o)
+ .debug_ranges  0x00000000000004f0       0x18 /home/humanoids/humanoids/cm510_controller_fw/communications/lib/libcomm.a(dynamixel_master.o)
+ .debug_ranges  0x0000000000000508       0x48 /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(dyn_servos.o)
+ .debug_ranges  0x0000000000000550       0x30 /home/humanoids/humanoids/cm510_controller_fw/dyn_devices/lib/libdyn_devices.a(exp_board.o)
+
+.debug_macro
+ *(.debug_macro)
+OUTPUT(stairs.elf elf32-avr)
+LOAD linker stubs

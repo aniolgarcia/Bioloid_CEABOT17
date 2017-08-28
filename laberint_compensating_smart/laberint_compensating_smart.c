@@ -19,7 +19,7 @@ typedef int bool; //Definim el boleà, que en C no existeix
 
 #define err 100 //Màxim error permès a gira.
 
-typedef enum {wait_start, wait_ready,wait_5, walk_l, walk_r, ready_walk_f, walk_f, turn, ready_walk_return, walk_return, stop, correct_l, correct_r} main_states; //Estats de la màquina d'estats
+typedef enum {wait_start, wait_ready,wait_5, walk_l, walk_r,walk_f, turn, walk_return, stop, check_correction, correct_l, correct_r} main_states; //Estats de la màquina d'estats
 typedef enum {t_init,t_middle,t_left,t_right,t_wait_end} turn_states;
 
 typedef uint8_t (*fnct_ptr)(void); //Parametrització de les funcions per a canvis ràpids
@@ -116,7 +116,7 @@ uint8_t gira(int angle){
 	static int comp_ini = 0;
 	static int comp_end = 0;
 	int done = 0;
-    angle += 180; //Crec que la funció treballa en un rang de [0, 3600], no en [-1800, 1800]
+//     angle += 180; //Crec que la funció treballa en un rang de [0, 3600], no en [-1800, 1800] No, gira utilitza un rang de [-1800, 1800]!
 	switch (s){
 		case t_init:
 			comp_ini = bno055_correction(exp_bno055_get_heading());
@@ -179,7 +179,7 @@ uint8_t gira(int angle){
 
 
 int cont = 0;
-int valor_base, valor_actual;
+int valor_base, valor_actual, prev_distance;
 
 //Parametritzacions de valors límit dels sensors
 static int comp_error = 15;
@@ -238,7 +238,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
 					 if(is_button_rising_edge(BTN_START))
                     {
                         valor_base = bno055_correction(exp_bno055_get_heading());
-                        action_set_page(31);
+                        action_set_page(30);
                         action_start_page();
 						user_time_set_period(5000);
                         state=wait_5;
@@ -299,12 +299,12 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                     {
 //
 //                      mtn_lib_stop_mtn();
-//                      next = ready_walk_f;
+//                      next = walk_f;
 // 						next = stop;
 						if(forat == true) //Comprovem si ja ha trobat un forat abans. Si es així, vol dir que el forat és prou gros.
 						{
 							mtn_lib_stop_mtn(); //el parem definitivament (només si ha trobat dos cops el mateix forat)
-							next = ready_walk_f; //Definim l'estat que s'executarà a continuació
+							next = walk_f; //Definim l'estat que s'executarà a continuació
 							forat = false; //Fem un reset del bool;
 						}
 						else
@@ -357,12 +357,12 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                     if(exp_adc_get_avg_channel(davant) < dist_frontal) //Comprovem si hi ha un forat davant
                     {
 //                         mtn_lib_stop_mtn();
-// 						next = ready_walk_f;
+// 						next = walk_f;
 //						next = stop;
 						if(forat == true)
 						{
 							mtn_lib_stop_mtn();
-							next = ready_walk_f;
+							next = walk_f;
 							forat = false;
 						}
 						else
@@ -395,13 +395,15 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                     balance_enable_gyro();
                 }
 
-                if(exp_adc_get_avg_channel(davant) > 350)
+                if(exp_adc_get_avg_channel(davant) > 350) //Si creu que hi ha la paret
                 {
-                    mtn_lib_stop_mtn();
-                    if(compass(valor_base) > comp_error)
+                    mtn_lib_stop_mtn(); //Para, tant si la paret és real com si no!
+// 					if(exp_adc_get_avg_channel(davant) - prev_distance > 50) //ALERTA: ESTEM CONSIDERANT QUE LA GRÀFICA ÉS LINEAL, que sempre té el mateix pendent!
+                    if(compass(valor_base) > comp_error) //Comprova si està desviat
                     {
                         prev = walk_f;
                         next = correct_l;
+						
                         //Aquí, si continua veient la paret i estant molt desviat, ha de caminar lateralment cap a l'esquerra
                     }
                     else if(compass(valor_base) < -comp_error)
@@ -418,7 +420,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                 }
 
 
-                if(walk_forward_compensating(valor_base, bno055_correction(exp_bno055_get_heading())) == 0x01) //Amb quin rang treballa walk_forward_compensating?
+                if(fast_walk_forward() == 0x01) //Amb quin rang treballa walk_forward_compensating?
                 {
                     next = turn;
                 }
@@ -427,6 +429,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                     next = walk_f;
                 }
                 state = next;
+				prev_distance = exp_adc_get_avg_channel(davant);
                 break;
 
 
@@ -464,7 +467,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                     }
 
 
-                    if(walk_forward_compensating(valor_base, bno055_correction(exp_bno055_get_heading())) == 0x01)
+                    if(fast_walk_forward() == 0x01)
                     {
                         state = turn;
                     }
@@ -475,19 +478,20 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                     break;
     /* CORRECIÓ */
     //Casos de correció: paren el moviment de correcció (cridat des d'on s'ha detectat l'error i canviat l'estat i tornen a l'estat on eren mitjançant la variable prev.
-    case check_correction: if(compass(valor_base) > comp_error)
-                {
-                    state = correct_l;
-                }
-                else if(compass(valor_base) < -comp_error)
-                {
-                    state = correct_r;
-                }
-                else
-                {
-                    state = prev;
-                }
-                break;
+
+	case check_correction: if(compass(valor_base) > comp_error)
+			{
+				state = correct_l;
+			}
+			else if(compass(valor_base) < -comp_error)
+			{
+				state = correct_r;
+			}
+			else
+			{
+				state = prev;
+			}
+			break;
 
 
     case correct_l: if(balance_is_gyro_enabled())
@@ -495,7 +499,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                         balance_disable_gyro();
                     }
 
-                    if(turn_left() == 0x01)
+                    if(walk_forward_turn_left() == 0x01)
                     {
                         state = check_correction;
                     }
@@ -511,7 +515,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                         balance_disable_gyro();
                     }
 
-                    if(turn_right() == 0x01)
+                    if(walk_forward_turn_right() == 0x01)
                     {
                         state = check_correction;
                     }
