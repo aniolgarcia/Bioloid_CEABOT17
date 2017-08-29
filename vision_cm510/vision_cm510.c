@@ -8,6 +8,8 @@
 
 //Programa de la banda del cm510 per a la prova de visió. La beaglebone/raspberrypi decodifica la camera i envia un número per serial segons el contingut del QR. El cas 0 de la màquina d'estats llegeix el serial (que mai hauria d'enviar 0 o valors negatiu) i els altres casos són cadascun dels moviments. Cal posar altres sistemes de seguretat, ja que ara mateix estem confiant plenament amb el bno055, i no es contemplen casos com per exemple que es vegin 2 QR, que no en trobi cap, que trobi el codi abans de l'esperat o que no el trobi...
 
+int position[8]; 
+
 int compass_param(int ini, int actual)
 {
 	short int inc = actual - ini;
@@ -51,8 +53,32 @@ int suma_angles(int a, int b)
 	return res;
 }
 
+int compass(int valor_base)
+{
+        
+	int nou_valor, desviament;
+	
+// 	nou_valor = exp_bno055_get_heading();
+	nou_valor = bno055_correction(exp_bno055_get_heading());
+	desviament = nou_valor - valor_base;
+	if(desviament > 1800)
+	{
+		desviament = desviament - 3600;
+	}
+	else if(desviament < -1800)
+	{
+		desviament = desviament + 3600;
+	}
+	
+	desviament = desviament/10;
+	
+	return desviament;
+}
 
 //La funció gira() és una còpia exacta de turn_angle() de la mtn_library, però utilitzant la bno055 en lloc del compass. Cal arreglar-ho a la llibreria de  moviments.
+
+//S'ha canviat el comp_end per anar a una posició concreta de la brúixola, no per sumar un nombre de graus a la posició actual!
+
 typedef enum {t_init,t_middle,t_left,t_right,t_wait_end} turn_states;
 #define err 100 //Màxim error permès a turn.
 uint8_t gira(int angle){
@@ -64,7 +90,8 @@ uint8_t gira(int angle){
 	switch (s){
 		case t_init:
 			comp_ini = bno055_correction(exp_bno055_get_heading());
-			comp_end = suma_angles (comp_ini,angle*10);
+// 			comp_end = suma_angles (comp_ini,angle*10);
+			comp_end = angle;
 			
 			s=t_middle;
 			break;
@@ -136,12 +163,36 @@ void user_init(void)
     _delay_ms(100);
   }
   cm510_printf("Init");
+  
+  if(is_button_pressed(BTN_DOWN))
+  {
+	  int cont = 0;
+	  while(cont < 8)
+	  {
+		  if(is_button_rising_edge(BTN_DOWN)
+		  {
+			  position[cont] = bno055_correction(exp_bno055_get_heading());
+			  cont += 1;
+		  }
+	  }
+  }
+  else
+  {
+	  position[0] = -45;
+	  position[1] = 45;
+	  position[2] = -90;
+	  position[3] = 90;
+	  position[4] = -135;
+	  position[5] = 135;
+	  position[6] = -180;
+	  position[7] = 180;
+  }
 
 }
 
 int state = -2;
 unsigned char num;
-
+int valor_base;
 
 
 
@@ -156,6 +207,7 @@ void user_loop(void)
 		action_set_page(31);
 		action_start_page();
 		data = -1;
+		valor_base = bno055_correction(exp_bno055_get_heading());
 	      }
 	      else
 		data = -2;
@@ -178,89 +230,105 @@ void user_loop(void)
 	    }while(num == 0);
 	    break;
 
-    case 1: if(gira(-45) == 0x01)
+    case 1: if(gira(position[0]) == 0x01)
 	    {
 	      data = 0;
 	    }
 	    else
 	    {
+		  cm510_printf("Desviament: %d\n",compass(valor_base));
+		  cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
 	      data = 1;
 	    }
 	    cm510_write(&data,1);
 	    break;
 	    
-    case 2: if(gira(45) == 0x01)
+    case 2: if(gira(position[1]) == 0x01)
 	    {
 	      data = 0;
 	    }
 	    else
 	    {
+		  cm510_printf("Desviament: %d\n",compass(valor_base));
+		  cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
 	      data = 2;
 	    }
 	    cm510_write(&data,1);
 
 	    break;
 	    
-    case 3: if(gira(-90) == 0x01)
+    case 3: if(gira(position[2]) == 0x01)
 	    {
 	      data = 0;
 	    }
 	    else
 	    {
+			cm510_printf("Desviament: %d\n",compass(valor_base));
+			cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
 	      data = 3;
 	    }
 	    cm510_write(&data,1);
 	    break;
 	    
-    case 4: if(gira(90) == 0x01)
+    case 4: if(gira(position[3]) == 0x01)
 	    {
 	      data = 0;
 	    }
 	    else
 	    {
+		cm510_printf("Desviament: %d\n",compass(valor_base));
+		cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
 	      data = 4;
 	    }
 	    cm510_write(&data,1);
 	    break;	  
-    case 5: if(gira(-135) == 0x01)
+    case 5: if(gira(position[4]) == 0x01)
 	    {
 	      data = 0;
 	    }
 	    else
 	    {
+			cm510_printf("Desviament: %d\n",compass(valor_base));
+			cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
 	      data = 5;
 	    }
 	    cm510_write(&data,1);
 	    break;
 	    
-    case 6: if(gira(135) == 0x01)
+    case 6: if(gira(position[5]) == 0x01)
 	    {
 	      data = 0;
 	    }
 	    else
-	    {
+		{
+			cm510_printf("Desviament: %d\n",compass(valor_base));
+			cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
 	      data = 6;
 	    }
 	    cm510_write(&data,1);
 	    break;
 
-    case 7: if(gira(-180) == 0x01)
+    case 7: if(gira(position[6]) == 0x01)
 	    {
 	      data = 0;
 	    }
 	    else
 	    {
+			cm510_printf("Desviament: %d\n",compass(valor_base));
+			cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
 	      data = 7;
 	    }
 	    cm510_write(&data,1);
 	    break;
 
-    case 8: if(gira(180) == 0x01)
+    case 8: if(gira(position[7]) == 0x01)
 	    {
 	      data = 0;
 	    }
 	    else
 	    {
+			cm510_printf("Desviament: %d\n",compass(valor_base));
+			cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
 	      data = 8;
 	    }
 	    cm510_write(&data,1);
