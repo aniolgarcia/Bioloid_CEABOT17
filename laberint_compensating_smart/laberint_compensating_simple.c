@@ -21,7 +21,7 @@ typedef int bool; //Definim el boleà, que en C no existeix
 
 typedef enum {wait_start, wait_ready,wait_5, walk_l, walk_r, walk_f, turn, walk_f_return, stop} main_states; //Estats de la màquina d'estats
 typedef enum {t_init,t_middle,t_left,t_right,t_wait_end} turn_states;
-typedef enum {w_move, w_correct_l, w_correct_r} walk_to_wall_states
+typedef enum {w_move, w_correct_l, w_correct_r} walk_to_wall_states;
 
 typedef uint8_t (*fnct_ptr)(void); //Parametrització de les funcions per a canvis ràpids
 fnct_ptr fnct_r = turn_right;
@@ -38,6 +38,14 @@ const bool simulat = false;
 adc_t davant, esquerra, dreta;
 
 bool forat = false;
+
+int cont = 0;
+int valor_base, valor_actual, prev_distance, fnct_value;
+
+//Parametritzacions de valors límit dels sensors
+static int comp_error = 15;
+static int dist_frontal = 80;
+static int dist_lateral = 250;
 
 ///////////////////////////////////////////////////////////
 //  Definició de funcions pròpies
@@ -188,24 +196,24 @@ uint8_t walk_to_wall(fnct_ptr mov_fnct, adc_t sensor, int distance)
 
             if(compass(valor_base) > comp_error) //Comprova si està desviat
             {
-                mtn_lib_stop_mtn;
+                mtn_lib_stop_mtn();
                 w = w_correct_l;
             }
             else if(compass(valor_base) < -comp_error)
             {
-                mtn_lib_stop_mtn;
+                mtn_lib_stop_mtn();
                 w = w_correct_r;
             }
             else
             {
                 if(exp_adc_get_avg_channel(sensor) > distance)
                 {
-                    mtn_lib_stop_mtn;
+                    mtn_lib_stop_mtn();
                     done = 0x01;
                 }
             }
 
-            if(mov_fnct != 0x01)
+            if(mov_fnct() != 0x01)
             {
                 w = w_move;
             }
@@ -220,11 +228,11 @@ uint8_t walk_to_wall(fnct_ptr mov_fnct, adc_t sensor, int distance)
 
             if(turn_left() == 0x01)
             {
-                state = w_move;
+                w = w_move;
             }
             else
             {
-                state  = w_correct_l;
+                w = w_correct_l;
                 mtn_lib_stop_mtn();
             }
             break;
@@ -237,11 +245,11 @@ uint8_t walk_to_wall(fnct_ptr mov_fnct, adc_t sensor, int distance)
 
             if(turn_right() == 0x01)
             {
-                state = w_move;
+                w = w_move;
             }
             else
             {
-                state  = w_correct_r;
+                w  = w_correct_r;
                 mtn_lib_stop_mtn();
             }
             break;
@@ -251,7 +259,7 @@ uint8_t walk_to_wall(fnct_ptr mov_fnct, adc_t sensor, int distance)
     return done;
 }
 
-uint8_t walk_to_wall(fnct_ptr mov_fnct, adc_t sensor, int distance, adc_t sensor_exception, int distance_exception)
+uint8_t walk_to_wall_exception(fnct_ptr mov_fnct, adc_t sensor, int distance, adc_t sensor_exception, int distance_exception)
 {
     static walk_to_wall_states w = w_move;
     int done = 0;
@@ -266,30 +274,30 @@ uint8_t walk_to_wall(fnct_ptr mov_fnct, adc_t sensor, int distance, adc_t sensor
 
             if(compass(valor_base) > comp_error) //Comprova si està desviat
             {
-                mtn_lib_stop_mtn;
+                mtn_lib_stop_mtn();
                 w = w_correct_l;
             }
             else if(compass(valor_base) < -comp_error)
             {
-                mtn_lib_stop_mtn;
+                mtn_lib_stop_mtn();
                 w = w_correct_r;
             }
             else
             {
                 if(exp_adc_get_avg_channel(sensor) > distance)
                 {
-                    mtn_lib_stop_mtn;
+                    mtn_lib_stop_mtn();
                     done = 0x01;
                 }
 
                 if(exp_adc_get_avg_channel(sensor_exception) > distance_exception)
                 {
-                    mtn_lib_stop_mtn;
+                    mtn_lib_stop_mtn();
                     done = 0x02;
                 }
             }
 
-            if(mov_fnct != 0x01)
+            if(mov_fnct() != 0x01)
             {
                 w = w_move;
             }
@@ -304,11 +312,11 @@ uint8_t walk_to_wall(fnct_ptr mov_fnct, adc_t sensor, int distance, adc_t sensor
 
             if(turn_left() == 0x01)
             {
-                state = w_move;
+                w = w_move;
             }
             else
             {
-                state  = w_correct_l;
+                w  = w_correct_l;
                 mtn_lib_stop_mtn();
             }
             break;
@@ -321,11 +329,11 @@ uint8_t walk_to_wall(fnct_ptr mov_fnct, adc_t sensor, int distance, adc_t sensor
 
             if(turn_right() == 0x01)
             {
-                state = w_move;
+                w = w_move;
             }
             else
             {
-                state  = w_correct_r;
+                w  = w_correct_r;
                 mtn_lib_stop_mtn();
             }
             break;
@@ -339,14 +347,6 @@ uint8_t walk_to_wall(fnct_ptr mov_fnct, adc_t sensor, int distance, adc_t sensor
 // INIT i variables específiques
 ///////////////////////////////////////////////////////////
 
-
-int cont = 0;
-int valor_base, valor_actual, prev_distance, fnct_value;
-
-//Parametritzacions de valors límit dels sensors
-static int comp_error = 15;
-static int dist_frontal = 80;
-static int dist_lateral = 250;
 
 void user_init(void) //S'executa una sola vegada (setup de l'arduino)
 {
@@ -435,7 +435,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
         break;
 
     case walk_r:
-        fnct_value = walk_to_wall(walk_right(), dreta, dist_lateral, davant, dist_frontal);
+        fnct_value = walk_to_wall_exception(walk_right, dreta, dist_lateral, davant, dist_frontal);
         if(fnct_value == 0x01)
         {
             state = walk_l;
@@ -451,7 +451,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
         break;
 
         case walk_l:
-            fnct_value = walk_to_wall(walk_left(), esquerra, dist_lateral, davant, dist_frontal);
+            fnct_value = walk_to_wall_exception(walk_left, esquerra, dist_lateral, davant, dist_frontal);
             if(fnct_value == 0x01)
             {
                 state = walk_r;
@@ -467,13 +467,13 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
             break;
 
         case walk_f:
-            if(walk_to_wall(walk_forward(), davant, dist_frontal) == 0x01)
+            if(walk_to_wall(walk_forward, davant, dist_frontal) == 0x01)
             {
                 state = turn;
             }
             else
             {
-                case = walk_f;
+                state = walk_f;
             }
             break;
 
@@ -502,13 +502,13 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
             break;
 
         case walk_f_return:
-            if(walk_to_wall(walk_forward(), davant, dist_frontal) == 0x01)
+            if(walk_to_wall(walk_forward, davant, dist_frontal) == 0x01)
             {
                 state = stop;
             }
             else
             {
-                case = walk_f_return;
+                state = walk_f_return;
             }
             break;
 
@@ -523,3 +523,5 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                 state = stop;
             }
             break;
+	}
+}
