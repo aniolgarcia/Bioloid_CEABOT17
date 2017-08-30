@@ -5,7 +5,6 @@
 #include "exp_board.h"
 #include "mtn_library.h"
 #include <stdlib.h>
-#include "rs232.h"
 // //   char in;
 //   uint8_t in;
 // 
@@ -36,14 +35,13 @@
 //   }
 // }
 
-std::string serial_dev="/dev/ttyUSB0";
 
 // #include "cm510.h"
 // #include <util/delay.h>
 // #include <stdio.h>
 void user_init(void)
 {
-  serial_console_init(57600);
+  serial_console_init(9600);
   balance_init();
   balance_calibrate_gyro();
   balance_enable_gyro();
@@ -51,15 +49,6 @@ void user_init(void)
   mtn_lib_init();
   exp_adc_start();
   exp_compass_start();
-  
-  TRS232_config serial_config;
-    serial_config.baud=9600;
-    serial_config.num_bits=8;
-    serial_config.parity=none;
-    serial_config.stop_bits=1;
-
-    serial.open((void *)&serial_dev);
-    serial.config(&serial_config);
 }
 
 int user_loop(void)
@@ -71,14 +60,14 @@ int user_loop(void)
 
   
   
-  unsigned char data='a',num;
+  unsigned char data='a', num;
   cm510_write(&data,1);
   turn_led_on(LED_AUX);
   while(1)
   {
     do{
       num=cm510_read(&data,1);
-      _delay_ms(1000);
+      _delay_ms(100);
     }while(num == 0);
     toggle_led(LED_AUX);
     

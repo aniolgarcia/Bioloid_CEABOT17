@@ -25,7 +25,7 @@ std::string serial_dev="/dev/ttyUSB0";
 //activate/deactivate parts of the code
 #define DEBUG true
 #define SAVE false //saves the images to disk
-#define SHOW false 
+#define SHOW true 
 #define SERIAL true
 
 using namespace std;
@@ -211,6 +211,7 @@ main ()
 
   int imX, imY, imBits;
 
+  try{
   CRS232 serial("Serial_port");
   //Init serial
   if (SERIAL) {
@@ -219,6 +220,7 @@ main ()
     unsigned char data,answer;
 
     serial_config.baud=9600;
+// 	serial_config.baud = 57600;
     serial_config.num_bits=8;
     serial_config.parity=none;
     serial_config.stop_bits=1;
@@ -300,10 +302,10 @@ main ()
   //for (n = 0; n < NUM_IMGS; n++)
   while (1)
     {
-		unsigned char data, num;
-		num = serial.read(&data, 1);
-		if(num == '1')
-		{
+// 		unsigned char data, num;
+// 		num = serial.read(&data, 1);
+// 		if(num == '1')
+// 		{
 			
 // 		sleep(0.5);
       if (DEBUG) cout << "Capture"<<endl;
@@ -312,6 +314,8 @@ main ()
 	    {
 	      cout << "Error during capture process "<<ret<<endl;
 	    }
+	    else
+		{
       //get image and convert to opencv
       if (DEBUG) cout << "Inquire"<<endl;
       ret =	is_InquireImageMem (m_hCam, m_pcImageMemory, m_nMemoryId, &imX, &imY,
@@ -338,17 +342,15 @@ main ()
 	  
 
 // send command to robot
-      if (SERIAL) {
-        if (QRcode>0) {
-          unsigned char aChar = '0' + QRcode; //convert int to char
-          serial.write(&aChar,1);
-
-        }
-      }
+	if (SERIAL) {
+		if (QRcode>0) {
+		unsigned char aChar = '0' + QRcode; //convert int to char
+		serial.write(&aChar,1);
+		
+		}
+	}
+	 
       
-//       			   for (int c = 1 ; c <= 1000 ; c++ )
-// 				for (int d = 1 ; d <= 1000 ; d++ )
-// 				{}
 
       //Save images if required
       if (DEBUG) cout << "Save"<<endl;
@@ -374,10 +376,12 @@ main ()
         cvShowImage( "mywindow", rgb888Image);
         if ( (cvWaitKey(10) & 255) == 27 ) break;
       }
+      
       cvReleaseImageHeader(&rgb888Image);
       nImages++;
-		}
+// 		}
     }
+	}
       //}
   gettimeofday (&t2, NULL);
   //////////////////////////////////////////////////////
@@ -395,4 +399,7 @@ main ()
       if (DEBUG) cout << "Success in freeing mem"<<endl;
   }
   ret = is_ExitCamera (m_hCam);
+  }catch(CException &e){
+	  printf("%s\n",e.what().c_str());
+  }
 }

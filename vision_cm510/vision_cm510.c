@@ -8,7 +8,10 @@
 
 //Programa de la banda del cm510 per a la prova de visió. La beaglebone/raspberrypi decodifica la camera i envia un número per serial segons el contingut del QR. El cas 0 de la màquina d'estats llegeix el serial (que mai hauria d'enviar 0 o valors negatiu) i els altres casos són cadascun dels moviments. Cal posar altres sistemes de seguretat, ja que ara mateix estem confiant plenament amb el bno055, i no es contemplen casos com per exemple que es vegin 2 QR, que no en trobi cap, que trobi el codi abans de l'esperat o que no el trobi...
 
-int position[8]; 
+int position[8];
+int state = -2;
+unsigned char num;
+int valor_base;
 
 int compass_param(int ini, int actual)
 {
@@ -90,8 +93,8 @@ uint8_t gira(int angle){
 	switch (s){
 		case t_init:
 			comp_ini = bno055_correction(exp_bno055_get_heading());
-// 			comp_end = suma_angles (comp_ini,angle*10);
-			comp_end = angle;
+			comp_end = suma_angles (comp_ini,angle*10);
+// 			comp_end = angle;
 			
 			s=t_middle;
 			break;
@@ -190,11 +193,6 @@ void user_init(void)
 
 }
 
-int state = -2;
-unsigned char num;
-int valor_base;
-
-
 
 void user_loop(void)
 {
@@ -202,134 +200,147 @@ void user_loop(void)
   int data;
   switch(state)
   {
-    case -2: if(is_button_rising_edge(BTN_START))
-	      {
-		action_set_page(31);
-		action_start_page();
-		data = -1;
-		valor_base = bno055_correction(exp_bno055_get_heading());
-	      }
-	      else
-		data = -2;
-	      break;
+    case -2: 
+		if(is_button_rising_edge(BTN_START))
+	    {
+			action_set_page(31);
+			action_start_page();
+			data = -1;
+			valor_base = bno055_correction(exp_bno055_get_heading());
+	    }
+	    else
+		{
+			data = -2;
+		}
+	    break;
 	      
-    case -1: if(is_action_running())
-	     {
-	       data = -1;
-	     }
-	     else
-	     {
-	       data = 0;
-	     }
-	     break;
+    case -1: 
+		if(is_action_running())
+	    {
+	        data = -1;
+	    }
+	    else
+	    {
+			data = 0;
+	    }
+	    break;
 	     
-    case 0: cm510_printf("cas 0");
+    case 0:
+		cm510_printf("cas 0");
 	    do{
-	      num=cm510_read(&data,1);
-	      _delay_ms(100);
+			num=cm510_read(&data,1);
+			_delay_ms(500);
 	    }while(num == 0);
 	    break;
 
-    case 1: if(gira(position[0]) == 0x01)
+    case 1: 
+		if(gira(position[0]) == 0x01)
 	    {
-	      data = 0;
-	    }
-	    else
-	    {
-		  cm510_printf("Desviament: %d\n",compass(valor_base));
-		  cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
-	      data = 1;
-	    }
-	    cm510_write(&data,1);
-	    break;
-	    
-    case 2: if(gira(position[1]) == 0x01)
-	    {
-	      data = 0;
-	    }
-	    else
-	    {
-		  cm510_printf("Desviament: %d\n",compass(valor_base));
-		  cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
-	      data = 2;
-	    }
-	    cm510_write(&data,1);
-
-	    break;
-	    
-    case 3: if(gira(position[2]) == 0x01)
-	    {
-	      data = 0;
+			data = 0;
 	    }
 	    else
 	    {
 			cm510_printf("Desviament: %d\n",compass(valor_base));
 			cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
-	      data = 3;
+			data = 1;
 	    }
 	    cm510_write(&data,1);
 	    break;
 	    
-    case 4: if(gira(position[3]) == 0x01)
+    case 2:
+		if(gira(position[1]) == 0x01)
 	    {
-	      data = 0;
-	    }
-	    else
-	    {
-		cm510_printf("Desviament: %d\n",compass(valor_base));
-		cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
-	      data = 4;
-	    }
-	    cm510_write(&data,1);
-	    break;	  
-    case 5: if(gira(position[4]) == 0x01)
-	    {
-	      data = 0;
+			data = 0;
 	    }
 	    else
 	    {
 			cm510_printf("Desviament: %d\n",compass(valor_base));
 			cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
-	      data = 5;
+			data = 2;
 	    }
 	    cm510_write(&data,1);
 	    break;
 	    
-    case 6: if(gira(position[5]) == 0x01)
+    case 3: 
+		if(gira(position[2]) == 0x01)
 	    {
-	      data = 0;
+			data = 0;
+	    }
+	    else
+	    {
+			cm510_printf("Desviament: %d\n",compass(valor_base));
+			cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
+			data = 3;
+	    }
+	    cm510_write(&data,1);
+	    break;
+	    
+    case 4: 
+		if(gira(position[3]) == 0x01)
+	    {
+			data = 0;
+	    }
+	    else
+	    {
+			cm510_printf("Desviament: %d\n",compass(valor_base));
+			cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
+			data = 4;
+	    }
+	    cm510_write(&data,1);
+	    break;
+		
+    case 5:
+		if(gira(position[4]) == 0x01)
+	    {
+			data = 0;
+	    }
+	    else
+	    {
+			cm510_printf("Desviament: %d\n",compass(valor_base));
+			cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
+			data = 5;
+	    }
+	    cm510_write(&data,1);
+	    break;
+	    
+    case 6: 
+		if(gira(position[5]) == 0x01)
+	    {
+			data = 0;
 	    }
 	    else
 		{
 			cm510_printf("Desviament: %d\n",compass(valor_base));
 			cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
-	      data = 6;
+			data = 6;
 	    }
 	    cm510_write(&data,1);
 	    break;
 
-    case 7: if(gira(position[6]) == 0x01)
+    case 7: 
+		if(gira(position[6]) == 0x01)
 	    {
-	      data = 0;
+			data = 0;
 	    }
 	    else
 	    {
 			cm510_printf("Desviament: %d\n",compass(valor_base));
 			cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
-	      data = 7;
+			data = 7;
 	    }
 	    cm510_write(&data,1);
 	    break;
 
-    case 8: if(gira(position[7]) == 0x01)
+    case 8: 
+		if(gira(position[7]) == 0x01)
 	    {
-	      data = 0;
+			data = 0;
 	    }
 	    else
 	    {
 			cm510_printf("Desviament: %d\n",compass(valor_base));
 			cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
-	      data = 8;
+			data = 8;
 	    }
 	    cm510_write(&data,1);
 	    break;	      
