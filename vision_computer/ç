@@ -211,7 +211,7 @@ main ()
 
   int imX, imY, imBits;
 
-  try{
+//  try{
   CRS232 serial("Serial_port");
   //Init serial
   if (SERIAL) {
@@ -380,7 +380,7 @@ main ()
       cvReleaseImageHeader(&rgb888Image);
       nImages++;
 // 		}
-   }
+ //   }
 	}
       //}
   gettimeofday (&t2, NULL);

@@ -172,7 +172,7 @@ void user_init(void)
 	  int cont = 0;
 	  while(cont < 8)
 	  {
-		  if(is_button_rising_edge(BTN_DOWN)
+		  if(is_button_rising_edge(BTN_DOWN))
 		  {
 			  position[cont] = bno055_correction(exp_bno055_get_heading());
 			  cont += 1;
@@ -233,7 +233,7 @@ void user_loop(void)
 	    }while(num == 0);
 	    break;
 
-    case 1: 
+    case 1: toggle_led(LED_AUX); 
 		if(gira(position[0]) == 0x01)
 	    {
 			data = 0;
