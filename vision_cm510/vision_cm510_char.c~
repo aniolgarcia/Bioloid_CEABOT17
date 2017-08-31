@@ -12,7 +12,7 @@ int position[8];
 unsigned char state = 'a';
 unsigned char num;
 int valor_base;
-int last_pos = 0;
+int last_pos = 2;
 
 int compass_param(int ini, int actual)
 {
