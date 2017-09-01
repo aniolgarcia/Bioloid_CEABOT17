@@ -1,8 +1,8 @@
-PROJECT=lectura_serial
+PROJECT=turn_angle
 ########################################################
 # afegir tots els fitxers que s'han de compilar aquí
 ########################################################
-SOURCES=lectura_serial.c
+SOURCES=turn_angle_absolute.c
 
 OBJS=$(SOURCES:.c=.o)
 SRC_DIR=./

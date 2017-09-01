@@ -120,7 +120,7 @@ uint8_t gira(int angle, int dir){
 			break;
 
 		case t_right:
-			if (turn_right() == 0x01){
+			if (turn_right()){
 				s = t_wait_end;
 			}
 			else {
@@ -133,7 +133,7 @@ uint8_t gira(int angle, int dir){
 			break;
 
 		case t_left:
-			if (turn_left() == 0x01){
+			if (turn_left()){
 				s = t_wait_end;
 			}
 			else {
@@ -195,14 +195,14 @@ void user_init(void)
   else
   {
 	toggle_led(LED_TxD);
-	  position[0] = 1203;
-	  position[1] = 1530;
-	  position[2] = -1546;
-	  position[3] = -248;
-	  position[4] = 130;
-	  position[5] = 414;
-	  position[6] = 768;
-	  position[7] = 1062;
+	  position[0] = 1184;
+	  position[1] = 1591;
+	  position[2] = -1636;
+	  position[3] = -611;
+	  position[4] = 105;
+	  position[5] = 406;
+	  position[6] = 758;
+	  position[7] = 1134;
   }
 
 }

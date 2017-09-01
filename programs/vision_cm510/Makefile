@@ -2,14 +2,14 @@ PROJECT=vision_cm510
 ########################################################
 # afegir tots els fitxers que s'han de compilar aquí
 ########################################################
-SOURCES=vision_cm510_char.c
+SOURCES=vision_cm510_char_clean.c
 
 OBJS=$(SOURCES:.c=.o)
 SRC_DIR=./
-DEV_DIR=../../cm510_controller_fw/dyn_devices/
-COMM_DIR=../../cm510_controller_fw/communications/
-CONT_DIR=../../cm510_controller_fw/controllers/
-MAN_DIR=../../cm510_controller_fw/motion/
+DEV_DIR=../../../cm510_controller_fw/dyn_devices/
+COMM_DIR=../../../cm510_controller_fw/communications/
+CONT_DIR=../../../cm510_controller_fw/controllers/
+MAN_DIR=../../../cm510_controller_fw/motion/
 CC=avr-gcc
 OBJCOPY=avr-objcopy
 MMCU=atmega2561
