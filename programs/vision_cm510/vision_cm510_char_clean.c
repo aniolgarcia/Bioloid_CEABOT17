@@ -124,7 +124,7 @@ uint8_t gira(int angle, int dir){
 				s = t_wait_end;
 			}
 			else {
-				if (abs(angle - bno055_correction(exp_bno055_get_heading())) > err){
+				if (abs(angle - bno055_correction(exp_bno055_get_heading())) < err){
 						mtn_lib_stop_mtn();
 				}
 				else s = t_right;
@@ -137,7 +137,7 @@ uint8_t gira(int angle, int dir){
 				s = t_wait_end;
 			}
 			else {
-				if (abs(angle - bno055_correction(exp_bno055_get_heading())) > err){
+				if (abs(angle - bno055_correction(exp_bno055_get_heading())) < err){
 						mtn_lib_stop_mtn();
 				}
 				else s = t_left;
@@ -195,14 +195,14 @@ void user_init(void)
   else
   {
 	toggle_led(LED_TxD);
-	  position[0] = 1203;
-	  position[1] = 1530;
-	  position[2] = -1546;
-	  position[3] = -248;
-	  position[4] = 130;
-	  position[5] = 414;
-	  position[6] = 768;
-	  position[7] = 1062;
+	  position[0] = -1465;
+	  position[1] = -1056;
+	  position[2] = -602;
+	  position[3] = -321;
+	  position[4] = 203;
+	  position[5] = 813;
+	  position[6] = 1195;
+	  position[7] = 1634;
   }
 
 }

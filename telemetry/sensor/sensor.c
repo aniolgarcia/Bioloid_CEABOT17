@@ -119,7 +119,7 @@ void user_loop(void)
 			cm510_printf("Desviament: %d\n",compass(valor_base));
 //    			cm510_printf("GYRO X: %d  ", get_adc_channel(BALANCE_GYRO_X_CHANNEL));
 //   			cm510_printf("GYRO Y: %d\n", get_adc_channel(BALANCE_GYRO_Y_CHANNEL));
-			//user_time_set_period(500);
+			user_time_set_period(500);
 		      }
 		      state = read_sensor;
                       break;
