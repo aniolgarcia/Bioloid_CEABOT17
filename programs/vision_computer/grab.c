@@ -305,9 +305,14 @@ main ()
 // 		unsigned char data, num;
 // 		num = serial.read(&data, 1);
 // 		if(num == '1')
-// 		{
-			
+// 		{	
 // 		sleep(0.5);
+
+		unsigned char cm510;
+		serial.read(&cm510, 1);
+		cout << cm510;
+		if(cm510 = 'k')
+		{
       if (DEBUG) cout << "Capture"<<endl;
       ret = is_FreezeVideo (m_hCam, IS_WAIT);
       if (ret != IS_SUCCESS)
@@ -343,11 +348,11 @@ main ()
 
 // send command to robot
 	if (SERIAL) {
+
 		if (QRcode>0) {
 		unsigned char aChar = '0' + QRcode; //convert int to char
 		serial.write(&aChar,1);
 		sleep(2);
-		
 		}
 	}
 	 
@@ -381,6 +386,7 @@ main ()
       cvReleaseImageHeader(&rgb888Image);
       nImages++;
 // 		}
+}
    }
 	}
       //}

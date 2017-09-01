@@ -12,7 +12,7 @@ int position[8];
 unsigned char state = 'a';
 unsigned char num;
 int valor_base;
-int last_pos = 0;
+int last_pos = 6;
 int actual_pos;
 
 int compass_param(int ini, int actual)
@@ -175,7 +175,7 @@ void user_init(void)
   }
   //cm510_printf("Init");
 
-  if(is_button_pressed(BTN_DOWN))
+  if(is_button_rising_edge(BTN_DOWN))
   {
 	  int cont = 0;
 	  while(cont < 8)
@@ -190,6 +190,7 @@ void user_init(void)
 			  cont += 1;
 				toggle_led(LED_AUX);
 		  }
+		_delay_ms(1000);
 	  }
   }
   else
@@ -198,9 +199,9 @@ void user_init(void)
 	  position[0] = -1465;
 	  position[1] = -1056;
 	  position[2] = -602;
-	  position[3] = -321;
-	  position[4] = 203;
-	  position[5] = 813;
+	  position[3] = -215;
+	  position[4] = 304;
+	  position[5] = 912;
 	  position[6] = 1195;
 	  position[7] = 1634;
   }
@@ -263,7 +264,7 @@ void user_loop(void)
 			//cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
 			data = '1';
 	    }
-//	    //cm510_write(&data,1);
+	    cm510_write(&data,1);
 	    break;
 
     case '2':
@@ -279,7 +280,7 @@ void user_loop(void)
 			//cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
 			data = '2';
 	    }
-//	    //cm510_write(&data,1);
+	    cm510_write(&data,1);
 	    break;
 
     case '3':
@@ -295,11 +296,13 @@ void user_loop(void)
 			//cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
 			data = '3';
 	    }
-	    //cm510_write(&data,1);
+	    cm510_write(&data,1);
 	    break;
 
     case '4':
 		actual_pos = (last_pos+(90/45))%8;
+		unsigned char console = '0' + actual_pos;
+		cm510_write(&console, 1);
 		if(gira(position[actual_pos], 1) == 0x01)
 	    {
 			last_pos = actual_pos;
@@ -311,7 +314,7 @@ void user_loop(void)
 			//cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
 			data = '4';
 	    }
-	    ////cm510_write(&data,1);
+	    cm510_write(&data,1);
 	    break;
 
     case '5':
@@ -327,7 +330,7 @@ void user_loop(void)
 			//cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
 			data = '5';
 	    }
-	    ////cm510_write(&data,1);
+	    cm510_write(&data,1);
 	    break;
 
     case '6':
@@ -343,7 +346,7 @@ void user_loop(void)
 			//cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
 			data = '6';
 	    }
-	    ////cm510_write(&data,1);
+	    cm510_write(&data,1);
 	    break;
 
     case '7':
@@ -359,7 +362,7 @@ void user_loop(void)
 			//cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
 			data = '7';
 	    }
-	    //cm510_write(&data,1);
+	    cm510_write(&data,1);
 	    break;
 
     case '8':
@@ -375,7 +378,7 @@ void user_loop(void)
 			//cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
 			data = '8';
 	    }
-	    //cm510_write(&data,1);
+	    cm510_write(&data,1);
 	    break;
   }
 	state = data;

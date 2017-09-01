@@ -2,7 +2,7 @@ PROJECT=vision_cm510
 ########################################################
 # afegir tots els fitxers que s'han de compilar aquí
 ########################################################
-SOURCES=vision_cm510_char_clean.c
+SOURCES=vision_cm510.c
 
 OBJS=$(SOURCES:.c=.o)
 SRC_DIR=./
