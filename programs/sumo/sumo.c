@@ -143,7 +143,7 @@ void user_loop(void)
                      }
                      else
                        state=wait_start;
-                     break;
+                     break;fall_state = balance_robot_has_fallen();
 		     
     case wait_ready: if(is_button_rising_edge(BTN_RIGHT)){
 			state = gir_dreta;
