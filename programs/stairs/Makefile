@@ -1,5 +1,5 @@
 PROJECT=stairs
-LibPath =/home/humanoids/humanoids/cm510_controller_fw
+LibPath =/home/humanoides/humanoids/cm510_controller_fw
 ########################################################
 # afegir tots els fitxers que s'han de compilar aquí
 ########################################################
