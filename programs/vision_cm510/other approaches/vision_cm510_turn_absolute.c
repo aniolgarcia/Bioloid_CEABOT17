@@ -35,67 +35,28 @@ int bno055_correction(int value)
 	}
 }
 
+int add_angles(int angle1, int angle2)
+{
+	int addition = angle1 + angle2;
+	if(addition < -1800)
+	{
+		return addition + 3600;
+	}
+	else if(addition > 180)
+	{
+		return addition -3600;
+	}
+	else
+	{
+		return addition;
+	}
+}
+
 #define err 100
 typedef enum {t_init,t_middle,t_left,t_right,t_wait_end} turn_states;
-uint8_t turn_realtive(int angle){
-	static turn_states s = t_init;
-	static int comp_ini = 0;
-	static int comp_end = 0;
-	int done = 0;
-
-	switch (s){
-		case t_init:
-			comp_ini = bno055_correction(exp_bno055_get_heading());
-// 			comp_end = suma_angles (comp_ini,angle*10);
-			comp_end = angle;
-
-			s=t_middle;
-			break;
-		case t_middle:
-			if (abs (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end))>err){
-			// ("diff = %d\n",compass_param (bno055_correction(exp_bno055_get_heading()),comp_end));
-				if (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end)>err){
-					s =t_right;
-				}
-				else if (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end)<-err){
-					s=t_left;
-				}
-			}
-			else {
-				s = t_wait_end;
-			}
-			break;
-		case t_right:
-			if (turn_right()){
-				s = t_wait_end;
-			}
-			else {
-				if (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end)<err){
-						mtn_lib_stop_mtn();
-				}
-				else s = t_right;
-
-			}
-			break;
-
-		case t_left:
-			if (turn_left()){
-				s = t_wait_end;
-			}
-			else {
-				if (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end)>-err){
-						mtn_lib_stop_mtn();
-				}
-				else s = t_left;
-
-			}
-			break;
-		case t_wait_end:
-			done =0x01;
-			s = t_init;
-			break;
-
-	}
+uint8_t turn_absolute(int angle, int direction)
+{
+	
 	return done;
 }
 
@@ -122,10 +83,24 @@ void user_init(void)
 }
 
 
-int num, target_degrees;
+int num, target_position, turn_direction, actual_position;
 unsigned char data;
+int position[8];
+position[0] = -1465;
+position[1] = -1056;
+position[2] = -602;
+position[3] = -215;
+position[4] = 304;
+position[5] = 912;
+position[6] = 1195;
+position[7] = 1634;
+int last_position = 0;
+int next_position;
+int direction;
 
-typedef enum {wait_start, wait_ready, wait_5, read_QR, get_target_degrees, turn} main_states; 
+
+
+typedef enum {wait_start, wait_ready, wait_5, read_QR, get_target_position, turn} main_states; 
 main_states state = wait_start
 
 void user_loop(void)
@@ -136,6 +111,7 @@ void user_loop(void)
   	case wait_start:
   		if(is_button_rising_edge(BTN_START))
         {
+            valor_base = bno055_correction(exp_bno055_get_heading());
             action_set_page(31);
             action_start_page();
 			user_time_set_period(5000);
@@ -180,43 +156,78 @@ void user_loop(void)
 		}
 		else
 		{
-			state = get_target_degrees;
+			state = get_target_position;
 		}
 		break;
 
-	case get_target_degrees:
+	case get_target_position:
 		switch(data)
 		{
 		case '1':
-			target_degrees = -45;
+			next_position = (last_position+(-45/45))%8;
+			target_position = positions[next_position];
+			direction = -1;
 			break;
 		case '2':
-			target_degrees = 45;
+			next_position = (last_position+(45/45))%8;
+			target_position = positions[next_position];
+			direction = 1;
 			break;
 		case '3':
-			target_degrees = -90;
+			next_position = (last_position+(-90/45))%8;
+			target_position = positions[next_position];
+			direction = -1;
 			break;
 		case '4':
-			target_degrees = 90;
+			next_position = (last_position+(90/45))%8;
+			target_position = positions[next_position];
+			direction = 1;
 			break;
 		case '5':
-			target_degrees = -135;
+			next_position = (last_position+(-135/45))%8;
+			target_position = positions[next_position];
+			direction = -1;
 			break;
 		case '6':
-			target_degrees = 135;
+			next_position = (last_position+(135/45))%8;
+			target_position = positions[next_position];
+			direction = 1;
 			break;
 		case '7':
-			target_degrees = -180;
+			next_position = (last_position+(-180/45))%8;
+			target_position = positions[next_position];
+			direction = -1;
 			break;
 		case '8':
-			target_degrees = 180;
+			next_position = (last_position+(180/45))%8;
+			target_position = positions[next_position];
+			direction = 1;
 			break;
 		}
 		state = turn;
 		break;
 
-		case turn:
-			if(turn_realtive(target_degrees) == 0x01)
+	case turn:
+		actual_position = bno055_correction(exp_bno055_get_heading());
+		if(actual_position <= add_angles(target_position, err) && actual_position >= add_angles(target_position, -err))
+		{
+			mtn_lib_stop_mtn;
+		}
+
+		if(direction == -1)
+		{
+			if(turn_left() == 0x01)
+			{
+				state = read_QR;
+			}
+			else
+			{
+				state = turn; 
+			}
+		}
+		else if(diretion == 1)
+		{
+			if(turn_right() == 0x01)
 			{
 				state = read_QR;
 			}
@@ -224,9 +235,7 @@ void user_loop(void)
 			{
 				state = turn;
 			}
-			break;
-
-
-
+		}
+		break;
   	}
 }
