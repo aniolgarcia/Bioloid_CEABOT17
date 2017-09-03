@@ -308,11 +308,11 @@ main ()
 // 		{	
 // 		sleep(0.5);
 
-		unsigned char cm510;
-		serial.read(&cm510, 1);
-		cout << cm510;
-		if(cm510 = 'k')
-		{
+//		unsigned char cm510;
+//		serial.read(&cm510, 1);
+//		cout << cm510;
+//		if(cm510 = 'k')
+//		{
       if (DEBUG) cout << "Capture"<<endl;
       ret = is_FreezeVideo (m_hCam, IS_WAIT);
       if (ret != IS_SUCCESS)
@@ -386,7 +386,7 @@ main ()
       cvReleaseImageHeader(&rgb888Image);
       nImages++;
 // 		}
-}
+//}
    }
 	}
       //}
