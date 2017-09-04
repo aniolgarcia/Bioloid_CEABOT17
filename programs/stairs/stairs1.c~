@@ -59,6 +59,42 @@ int compass_param(int ini, int actual)
 }
 
 
+//Com que el rang és de [-1800, -250(aprox)] U [0, 2050(aprox)], quan passi de -250, simplement li restem 250.
+int bno055_correction(int value)
+{
+    if(value > -250)
+    {
+        return value -250;
+    }
+    else
+    {
+        return value;
+    }
+}
+
+//Funció per calcular el desviament del robot respecte l'orientació inicial. Agafa angles en un rang de [0, 3600] i els retorna en un rang de [0, 360].
+int compass(int valor_base)
+{
+    
+    int nou_valor, desviament;
+    
+    // 	nou_valor = exp_bno055_get_headig();
+    nou_valor = bno055_correction(exp_bno055_get_heading());
+    desviament = nou_valor - valor_base;
+    //Com que el desviament no pot ser més de 180, si es passa és que ha passat de 360 o 0
+    if(desviament > 1800)
+    {
+        desviament = desviament - 3600;
+    }
+    else if(desviament < -1800)
+    {
+        desviament = desviament + 3600;
+    }
+    
+    desviament = desviament/10;
+    
+    return desviament;
+}
 
 //Funció que suma angles deixant-los sempre en un rang de [0, 3600]
 int suma_angles(int a, int b)
