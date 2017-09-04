@@ -6,34 +6,41 @@
 #include "mtn_library.h"
 #include <stdlib.h>
 
-//Programa de la banda del cm510 per a la prova de visió. La beaglebone/raspberrypi decodifica la camera i envia un número per serial segons el contingut del QR. El cas 0 de la màquina d'estats llegeix el serial (que mai hauria d'enviar 0 o valors negatiu) i els altres casos són cadascun dels moviments. Cal posar altres sistemes de seguretat, ja que ara mateix estem confiant plenament amb el bno055, i no es contemplen casos com per exemple que es vegin 2 QR, que no en trobi cap, que trobi el codi abans de l'esperat o que no el trobi...
-
-int position[8];
-unsigned char state = 'a';
-unsigned char num;
-int valor_base;
-
+//Funció per calcular el desviament del robot respecte l'orientació inicial. És com compass però amb la posició inicial parametritzada.
 int compass_param(int ini, int actual)
 {
 	short int inc = actual - ini;
-	if(inc < -1800)
-	{ 
-	  inc += 3600;
-	}
-	else if(inc > 1800)
+	if(inc<-1800)
 	{
-	  inc -= 3600;
+	  	inc+=3600;
+	}
+	else if(inc>1800)
+	{
+	  	inc-=3600;
 	}
 	return inc;
 }
 
+int suma_angles(int a, int b)
+{
+	int res = a + b;
+	if(res < -1800 )
+	{
+	  res+=3600;
+	}
+	else if(res > 1800)
+	{
+	  res-=3600;
+	}
+	return res;
+}
 
-
+//Com que el rang és de [-1800, -250(aprox)] U [0, 2050(aprox)], quan passi de -250, simplement li restem 250.
 int bno055_correction(int value)
 {
-	if(value > -240)
+	if(value > -250)
 	{
-	  return value - 240;
+	  return value -250;
 	}
 	else
 	{
@@ -41,61 +48,20 @@ int bno055_correction(int value)
 	}
 }
 
-//Funció que suma angles deixant-los sempre en un rang de [0, 3600]
-int suma_angles(int a, int b)
-{
-	int res = a + b;
-	if(res < 0 )
-	{
-	  res += 3600;
-	}
-	else if(res > 3600)
-	{
-	  res -= 3600;
-	}
-	return res;
-}
-
-int compass(int valor_base)
-{
-        
-	int nou_valor, desviament;
-	
-// 	nou_valor = exp_bno055_get_heading();
-	nou_valor = bno055_correction(exp_bno055_get_heading());
-	desviament = nou_valor - valor_base;
-	if(desviament > 1800)
-	{
-		desviament = desviament - 3600;
-	}
-	else if(desviament < -1800)
-	{
-		desviament = desviament + 3600;
-	}
-	
-	desviament = desviament/10;
-	
-	return desviament;
-}
-
-//La funció gira() és una còpia exacta de turn_angle() de la mtn_library, però utilitzant la bno055 en lloc del compass. Cal arreglar-ho a la llibreria de  moviments.
-
-//S'ha canviat el comp_end per anar a una posició concreta de la brúixola, no per sumar un nombre de graus a la posició actual!
-
+#define err 100
 typedef enum {t_init,t_middle,t_left,t_right,t_wait_end} turn_states;
-#define err 100 //Màxim error permès a turn.
-uint8_t gira(int angle){
+uint8_t turn_realtive(int angle){
 	static turn_states s = t_init;
 	static int comp_ini = 0;
 	static int comp_end = 0;
 	int done = 0;
-	
+
 	switch (s){
 		case t_init:
 			comp_ini = bno055_correction(exp_bno055_get_heading());
-			comp_end = suma_angles (comp_ini,angle*10);
-// 			comp_end = angle;
-			
+ 			comp_end = suma_angles (comp_ini,angle*10);
+//			comp_end = angle;
+
 			s=t_middle;
 			break;
 		case t_middle:
@@ -109,7 +75,7 @@ uint8_t gira(int angle){
 				}
 			}
 			else {
-				s = t_wait_end;		
+				s = t_wait_end;
 			}
 			break;
 		case t_right:
@@ -117,14 +83,14 @@ uint8_t gira(int angle){
 				s = t_wait_end;
 			}
 			else {
-				if (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end)<err){ 
+				if (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end)<err){
 						mtn_lib_stop_mtn();
 				}
 				else s = t_right;
-				
+
 			}
 			break;
-			
+
 		case t_left:
 			if (turn_left()){
 				s = t_wait_end;
@@ -134,14 +100,14 @@ uint8_t gira(int angle){
 						mtn_lib_stop_mtn();
 				}
 				else s = t_left;
-				
+
 			}
 			break;
 		case t_wait_end:
 			done =0x01;
 			s = t_init;
 			break;
-	
+
 	}
 	return done;
 }
@@ -149,7 +115,7 @@ uint8_t gira(int angle){
 
 void user_init(void)
 {
-  serial_console_init(9600);
+  serial_console_init(57600);
   balance_init();
   balance_calibrate_gyro();
 //  balance_enable_gyro(); // En aquest cas hem de tenir el gyro desactivat, ja que si no intenta compensar els propis moviments de gir
@@ -165,178 +131,118 @@ void user_init(void)
   {
     _delay_ms(100);
   }
-//  cm510_printf("Init");
-  
-  if(is_button_pressed(BTN_DOWN))
-  {
-	  int cont = 0;
-	  while(cont < 8)
-	  {
-		  if(is_button_rising_edge(BTN_DOWN))
-		  {
-			  position[cont] = bno055_correction(exp_bno055_get_heading());
-			  cont += 1;
-		  }
-	  }
-  }
-  else
-  {
-	  position[0] = -45;
-	  position[1] = 45;
-	  position[2] = -90;
-	  position[3] = 90;
-	  position[4] = -135;
-	  position[5] = 135;
-	  position[6] = -180;
-	  position[7] = 180;
-  }
 
 }
 
 
+int num, target_degrees;
+unsigned char data;
+
+typedef enum {wait_start, wait_ready, wait_5, read_QR, get_target_degrees, turn} main_states; 
+main_states state = wait_start;
+
 void user_loop(void)
 {
-  //Hi havia un error al fer el cm510_read de la mateixa vairable sobre la qual s'executa el switch, per tant es fa lectura de "data" i al acabar el switch s'iguala "state" a "data". Dada es torna a declarar a cada iteració del user_loop per assegurar que no agafa qualsevol altre valor. Inicialment "state" = -2
-  int data;
-  switch(state)
-  {
-    case 'a': 
-		if(is_button_rising_edge(BTN_START))
-	    {
-			action_set_page(31);
-			action_start_page();
-			data = 'b';
-			valor_base = bno055_correction(exp_bno055_get_heading());
-	    }
-	    else
+
+  	switch(state)
+  	{
+  	case wait_start:
+  		if(is_button_rising_edge(BTN_START))
+        {
+            action_set_page(31);
+            action_start_page();
+			user_time_set_period(5000);
+            state=wait_5;
+        }
+        else
+        {
+            state=wait_start;
+        }
+        break;
+
+
+    case wait_5: 	 
+    	if(user_time_is_period_done())
+        {
+            state = wait_ready;
+        }
+        else
+        {
+            state = wait_5;
+        }
+        break;
+
+    case wait_ready: 
+    	if(is_action_running())
+        {
+            state = wait_ready;
+        }
+        else
+        {
+        	state = read_QR;
+        }
+        break;
+
+    case read_QR:
+		cm510_printf("ready\n");
+		//_delay_ms(500);
+    	num=cm510_read(&data,1);
+		//_delay_ms(500);
+
+		if(num == 0)
 		{
-			data = 'a';
+			state = read_QR;
 		}
-	    break;
-	      
-    case 'b': 
-		if(is_action_running())
-	    {
-	        data = 'b';
-	    }
-	    else
-	    {
-			data = 'c';
-	    }
-	    break;
-	     
-    case 'c':
-//		cm510_printf("cas 0");
-		cm510_write('k', 1);
-	    do{
-			num=cm510_read(&data,1);
-			_delay_ms(500);
-	    }while(num == 0);
-	    break;
-
-    case '1': toggle_led(LED_AUX); 
-		if(gira(-45) == 0x01)
-	    {
-			data = 'c';
-	    }
-	    else
-	    {
-			data = '1';
-	    }
-//	    cm510_write(&data,1);
-		cm510_read(&data,1);
-	    break;
-	    
-    case '2':
-		if(gira(45) == 0x01)
-	    {
-			data = 'c';
-	    }
-	    else
-	    {
-				data = '2';
-	    }
-//	    cm510_write(&data,1);
-		cm510_read(&data,1);
-	    break;
-	    
-    case '3': 
-		if(gira(-90) == 0x01)
-	    {
-			data = 'c';
-	    }
-	    else
-	    {
-			data = '3';
-	    }
-//	    cm510_write(&data,1);
-		cm510_read(&data,1);
-	    break;
-	    
-    case '4': 
-		if(gira(90) == 0x01)
-	    {
-			data = 'c';
-	    }
-	    else
-	    {
-			data = '4';
-	    }
-//	    cm510_write(&data,1);
-		cm510_read(&data,1);
-	    break;
-		
-    case '5':
-		if(gira(-135) == 0x01)
-	    {
-			data = 'c';
-	    }
-	    else
-	    {
-			data = '5';
-	    }
-//	    cm510_write(&data,1);
-		cm510_read(&data,1);
-	    break;
-	    
-    case '6': 
-		if(gira(135) == 0x01)
-	    {
-			data = 'c';
-	    }
-	    else
+		else
 		{
-			data = '6';
-	    }
-//	    cm510_write(&data,1);
-		cm510_read(&data,1);
-	    break;
+			state = get_target_degrees;
+		}
+		
+		break;
 
-    case '7': 
-		if(gira(-180) == 0x01)
-	    {
-			data = 'c';
-	    }
-	    else
-	    {
-			data = '7';
-	    }
-//	    cm510_write(&data,1);
-		cm510_read(&data,1);
-	    break;
+	case get_target_degrees:
+		switch(data)
+		{
+		case '1':
+			target_degrees = -45;
+			break;
+		case '2':
+			target_degrees = 45;
+			break;
+		case '3':
+			target_degrees = -90;
+			break;
+		case '4':
+			target_degrees = 90;
+			break;
+		case '5':
+			target_degrees = -135;
+			break;
+		case '6':
+			target_degrees = 135;
+			break;
+		case '7':
+			target_degrees = -180;
+			break;
+		case '8':
+			target_degrees = 180;
+			break;
+		}
+		state = turn;
+		break;
 
-    case '8': 
-		if(gira(180) == 0x01)
-	    {
-			data = 'c';
-	    }
-	    else
-	    {
-			data = '8';
-	    }
-//	    cm510_write(&data,1);
-		cm510_read(&data,1);
-	    break;	      
-  }
-  state = data;
+		case turn:
+			if(turn_realtive(target_degrees) == 0x01)
+			{
+				state = read_QR;
+			}
+			else
+			{
+				state = turn;
+			}
+			break;
+
+
+
+  	}
 }

@@ -12,14 +12,12 @@ int position[8];
 unsigned char state = 'a';
 unsigned char num;
 int valor_base;
-int last_pos = 0;
-int actual_pos;
 
 int compass_param(int ini, int actual)
 {
 	short int inc = actual - ini;
 	if(inc < -1800)
-	{
+	{ 
 	  inc += 3600;
 	}
 	else if(inc > 1800)
@@ -60,9 +58,9 @@ int suma_angles(int a, int b)
 
 int compass(int valor_base)
 {
-
+        
 	int nou_valor, desviament;
-
+	
 // 	nou_valor = exp_bno055_get_heading();
 	nou_valor = bno055_correction(exp_bno055_get_heading());
 	desviament = nou_valor - valor_base;
@@ -74,9 +72,9 @@ int compass(int valor_base)
 	{
 		desviament = desviament + 3600;
 	}
-
+	
 	desviament = desviament/10;
-
+	
 	return desviament;
 }
 
@@ -86,70 +84,64 @@ int compass(int valor_base)
 
 typedef enum {t_init,t_middle,t_left,t_right,t_wait_end} turn_states;
 #define err 100 //Màxim error permès a turn.
-uint8_t gira(int angle, int dir){
+uint8_t gira(int angle){
 	static turn_states s = t_init;
 	static int comp_ini = 0;
 	static int comp_end = 0;
 	int done = 0;
-
+	
 	switch (s){
 		case t_init:
 			comp_ini = bno055_correction(exp_bno055_get_heading());
-//			comp_end = suma_angles (comp_ini,angle*10);
- 			comp_end = angle;
-
+			comp_end = suma_angles (comp_ini,angle*10);
+// 			comp_end = angle;
+			
 			s=t_middle;
 			break;
-
 		case t_middle:
-			if (abs(angle - bno055_correction(exp_bno055_get_heading())) > err)
-			{
-				if(dir == -1)
-				{
-					s = t_left;
+			if (abs (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end))>err){
+			// ("diff = %d\n",compass_param (bno055_correction(exp_bno055_get_heading()),comp_end));
+				if (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end)>err){
+					s =t_right;
 				}
-				if(dir == 1)
-				{
-					s = t_right;
+				else if (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end)<-err){
+					s=t_left;
 				}
-
 			}
 			else {
-				s = t_wait_end;
+				s = t_wait_end;		
 			}
 			break;
-
 		case t_right:
 			if (turn_right()){
 				s = t_wait_end;
 			}
 			else {
-				if (abs(angle - bno055_correction(exp_bno055_get_heading())) > err){
+				if (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end)<err){ 
 						mtn_lib_stop_mtn();
 				}
 				else s = t_right;
-
+				
 			}
 			break;
-
+			
 		case t_left:
 			if (turn_left()){
 				s = t_wait_end;
 			}
 			else {
-				if (abs(angle - bno055_correction(exp_bno055_get_heading())) > err){
+				if (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end)>-err){
 						mtn_lib_stop_mtn();
 				}
 				else s = t_left;
-
+				
 			}
 			break;
-
 		case t_wait_end:
 			done =0x01;
 			s = t_init;
 			break;
-
+	
 	}
 	return done;
 }
@@ -173,51 +165,42 @@ void user_init(void)
   {
     _delay_ms(100);
   }
-  //cm510_printf("Init");
-
+//  cm510_printf("Init");
+  
   if(is_button_pressed(BTN_DOWN))
   {
 	  int cont = 0;
 	  while(cont < 8)
 	  {
-			toggle_led(LED_RxD);
-			//cm510_printf("Wait reading");
-		  if(is_button_rising_edge(BTN_RIGHT))
+		  if(is_button_rising_edge(BTN_DOWN))
 		  {
-				//cm510_printf("Reading compass");
-			  toggle_led(LED_AUX);
 			  position[cont] = bno055_correction(exp_bno055_get_heading());
 			  cont += 1;
-				toggle_led(LED_AUX);
 		  }
 	  }
   }
   else
   {
-	toggle_led(LED_TxD);
-	  position[0] = 1184;
-	  position[1] = 1591;
-	  position[2] = -1636;
-	  position[3] = -611;
-	  position[4] = 105;
-	  position[5] = 406;
-	  position[6] = 758;
-	  position[7] = 1134;
+	  position[0] = -45;
+	  position[1] = 45;
+	  position[2] = -90;
+	  position[3] = 90;
+	  position[4] = -135;
+	  position[5] = 135;
+	  position[6] = -180;
+	  position[7] = 180;
   }
 
 }
 
 
-
-
 void user_loop(void)
 {
   //Hi havia un error al fer el cm510_read de la mateixa vairable sobre la qual s'executa el switch, per tant es fa lectura de "data" i al acabar el switch s'iguala "state" a "data". Dada es torna a declarar a cada iteració del user_loop per assegurar que no agafa qualsevol altre valor. Inicialment "state" = -2
-  unsigned char data = 'a';
+  int data;
   switch(state)
   {
-    case 'a':
-		toggle_led(LED_AUX);
+    case 'a': 
 		if(is_button_rising_edge(BTN_START))
 	    {
 			action_set_page(31);
@@ -230,8 +213,8 @@ void user_loop(void)
 			data = 'a';
 		}
 	    break;
-
-    case 'b':
+	      
+    case 'b': 
 		if(is_action_running())
 	    {
 	        data = 'b';
@@ -241,142 +224,119 @@ void user_loop(void)
 			data = 'c';
 	    }
 	    break;
-
+	     
     case 'c':
-		//cm510_printf("Llegint");
+//		cm510_printf("cas 0");
+		cm510_write('k', 1);
 	    do{
 			num=cm510_read(&data,1);
 			_delay_ms(500);
 	    }while(num == 0);
 	    break;
 
-    case '1':
-		actual_pos = (last_pos+(-45/45))%8;
-		if(gira(position[actual_pos], -1) == 0x01)
+    case '1': toggle_led(LED_AUX); 
+		if(gira(-45) == 0x01)
 	    {
-			last_pos = actual_pos;
 			data = 'c';
 	    }
 	    else
 	    {
-			//cm510_printf("Desviament: %d\n",compass(valor_base));
-			//cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
 			data = '1';
 	    }
-//	    //cm510_write(&data,1);
+//	    cm510_write(&data,1);
+		cm510_read(&data,1);
 	    break;
-
+	    
     case '2':
-		actual_pos = (last_pos+(45/45))%8;
-		if(gira(position[actual_pos], 1) == 0x01)
+		if(gira(45) == 0x01)
 	    {
-			last_pos = actual_pos;
 			data = 'c';
 	    }
 	    else
 	    {
-			//cm510_printf("Desviament: %d\n",compass(valor_base));
-			//cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
-			data = '2';
+				data = '2';
 	    }
-//	    //cm510_write(&data,1);
+//	    cm510_write(&data,1);
+		cm510_read(&data,1);
 	    break;
-
-    case '3':
-		actual_pos = (last_pos+(-90/45))%8;
-		if(gira(position[actual_pos], -1) == 0x01)
+	    
+    case '3': 
+		if(gira(-90) == 0x01)
 	    {
-			last_pos = actual_pos;
 			data = 'c';
 	    }
 	    else
 	    {
-			//cm510_printf("Desviament: %d\n",compass(valor_base));
-			//cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
 			data = '3';
 	    }
-	    //cm510_write(&data,1);
+//	    cm510_write(&data,1);
+		cm510_read(&data,1);
 	    break;
-
-    case '4':
-		actual_pos = (last_pos+(90/45))%8;
-		if(gira(position[actual_pos], 1) == 0x01)
+	    
+    case '4': 
+		if(gira(90) == 0x01)
 	    {
-			last_pos = actual_pos;
 			data = 'c';
 	    }
 	    else
 	    {
-			//cm510_printf("Desviament: %d\n",compass(valor_base));
-			//cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
 			data = '4';
 	    }
-	    ////cm510_write(&data,1);
+//	    cm510_write(&data,1);
+		cm510_read(&data,1);
 	    break;
-
+		
     case '5':
-		actual_pos = (last_pos+(-135/45))%8;
-		if(gira(position[actual_pos], -1) == 0x01)
+		if(gira(-135) == 0x01)
 	    {
-			last_pos = actual_pos;
 			data = 'c';
 	    }
 	    else
 	    {
-			//cm510_printf("Desviament: %d\n",compass(valor_base));
-			//cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
 			data = '5';
 	    }
-	    ////cm510_write(&data,1);
+//	    cm510_write(&data,1);
+		cm510_read(&data,1);
 	    break;
-
-    case '6':
-		actual_pos = (last_pos+(135/45))%8;
-		if(gira(position[(last_pos+3)%8], 1) == 0x01)
+	    
+    case '6': 
+		if(gira(135) == 0x01)
 	    {
-			last_pos = (last_pos+3)%8;
 			data = 'c';
 	    }
 	    else
 		{
-			//cm510_printf("Desviament: %d\n",compass(valor_base));
-			//cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
 			data = '6';
 	    }
-	    ////cm510_write(&data,1);
+//	    cm510_write(&data,1);
+		cm510_read(&data,1);
 	    break;
 
-    case '7':
-		actual_pos = (last_pos+(-180/45))%8;
-		if(gira(position[actual_pos], -1) == 0x01)
+    case '7': 
+		if(gira(-180) == 0x01)
 	    {
-			last_pos = actual_pos;
 			data = 'c';
 	    }
 	    else
 	    {
-			//cm510_printf("Desviament: %d\n",compass(valor_base));
-			//cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
 			data = '7';
 	    }
-	    //cm510_write(&data,1);
+//	    cm510_write(&data,1);
+		cm510_read(&data,1);
 	    break;
 
-    case '8':
-		actual_pos = (last_pos+(180/45))%8;
-		if(gira(position[actual_pos], 1) == 0x01)
+    case '8': 
+		if(gira(180) == 0x01)
 	    {
-			last_pos = actual_pos;
 			data = 'c';
 	    }
 	    else
 	    {
-			//cm510_printf("Desviament: %d\n",compass(valor_base));
-			//cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
 			data = '8';
 	    }
-	    //cm510_write(&data,1);
-	    break;
+//	    cm510_write(&data,1);
+		cm510_read(&data,1);
+	    break;	      
   }
-	state = data;
+  state = data;
 }

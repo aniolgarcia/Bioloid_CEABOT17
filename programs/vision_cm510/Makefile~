@@ -1,8 +1,8 @@
-PROJECT=turn_angle
+PROJECT=vision_cm510
 ########################################################
 # afegir tots els fitxers que s'han de compilar aquí
 ########################################################
-SOURCES=turn_angle.c
+SOURCES=vision_cm510.c
 
 OBJS=$(SOURCES:.c=.o)
 SRC_DIR=./

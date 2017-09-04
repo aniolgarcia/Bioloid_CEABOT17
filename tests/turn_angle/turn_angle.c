@@ -73,11 +73,11 @@ int compass(int valor_base)
 int suma_angles(int a, int b)
 {
 	int res = a + b;
-	if(res < 0 )
+	if(res < -1800 )
 	{
 	  res+=3600;
 	}
-	else if(res>3600)
+	else if(res > 1800)
 	{
 	  res-=3600;
 	}
@@ -96,7 +96,6 @@ uint8_t gira(int angle){
 		case t_init:
 			comp_ini = bno055_correction(exp_bno055_get_heading());
 			comp_end = suma_angles (comp_ini,angle*10);
-			
 			s=t_middle;
 			break;
 		case t_middle:
@@ -213,14 +212,14 @@ void user_loop(void)
 	       }
 	       break;
 	case gir_dreta2: 
-		  if (gira(90)==0x01){
+		  if (gira(-90)==0x01){
 		    state = wait_ready;
 	       }
 	       break;
 	       
 	       
     case gir_esquerra: 
-		  if (gira(-180)==0x01){
+		  if (gira(-175)==0x01){
 		  state = wait_ready;
 	       }
 	       break;

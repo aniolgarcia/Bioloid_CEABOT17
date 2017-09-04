@@ -3,6 +3,7 @@
 //Compile with : gcc grab.c -o grab -lueye_api 
 #include "exceptions.h"
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #include <ueye.h>
 #include <unistd.h>
@@ -25,13 +26,31 @@ std::string serial_dev="/dev/ttyUSB0";
 //activate/deactivate parts of the code
 #define DEBUG true
 #define SAVE false //saves the images to disk
-#define SHOW true 
+#define SHOW false 
 #define SERIAL true
 
 using namespace std;
 using namespace cv;
 using namespace zbar;
 
+
+bool WaitReady(CRS232& serial)
+{
+  char buffer[16];
+  while (serial.read((unsigned char*)buffer,16)<=0)
+    usleep(100000);
+	//usleep(1000);
+  //DEBUG(std::cerr << "Str response: " << buffer << '\n';)
+  //if(strncmp("ready", buffer, 5) == 0)
+	//{
+		//return 1;
+	//}
+	//else
+	//{
+		//return 0;
+	//}
+  return strncmp("ready",buffer,5)==0;
+}
 
 int
 findQR (Mat & grey)
@@ -219,8 +238,8 @@ main ()
     TRS232_config serial_config;
     unsigned char data,answer;
 
-    serial_config.baud=9600;
-// 	serial_config.baud = 57600;
+//    serial_config.baud=9600;
+ 	serial_config.baud = 57600;
     serial_config.num_bits=8;
     serial_config.parity=none;
     serial_config.stop_bits=1;
@@ -313,6 +332,8 @@ main ()
 //		cout << cm510;
 //		if(cm510 = 'k')
 //		{
+	if(WaitReady(serial))
+	{
       if (DEBUG) cout << "Capture"<<endl;
       ret = is_FreezeVideo (m_hCam, IS_WAIT);
       if (ret != IS_SUCCESS)
@@ -386,7 +407,7 @@ main ()
       cvReleaseImageHeader(&rgb888Image);
       nImages++;
 // 		}
-//}
+	}
    }
 	}
       //}

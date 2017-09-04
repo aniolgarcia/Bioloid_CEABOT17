@@ -21,6 +21,19 @@ int compass_param(int ini, int actual)
 	return inc;
 }
 
+int suma_angles(int a, int b)
+{
+	int res = a + b;
+	if(res < -1800 )
+	{
+	  res+=3600;
+	}
+	else if(res > 1800)
+	{
+	  res-=3600;
+	}
+	return res;
+}
 
 //Com que el rang és de [-1800, -250(aprox)] U [0, 2050(aprox)], quan passi de -250, simplement li restem 250.
 int bno055_correction(int value)
@@ -46,8 +59,8 @@ uint8_t turn_realtive(int angle){
 	switch (s){
 		case t_init:
 			comp_ini = bno055_correction(exp_bno055_get_heading());
-// 			comp_end = suma_angles (comp_ini,angle*10);
-			comp_end = angle;
+ 			comp_end = suma_angles (comp_ini,angle*10);
+//			comp_end = angle;
 
 			s=t_middle;
 			break;
@@ -102,7 +115,7 @@ uint8_t turn_realtive(int angle){
 
 void user_init(void)
 {
-  serial_console_init(9600);
+  serial_console_init(57600);
   balance_init();
   balance_calibrate_gyro();
 //  balance_enable_gyro(); // En aquest cas hem de tenir el gyro desactivat, ja que si no intenta compensar els propis moviments de gir
@@ -171,8 +184,10 @@ void user_loop(void)
         break;
 
     case read_QR:
+		cm510_printf("ready\n");
+		//_delay_ms(500);
     	num=cm510_read(&data,1);
-		_delay_ms(500);
+		//_delay_ms(500);
 
 		if(num == 0)
 		{
@@ -182,6 +197,7 @@ void user_loop(void)
 		{
 			state = get_target_degrees;
 		}
+		
 		break;
 
 	case get_target_degrees:

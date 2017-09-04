@@ -8,10 +8,177 @@
 #include "mtn_library.h"
 #include "action_id.h"
 #include "small_steps.h"
+///////////////////////////////////////////////////////////
+// Definició de variables globals i tipus
+///////////////////////////////////////////////////////////
 
 
-typedef enum {wait_start,wait_ready} main_states;
-main_states prev,next;
+typedef int bool; //Definim el boleà, que en C no existeix
+#define true 1
+#define false 0
+
+#define err 100 //Màxim error permès a gira.
+
+typedef enum {wait_start, wait_ready,wait_5, walk_l, walk_r, ready_walk_f, walk_f, turn, ready_walk_return, walk_return, stop, correct_l, correct_r} main_states; //Estats de la màquina d'estats
+
+typedef enum {t_init,t_middle,t_left,t_right,t_wait_end} turn_states;
+
+typedef uint8_t (*fnct_ptr)(void); //Parametrització de les funcions per a canvis ràpids
+fnct_ptr fnct_r = turn_right;
+// fnct_ptr fnct_r = turn_angle(15);
+
+fnct_ptr fnct_l = turn_left;
+// fnct_ptr fnct_l = turn_angle(-15);
+
+main_states prev, next; //Variable de tipus main_states (estat) que servirà per guardar l'estat anterior a corregir per poder-hi tornar més fàcilment.
+
+
+//Definim variables dels ports, que canvien segons si és una simulació o no ( més detalls a ../index.txt)
+const bool simulat = false;
+adc_t davant, esquerra, dreta;
+
+bool forat = false;
+
+///////////////////////////////////////////////////////////
+//  Definició de funcions pròpies
+///////////////////////////////////////////////////////////
+
+//Funció per calcular el desviament del robot respecte l'orientació inicial. És com compass però amb la posició inicial parametritzada.
+int compass_param(int ini, int actual)
+{
+    short int inc = actual - ini;
+    if(inc<-1800)
+    {
+        inc+=3600;
+    }
+    else if(inc>1800)
+    {
+        inc-=3600;
+    }
+    return inc;
+}
+
+
+//Com que el rang és de [-1800, -250(aprox)] U [0, 2050(aprox)], quan passi de -250, simplement li restem 250.
+int bno055_correction(int value)
+{
+    if(value > -250)
+    {
+        return value -250;
+    }
+    else
+    {
+        return value;
+    }
+}
+
+//Funció per calcular el desviament del robot respecte l'orientació inicial. Agafa angles en un rang de [0, 3600] i els retorna en un rang de [0, 360].
+int compass(int valor_base)
+{
+    
+    int nou_valor, desviament;
+    
+    // 	nou_valor = exp_bno055_get_headig();
+    nou_valor = bno055_correction(exp_bno055_get_heading());
+    desviament = nou_valor - valor_base;
+    //Com que el desviament no pot ser més de 180, si es passa és que ha passat de 360 o 0
+    if(desviament > 1800)
+    {
+        desviament = desviament - 3600;
+    }
+    else if(desviament < -1800)
+    {
+        desviament = desviament + 3600;
+    }
+    
+    desviament = desviament/10;
+    
+    return desviament;
+}
+
+//Funció que suma angles deixant-los sempre en un rang de [0, 3600]
+int suma_angles(int a, int b)
+{
+    int res = a + b;
+    if(res < 0 )
+    {
+        res+=3600;
+    }
+    else if(res>3600)
+    {
+        res-=3600;
+    }
+    return res;
+}
+
+//Funció turn_angle() adaptada a la bno055 ALERTA: No suma el nombre de graus a la posició actual, sinó que va a aquella posició de la brúixola!!!
+uint8_t gira(int angle){
+    static turn_states s = t_init;
+    static int comp_ini = 0;
+    static int comp_end = 0;
+    int done = 0;
+    
+    switch (s){
+        case t_init:
+            comp_ini = bno055_correction(exp_bno055_get_heading());
+            // 			comp_end = suma_angles (comp_ini,angle*10);
+            comp_end = angle;
+            
+            s=t_middle;
+            break;
+        case t_middle:
+            if (abs (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end))>err){
+                // ("diff = %d\n",compass_param (bno055_correction(exp_bno055_get_heading()),comp_end));
+                if (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end)>err){
+                    s =t_right;
+                }
+                else if (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end)<-err){
+                    s=t_left;
+                }
+            }
+            else {
+                s = t_wait_end;
+            }
+            break;
+        case t_right:
+            if (turn_right()){
+                s = t_wait_end;
+            }
+            else {
+                if (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end)<err){
+                    mtn_lib_stop_mtn();
+                }
+                else s = t_right;
+                
+            }
+            break;
+            
+        case t_left:
+            if (turn_left()){
+                s = t_wait_end;
+            }
+            else {
+                if (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end)>-err){
+                    mtn_lib_stop_mtn();
+                }
+                else s = t_left;
+                
+            }
+            break;
+        case t_wait_end:
+            done =0x01;
+            s = t_init;
+            break;
+            
+    }
+    return done;
+}
+
+
+///////////////////////////////////////////////////////////
+//  Definició de funcions Laia Madrid 2016
+///////////////////////////////////////////////////////////
+
 // Walks up the stairs using "Forward-Start + Forward-End + Wait and measure" to get to the stairs
 //Climbs the stairs, and when it has climbed 3 steps, it goes forward fast.Then it goes down 3 steps
 //Working on 16/06/2017
@@ -35,14 +202,6 @@ int measureLDR[3];
 int measureFFL[3];
 int measureFFR[3];
 
-int compass_diff (int ini, int actual){ //Calculates the difference between initial orientation and actual orientation of compass.
-    short int inc = actual - ini;
-    if (inc<-1800) inc+=3600;
-    else if (inc>1800) inc-=3600;
-    return inc;
-} //return value is between -1800 and 1800
-
-
 void reset_measures(void){
     measureFDL[0]=0;
     measureFDL[1]=0;
@@ -65,17 +224,42 @@ void set_measures(void){  // 0 = obstacle in front, 1 = no obstacle in front (in
     measureFFL[2] = (measureFFL[1]>measureFFL[0]);
     mfall_state = balance_robot_has_fallen();easureFFR[2] = (measureFFR[1]>measureFFR[0]);
 }
+
+///////////////////////////////////////////////////////////
+// INIT i variables específiques
+///////////////////////////////////////////////////////////
+
+
+int cont = 0;
+int valor_base, valor_actual;
+
+//Parametritzacions de valors límit dels sensors
+static int comp_error = 15;
+
 void user_init(void)
 {
     serial_console_init(57600);
     balance_init();
     balance_calibrate_gyro();
-    balance_enable_gyro();
+    balance_enable_gyro(); //Alerta: el gyro està activat per defecte, s'ha de desactivar abans de girar i tornar a activar quan ha acabat. No sabem si les funcions *_compensating() necessiten tenir-lo activat o no.
+    user_time_set_period(100);
     mtn_lib_init();
     exp_adc_start();
-    exp_compass_start();
-    init_user_time(); //is it necessary?
+    exp_bno055_start();
+    
+    if(is_button_pressed(BTN_UP))
+    {
+        exp_bno055_erase_calibration();
+    }
+    while(exp_bno055_is_calibrated()!=0x01)
+    {
+        _delay_ms(100);
+    }
 }
+
+///////////////////////////////////////////////////////////
+// Màquina d'estats
+///////////////////////////////////////////////////////////
 
 void user_loop(void)
 {

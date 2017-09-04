@@ -115,8 +115,8 @@ void user_loop(void)
 //  			cm510_printf("CM510 ADC port 1: %d\n",get_adc_avg_channel(ADC_PORT_2));
 // 			cm510_printf("Exp. Board compass: %d  ", exp_compass_get_avg_heading()); 
 			cm510_printf("Original: %d  ", exp_bno055_get_heading());
-			cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
-			cm510_printf("Desviament: %d\n",compass(valor_base));
+			cm510_printf("Rang corregit: %d\n  ", bno055_correction(exp_bno055_get_heading()));
+			//cm510_printf("Desviament: %d\n",compass(valor_base));
 //    			cm510_printf("GYRO X: %d  ", get_adc_channel(BALANCE_GYRO_X_CHANNEL));
 //   			cm510_printf("GYRO Y: %d\n", get_adc_channel(BALANCE_GYRO_Y_CHANNEL));
 			user_time_set_period(500);
