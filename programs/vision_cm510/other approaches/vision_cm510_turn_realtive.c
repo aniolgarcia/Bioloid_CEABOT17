@@ -126,7 +126,7 @@ int num, target_degrees;
 unsigned char data;
 
 typedef enum {wait_start, wait_ready, wait_5, read_QR, get_target_degrees, turn} main_states; 
-main_states state = wait_start
+main_states state = wait_start;
 
 void user_loop(void)
 {
