@@ -113,7 +113,7 @@ void user_loop(void)
 			{
                 reset_measures();
                 comp_ini = exp_compass_get_avg_heading();
-                state=walk_first;
+                state=walk_to_stairs;
             }
         }
         break;
@@ -144,7 +144,7 @@ void user_loop(void)
         else 
 		{
 			
-            if (exp_gpio_get_value(right_foot_forward)==0 && exp_gpio_get_value(left_foot_forward)==0)
+            if (exp_gpio_get_value(right_foot_forward)==1 && exp_gpio_get_value(left_foot_forward)==1)
 			{
 				mtn_lib_stop_mtn();
 			}

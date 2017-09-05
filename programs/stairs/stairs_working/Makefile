@@ -3,7 +3,7 @@ LibPath =/home/humanoides/humanoids/cm510_controller_fw
 ########################################################
 # afegir tots els fitxers que s'han de compilar aquí
 ########################################################
-SOURCES= stairs_aniol2.c small_steps.c
+SOURCES= main.c small_steps.c
 #SOURCES= calibrate.c
 
 

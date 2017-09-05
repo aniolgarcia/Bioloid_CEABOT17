@@ -12,6 +12,8 @@
 
 typedef enum {wait_start,wait_ready,walk_first,walk_to_stairs,measure10,walk_back_stairs,up_stairs1,walk_top_stairs,get_up,turn_left_little,turn_right_little,down_stairs2,move_right,move_left} main_states;
 // Walks up the stairs using "Forward-Start + Forward-End + Wait and measure" to get to the stairs
+//Climbs the stairs, and when it has climbed 3 steps, it goes forward fast.Then it goes down 3 steps
+//Working on 16/06/2017
 #define left_foot_forward 			GPIO1	
 #define left_foot_forward_down		GPIO2
 #define left_foot_lateral_down		GPIO3
@@ -19,7 +21,7 @@ typedef enum {wait_start,wait_ready,walk_first,walk_to_stairs,measure10,walk_bac
 #define right_foot_forward_down		GPIO17
 #define right_foot_lateral_down		GPIO16
 
-#define STEPS_TOP 7
+#define STEPS_TOP 10
 #define MEASURE_TIME 500 //0.5 second measuring - could be less?
 #define TURN_VALUE 200//what is the minimum value of deviation when we should turn
 
@@ -175,7 +177,7 @@ void user_loop(void)
                     if (measureFDL[2]==1 && measureLDL[2] ==1 && measureLDR[2]==0) { //if left foot is out (swapped after testing) 0-1
                         if (measureFDR[2]==0) {
                             if (diff<TURN_VALUE && diff>-TURN_VALUE)state = move_right;
-                            else state = turn_right_little;
+                            else state = turn_left_little;
                         
                         }
                         else {
@@ -187,7 +189,7 @@ void user_loop(void)
                     else if (measureFDR[2]==1 && measureLDR[2]==1 && measureLDL[2]==0) { //if right foot is out (swapped)
                         if (measureFDL[2]==0){
                          if (diff<TURN_VALUE && diff>-TURN_VALUE)state = move_left;
-                         else state = turn_left_little;
+                         else state = turn_right_little;
                          }
                         else {
                             walk_back(0);
