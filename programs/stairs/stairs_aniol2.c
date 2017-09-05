@@ -90,8 +90,7 @@ void user_loop(void)
     diff = compass_diff (comp_ini, exp_compass_get_avg_heading());
     switch(state)
     {
-    case wait_start: 
-		if(is_button_rising_edge(BTN_START))
+    case wait_start: if(is_button_rising_edge(BTN_START))
         {
             user_time_set_one_time (5000);
             action_set_page(31);
@@ -101,51 +100,50 @@ void user_loop(void)
         else
             state=wait_start;
         break;
-
-    case wait_ready: 
-		if(is_action_running())
-		{
-        	state=wait_ready;
-		}
+    case wait_ready: if(is_action_running())
+            state=wait_ready;
         else
         {
-            if (user_time_is_done())
-			{
+            if (user_time_is_done()){
                 reset_measures();
                 comp_ini = exp_compass_get_avg_heading();
                 state=walk_first;
             }
         }
         break;
-
-    case walk_to_stairs:
-        fall_state = balance_robot_has_fallen();
-        if(fall_state != robot_standing)
-		{
-			state = get_up;
-		}
-        else 
-		{
-			
-            if (exp_gpio_get_value(right_foot_forward)==0 && exp_gpio_get_value(left_foot_forward)==0)
-			{
-				mtn_lib_stop_mtn;
-			}
-
-            if (walk_forward_compensating(comp_ini,exp_compass_get_avg_heading()))
-			{
-                state = up_stairs1;
+    case walk_first:
+        fall_state=balance_robot_has_fallen();
+        if(fall_state!=robot_standing) state=get_up;
+        else {
+            if (walk_forward_compensating(comp_ini,exp_compass_get_avg_heading())) {
+                if (exp_gpio_get_value(right_foot_forward)==1 && exp_gpio_get_value(left_foot_forward)==1) state = walk_to_stairs;
+                else state = up_stairs1;
             }
-			else
-			{
-				state = walk_to_stairs;
-			}
+            else {
+
+                if ((exp_gpio_get_value(left_foot_forward) == 0 || exp_gpio_get_value(right_foot_forward)==0) && exp_gpio_get_value(left_foot_forward_down)==0 && exp_gpio_get_value(right_foot_forward_down)==0 && exp_gpio_get_value(right_foot_lateral_down)==0 && exp_gpio_get_value(left_foot_lateral_down)==0){
+                    mtn_lib_stop_mtn();
+                }
+            }
         }
         break;
+    case walk_to_stairs:
+        fall_state=balance_robot_has_fallen();
+        if(fall_state!=robot_standing) state=get_up;
+        else {
+            if (walk_stairs(walk_stairs_val)) {
+                if (walk_stairs_val==0) walk_stairs_val=1;
+                else walk_stairs_val=0;
+                if (diff > 150) walk_stairs_val = 0;
+                else if (diff < -150) walk_stairs_val = 1;
+                state = measure10;
+                user_time_set_one_time (MEASURE_TIME);
+            }
+        }
 
+        break;
     case measure10:
-        if (!user_time_is_done())
-		{
+        if (!user_time_is_done()){
             if (exp_gpio_get_value(left_foot_forward_down)) measureFDL[1]++;
             else measureFDL[0]++;
             if (exp_gpio_get_value(right_foot_forward_down))measureFDR[1]++;
@@ -159,83 +157,86 @@ void user_loop(void)
             if (exp_gpio_get_value(right_foot_forward)) measureFFR[1]++;
             else measureFFR[0]++;
         }
-        else 
-		{
+        else {
             set_measures();
             printf ("****%d,%d,%d,%d,%d,%d, dif =%d\n", measureFDL[2],measureFDR[2],measureLDL[2],measureLDR[2],measureFFR[2],measureFFL[2],diff);
+            if ((measureFFL[2] == 0 || measureFFR[2]==0) && measureFDL[2]==0 && measureFDR[2]==0){
+                if (measureFFR[2]==0 && measureFFL[2]==1) state = walk_to_stairs;
+                else state = up_stairs1;
+            }
+            else {
+                if ((measureFDL[2]==1 || measureFDR[2]==1) && (measureLDL[2]==0 && measureLDR[2]==0)) {
+                    if (measureFDL[2]==1 &&measureFDR[2]==0) state = walk_back_stairs;
+                    else if (diff>TURN_VALUE || diff<-TURN_VALUE){//REVIEW THIS!!!!!************************************
+                        if (diff>0) state = turn_left_little;
+                        else state = turn_right_little;
+                    }
+                    else state = down_stairs2;
+                }
+                else {
+                    if (measureFDL[2]==1 && measureLDL[2] ==1 && measureLDR[2]==0) { //if left foot is out (swapped after testing) 0-1
+                        if (measureFDR[2]==0) {
+                            if (diff<TURN_VALUE && diff>-TURN_VALUE)state = move_right;
+                            else state = turn_left_little;
+                        
+                        }
+                        else {
+                            walk_back_val=1;
+                            walk_back(1);
+                            state = walk_back_stairs;
+                        }
+                    }
+                    else if (measureFDR[2]==1 && measureLDR[2]==1 && measureLDL[2]==0) { //if right foot is out (swapped)
+                        if (measureFDL[2]==0){
+                         if (diff<TURN_VALUE && diff>-TURN_VALUE)state = move_left;
+                         else state = turn_right_little;
+                         }
+                        else {
+                            walk_back(0);
+                            walk_back_val=0;
+                            state = walk_back_stairs;
+                        }
+                    }
+                    else if (measureLDL[2]==1 && measureFDL[2]==0 && measureLDR[2]==0 && measureFDR[2]==0 && (diff<TURN_VALUE && diff>-TURN_VALUE)){ //if we're too on the left but looking forward
+                        state = move_right;
+                    }
+                    else if (measureLDR[2]==1 && measureFDR[2]==0 && measureLDL[2]==0 && measureFDL[2]==0 && (diff<TURN_VALUE && diff>-TURN_VALUE)){ //if we're too on the right but looking forward
+                        state = move_left;
+                    }
+                    else {
+                        if (measureLDL[2]==1 && measureFDL[2]==1 && measureLDR[2]==1 && measureFDR[2]==1) state = walk_back_stairs;
+                        else {
+                            if (diff>TURN_VALUE || diff<-TURN_VALUE){
+                                if (diff>0) state = turn_left_little;
+                                else state = turn_right_little;
 
-			if ((measureFFL[2] == 0 || measureFFR[2]==0) && measureFDL[2]==1 && measureFDR[2]==1) //Si no troba obstacles davant
-			{
-				state = walk_to_stairs;
-			}
-			else if(measureFFL[2] == 0 && measureFFR[2] == 0) //si els dos de davant detecten
-			{
-				state = up_stairs1;
-			}
-			else if(measureFDL[2] == 1 && measureFDR[2] == 1) //si els dos de davant volen
-			{
-				if(measureLDL[2] == 0 && measureLDR[2] == 0) //si els dos de darrere no volen
-				{
-					state = down_stairs2;
-				}
-				else if(measureLDL[2] == 1 || measureLDR[2] == 1) //Si un de darrere vola
-				{
-					if(measureLDL[2] == 1)
-					{
-						walk_back(0);
-						walk_back_val=0;
-                        state = walk_back_stairs;
-					}
-					else if(measureLDR[2] == 1)
-					{
-						walk_back(1);
-						walk_back_val=1;
-                        state = walk_back_stairs;
-					}
-				}
-			}
-			else if(measureFDL[2] == 1 || measureFDR[2] == 1) //Si un de davant vola
-			{
-				if(measureFDL[2] == 1)
-				{
-					walk_back(0);
-					walk_back_val=0;
-                    state = walk_back_stairs;
-				}
-				else if(measureFDR[2] == 1)
-				{
-					walk_back(1);
-					walk_back_val=1;
-                    state = walk_back_stairs;
-				}
-			}
+                            }
+                            else state = walk_to_stairs;
+                        }
+                    }
+                }
+            }
             reset_measures();
         }
 
         break;
     case walk_back_stairs:
-        if (walk_back(walk_back_val))
-		{
+        if (walk_back(walk_back_val)){
             user_time_set_one_time (MEASURE_TIME);
             state = measure10;
         }
         else state = walk_back_stairs;
         break;
-
     case walk_top_stairs:
-		if()
-        if (walk_forward_compensating(comp_ini,exp_compass_get_avg_heading()))
-		{
+        if (walk_forward_compensating(comp_ini,exp_compass_get_avg_heading())) {
             state = measure10;
             user_time_set_one_time (MEASURE_TIME);
         }
-        else 
-		{
+        else {
             if (get_steps() >= STEPS_TOP) mtn_lib_stop_mtn();
             state =walk_top_stairs;
         }
         break;
-
     case get_up:
         staircount= 0;
         if(get_up_process(fall_state)==0x01) state = walk_to_stairs;
@@ -243,24 +244,22 @@ void user_loop(void)
         break;
 
     case up_stairs1:
-        if(stairs_up_process(fall_state))
-		{
+        if(stairs_up_process(fall_state)){
+
             staircount++;
             //printf ("stairs = %d\n", staircount);
-            if (staircount<3)
-			{
+            if (staircount<3){
                 //printf ("staircount<3\n");
                 state = measure10;
                 user_time_set_one_time (MEASURE_TIME);
             }
-            else
-			{
+            else {
                 state = walk_top_stairs;
+
                 reset_steps();
             }
         }
-        else
-		{
+        else {
             fall_state = balance_robot_has_fallen();
             if(fall_state!=robot_standing) state = get_up;
             else state = up_stairs1;
@@ -268,8 +267,7 @@ void user_loop(void)
         break;
 
     case turn_left_little:
-        if (turn_left_SL())
-		{//if we turn left it means diff was posiitive -> stop when its < 0
+        if (turn_left_SL()){//if we turn left it means diff was posiitive -> stop when its < 0
 
             //if (diff<10) {
             user_time_set_one_time (MEASURE_TIME);
@@ -279,8 +277,7 @@ void user_loop(void)
         else state = turn_left_little;
         break;
     case turn_right_little:
-        if (turn_right_SR())
-		{ //if we turn right it means diff was negative -> stop when its > 0
+        if (turn_right_SR()){ //if we turn right it means diff was negative -> stop when its > 0
 
             //if (diff>-10) {
             user_time_set_one_time (MEASURE_TIME);
@@ -291,17 +288,14 @@ void user_loop(void)
         break;
 
     case down_stairs2 :
-        if (stairs_down_process())
-		{
+        if (stairs_down_process()) {
             staircount++;
             //printf ("stairs = %d\n", staircount);
-            if (staircount<6)
-			{
+            if (staircount<6){
                 user_time_set_one_time (MEASURE_TIME);			                	
                 state = measure10;
             }
-            else
-			{
+            else {
                 state = walk_first;
                 reset_steps();
             }
@@ -310,18 +304,17 @@ void user_loop(void)
         break;
 
     case move_right:
-        if (walk_right_SR())
-		{
+        if (walk_right_SR()){
             user_time_set_one_time (MEASURE_TIME);
             state = measure10;
         }
         else state = move_right;
         break;
     case move_left:
-        if (walk_left_SL())
-		{
+        if (walk_left_SL()){
             user_time_set_one_time (MEASURE_TIME);
             state = measure10;
+
         }
         else state = move_left;
         break;

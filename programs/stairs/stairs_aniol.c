@@ -10,7 +10,7 @@
 #include "small_steps.h"
 
 
-typedef enum {wait_start,wait_ready,walk_first,walk_to_stairs,measure10,walk_back_stairs,up_stairs1,walk_top_stairs,get_up,turn_left_little,turn_right_little,down_stairs2,move_right,move_left} main_states;
+typedef enum {wait_start,wait_ready,walk_first,walk_to_stairs,measure10,walk_back_stairs,up_stairs1,walk_top_stairs,walk_down_stairs,get_up,turn_left_little,turn_right_little,down_stairs2,move_right,move_left} main_states;
 // Walks up the stairs using "Forward-Start + Forward-End + Wait and measure" to get to the stairs
 //Climbs the stairs, and when it has climbed 3 steps, it goes forward fast.Then it goes down 3 steps
 //Working on 16/06/2017
@@ -118,6 +118,23 @@ void user_loop(void)
         }
         break;
 
+	    case walk_first:
+        fall_state=balance_robot_has_fallen();
+        if(fall_state!=robot_standing) state=get_up;
+        else {
+            if (walk_forward_compensating(comp_ini,exp_compass_get_avg_heading())) {
+                if (exp_gpio_get_value(right_foot_forward)==0 && exp_gpio_get_value(left_foot_forward)==1) state = walk_to_stairs;
+                else state = up_stairs1;
+            }
+            else {
+
+                if ((exp_gpio_get_value(left_foot_forward) == 0 || exp_gpio_get_value(right_foot_forward)==0) && exp_gpio_get_value(left_foot_forward_down)==0 && exp_gpio_get_value(right_foot_forward_down)==0 && exp_gpio_get_value(right_foot_lateral_down)==0 && exp_gpio_get_value(left_foot_lateral_down)==0){
+                    mtn_lib_stop_mtn();
+                }
+            }
+        }
+		break;
+
     case walk_to_stairs:
         fall_state = balance_robot_has_fallen();
         if(fall_state != robot_standing)
@@ -129,7 +146,7 @@ void user_loop(void)
 			
             if (exp_gpio_get_value(right_foot_forward)==0 && exp_gpio_get_value(left_foot_forward)==0)
 			{
-				mtn_lib_stop_mtn;
+				mtn_lib_stop_mtn();
 			}
 
             if (walk_forward_compensating(comp_ini,exp_compass_get_avg_heading()))
@@ -165,8 +182,20 @@ void user_loop(void)
             printf ("****%d,%d,%d,%d,%d,%d, dif =%d\n", measureFDL[2],measureFDR[2],measureLDL[2],measureLDR[2],measureFFR[2],measureFFL[2],diff);
 
 			if ((measureFFL[2] == 0 || measureFFR[2]==0) && measureFDL[2]==1 && measureFDR[2]==1) //Si no troba obstacles davant
-			{
-				state = walk_to_stairs;
+			{	
+				if(staircount < 3)
+				{
+					state = walk_to_stairs;
+				}
+				else if(staircount == 3)
+				{
+					state = walk_top_stairs;	
+				}
+				else
+				{
+					state = walk_down_stairs;
+				}
+							
 			}
 			else if(measureFFL[2] == 0 && measureFFR[2] == 0) //si els dos de davant detecten
 			{
@@ -223,7 +252,6 @@ void user_loop(void)
         break;
 
     case walk_top_stairs:
-		if()
         if (walk_forward_compensating(comp_ini,exp_compass_get_avg_heading()))
 		{
             state = measure10;
@@ -233,6 +261,19 @@ void user_loop(void)
 		{
             if (get_steps() >= STEPS_TOP) mtn_lib_stop_mtn();
             state =walk_top_stairs;
+        }
+        break;
+
+	case walk_down_stairs:
+		if (walk_forward_compensating(comp_ini,exp_compass_get_avg_heading()))
+		{
+            state = measure10;
+            user_time_set_one_time (MEASURE_TIME);
+        }
+        else 
+		{
+            if (get_steps() >= 2) mtn_lib_stop_mtn();
+            state =walk_down_stairs;
         }
         break;
 
@@ -302,7 +343,7 @@ void user_loop(void)
             }
             else
 			{
-                state = walk_first;
+                state = walk_to_stairs;
                 reset_steps();
             }
         }
