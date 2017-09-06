@@ -67,11 +67,11 @@ void user_init(void)
   mtn_lib_init();
   exp_adc_start();
 //   exp_compass_start(); //Ara utilitzem la bno055 en lloc de la brúixola, però es pot connectar i activar igualment, que no interferirà amb el bno055.
-  exp_bno055_start();
-  if(is_button_pressed(BTN_UP))
-    exp_bno055_erase_calibration();
-  while(exp_bno055_is_calibrated()!=0x01)
-    _delay_ms(100);
+//   exp_bno055_start();
+//   if(is_button_pressed(BTN_UP))
+//     exp_bno055_erase_calibration();
+//   while(exp_bno055_is_calibrated()!=0x01)
+//     _delay_ms(100);
 }
 
 
@@ -109,13 +109,13 @@ void user_loop(void)
 // 			printf("Davant (4): %d\n", exp_adc_get_avg_channel(ADC4));
 // 			printf("Esquerre (5): %d\n", exp_adc_get_avg_channel(ADC5));
 // 			printf("Dreta (6): %d\n", exp_adc_get_avg_channel(ADC3));
-// 			cm510_printf("Exp. Board ADC port 6: %d\n   ",exp_adc_get_avg_channel(ADC6));
-//   			cm510_printf("Exp. Board ADC port 4: %d\n",exp_adc_get_avg_channel(ADC4));
-//   			cm510_printf("Exp. Board ADC port 7: %d\n",exp_adc_get_avg_channel(ADC7));
+ 			cm510_printf("Exp. Board ADC port 6: %d",exp_adc_get_avg_channel(ADC6));
+   			cm510_printf("Exp. Board ADC port 4: %d",exp_adc_get_avg_channel(ADC4));
+   			cm510_printf("Exp. Board ADC port 7: %d\n",exp_adc_get_avg_channel(ADC7));
 //  			cm510_printf("CM510 ADC port 1: %d\n",get_adc_avg_channel(ADC_PORT_2));
 // 			cm510_printf("Exp. Board compass: %d  ", exp_compass_get_avg_heading()); 
-			cm510_printf("Original: %d  ", exp_bno055_get_heading());
-			cm510_printf("Rang corregit: %d\n  ", bno055_correction(exp_bno055_get_heading()));
+			//cm510_printf("Original: %d  ", exp_bno055_get_heading());
+			//cm510_printf("Rang corregit: %d\n  ", bno055_correction(exp_bno055_get_heading()));
 			//cm510_printf("Desviament: %d\n",compass(valor_base));
 //    			cm510_printf("GYRO X: %d  ", get_adc_channel(BALANCE_GYRO_X_CHANNEL));
 //   			cm510_printf("GYRO Y: %d\n", get_adc_channel(BALANCE_GYRO_Y_CHANNEL));

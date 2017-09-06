@@ -22,82 +22,6 @@ adc_t davant, esquerra, dreta;
 
 
 
-int bno055_correction(int value)
-{
-    if(value > -240)
-    {
-        return value -240;
-    }
-    else
-    {
-        return value;
-    }
-}
-
-
-uint8_t gira(int angle){
-    static turn_states s = t_init;
-    static int comp_ini = 0;
-    static int comp_end = 0;
-    int done = 0;
-    
-    switch (s){
-        case t_init:
-            comp_ini = bno055_correction(exp_bno055_get_heading());
-            comp_end = suma_angles (comp_ini,angle*10);
-            
-            s=t_middle;
-            break;
-        case t_middle:
-            if (abs (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end))>err){
-                // ("diff = %d\n",compass_param (bno055_correction(exp_bno055_get_heading()),comp_end));
-                if (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end)>err){
-                    s =t_right;
-                }
-                else if (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end)<-err){
-                    s=t_left;
-                }
-            }
-            else {
-                s = t_wait_end;
-            }
-            break;
-        case t_right:
-            if (turn_right()){
-                s = t_wait_end;
-            }
-            else {
-                if (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end)<err){
-                    mtn_lib_stop_mtn();
-                }
-                else s = t_right;
-                
-            }
-            break;
-            
-        case t_left:
-            if (turn_left()){
-                s = t_wait_end;
-            }
-            else {
-                if (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end)>-err){
-                    mtn_lib_stop_mtn();
-                }
-                else s = t_left;
-                
-            }
-            break;
-        case t_wait_end:
-            done =0x01;
-            s = t_init;
-            break;
-            
-    }
-    return done;
-}
-
-
-
 
 
 void user_init(void)
@@ -163,13 +87,13 @@ void user_loop(void)
             
         case gir_dreta:
             if (gira(90)==0x01){ //Fa el primer gir en la direccio dreta de 90 graus!
-                state = attack1
+                state = attack1;
             }
             break;
             
             
         case attack1:
-            action_set_page(/*latreal_attack_esquerra*/);
+            action_set_page(232);
             action_start_page();
             state=wait_ready;
             next=attack2;
@@ -191,7 +115,7 @@ void user_loop(void)
             break;
             
         case attack2:
-            action_set_page(/*latreal_attack_esquerra*/);  int s
+            action_set_page(232);  int s
             action_start_page();
             state=wait_ready;
             next=gir_dreta2;
@@ -222,7 +146,7 @@ void user_loop(void)
             
             
         case attack3:
-            action_set_page(/*latreal_attack_esquerra*/);
+            action_set_page(232);
             action_start_page();
             state=wait_ready;
             next=attack4;
@@ -246,7 +170,7 @@ void user_loop(void)
             
             
         case attack4:
-            action_set_page(/*latreal_attack_dreta*/);
+            action_set_page(231);
             action_start_page();
             state=wait_ready;
             next=attack5;
@@ -269,7 +193,7 @@ void user_loop(void)
             break;
             
         case attack5:
-            action_set_page(/*latreal_attack_esquerra*/);
+            action_set_page(232);
             action_start_page();
             state=wait_ready;
             next=attack6;
@@ -292,7 +216,7 @@ void user_loop(void)
             break;
             
         case attack6:
-            action_set_page(/*latreal_attack_esquerra*/);
+            action_set_page(232);
             action_start_page();
             state=wait_ready;
             next=gir_dreta;
@@ -315,7 +239,7 @@ void user_loop(void)
             break;
             
         case jump_dreta:
-            action_set_page(/*salt_dreta*/);
+            action_set_page(233);
             action_start_page();
             state=wait_ready;
             next=prev;
@@ -323,14 +247,14 @@ void user_loop(void)
             break;
             
         case jump_esquerra:
-            action_set_page(/*salt_esquerra*/);
+            action_set_page(234);
             action_start_page();
             state=wait_ready;
             next=prev;
             break;
             
         case jump_davant:
-            action_set_page(/*salt_frontal*/);
+            action_set_page(235);
             action_start_page();
             state=wait_ready2;
             break;
@@ -348,7 +272,7 @@ void user_loop(void)
             break;
             
         case get_up;
-            action_set_page(/*get_up*/);
+            action_set_page(236);
             action_start_page();
             state=wait_ready;
             next=prev;

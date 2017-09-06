@@ -119,31 +119,12 @@ void user_loop(void)
         break;
 
 	    case walk_first:
-        fall_state=balance_robot_has_fallen();
-        if(fall_state!=robot_standing) state=get_up;
-        else {
-            if (walk_forward_compensating(comp_ini,exp_compass_get_avg_heading())) {
-                if (exp_gpio_get_value(right_foot_forward)==0 && exp_gpio_get_value(left_foot_forward)==1) state = walk_to_stairs;
-                else state = up_stairs1;
-            }
-            else {
-
-                if ((exp_gpio_get_value(left_foot_forward) == 0 || exp_gpio_get_value(right_foot_forward)==0) && exp_gpio_get_value(left_foot_forward_down)==0 && exp_gpio_get_value(right_foot_forward_down)==0 && exp_gpio_get_value(right_foot_lateral_down)==0 && exp_gpio_get_value(left_foot_lateral_down)==0){
-                    mtn_lib_stop_mtn();
-                }
-            }
-        }
+ 
+			
 		break;
 
     case walk_to_stairs:
-        fall_state = balance_robot_has_fallen();
-        if(fall_state != robot_standing)
-		{
-			state = get_up;
-		}
-        else 
-		{
-			
+        
             if (exp_gpio_get_value(right_foot_forward)==1 || exp_gpio_get_value(left_foot_forward)==1)
 			{
 				mtn_lib_stop_mtn();
@@ -242,6 +223,7 @@ void user_loop(void)
         }
 
         break;
+		
     case walk_back_stairs:
         if (walk_back(walk_back_val))
 		{
