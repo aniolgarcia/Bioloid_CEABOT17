@@ -31,7 +31,7 @@ void user_loop(void)
 	  {
 	    case wait_start: if(is_button_rising_edge(BTN_START))
 		             {
-		               action_set_page(31);
+		               action_set_page(232);
 		               action_start_page();
 		               state=do_nothing;
 		             }
