@@ -10,7 +10,7 @@
 #include "small_steps.h"
 
 
-typedef enum {wait_start,wait_ready,walk_to_stairs,stop, up_stairs,measure10} main_states;
+typedef enum {wait_start,wait_ready,walk_to_stairs,stop, up_stairs,measure10, walk, pre_walk_top,  walk_top,down_stairs} main_states;
 // Walks up the stairs using "Forward-Start + Forward-End + Wait and measure" to get to the stairs
 //Climbs the stairs, and when it has climbed 3 steps, it goes forward fast.Then it goes down 3 steps
 //Working on 16/06/2017
@@ -21,7 +21,7 @@ typedef enum {wait_start,wait_ready,walk_to_stairs,stop, up_stairs,measure10} ma
 #define right_foot_forward_down		GPIO17
 #define right_foot_lateral_down		GPIO16
 
-#define STEPS_TOP 7
+#define STEPS_TOP 8
 #define MEASURE_TIME 500 //0.5 second measuring - could be less?
 #define TURN_VALUE 200//what is the minimum value of deviation when we should turn
 
@@ -81,7 +81,6 @@ void user_loop(void)
     static main_states state=wait_start;
     static fallen_t fall_state=robot_standing;
     static int comp_ini=0;
-	comp_ini,exp_compass_get_avg_heading();
     static int staircount = 0;
     static int walk_stairs_val=0;
     static int walk_back_val=0;
@@ -89,15 +88,14 @@ void user_loop(void)
     //cm510_printf ("state=%d,diff=%d\n",state,diff);
 
     diff = compass_diff (comp_ini, exp_compass_get_avg_heading());
-    
-    
-switch(state)
-    {
-    case wait_start: 
+	
+	switch(state)
+	{
+	case wait_start: 
 		if(is_button_rising_edge(BTN_START))
         {
             user_time_set_one_time (5000);
-            action_set_page(31);
+            action_set_page(30);
             action_start_page();
             state=wait_ready;
         }
@@ -105,9 +103,10 @@ switch(state)
             state=wait_start;
         break;
 
+		
     case wait_ready: 
 		if(is_action_running())
-		{
+		{       
         	state=wait_ready;
 		}
         else
@@ -116,87 +115,104 @@ switch(state)
 			{
                 reset_measures();
                 comp_ini = exp_compass_get_avg_heading();
-                state=walk_to_stairs;
+                state=walk;
             }
         }
         break;
 
 
-
-    case walk_to_stairs:
-            
-            walk_forward_compensating(comp_ini,exp_compass_get_avg_heading());
-            
-            /*if (exp_gpio_get_value(right_foot_forward)==1 || exp_gpio_get_value(left_foot_forward)==1)
-			{
-                mtn_lib_stop_motion();
-                
-                state = stop;
-            }else{
-                state= walk_to_stairs;
-            }*/
-			state = measure10;
-        break;
-        
-            
-        case stop:
-            if(walk_forward_compensating(comp_ini,exp_compass_get_avg_heading())==0x01)
-            {
-                state=up_stairs;
-            }
-            else
-            {
-                state=stop;
-            }
-            break;
-   		
-       case up_stairs:
-        fall_state = balance_robot_has_fallen();
-
-		stairs_up_process(fall_state);
-
+	case walk:
+		if (exp_gpio_get_value(right_foot_forward)==0 || exp_gpio_get_value(left_foot_forward)==0)
+		{
+			mtn_lib_stop_mtn();
+		}
+		
+		if(fast_walk_forward()==0x01)
+		{
+			state = up_stairs;
+			fall_state = balance_robot_has_fallen();
+			stairs_up_process(fall_state);
+		}
+		else
+		{
+			state = walk;
+		}
+		break;
+		
+	case stop:
+		if(is_button_rising_edge(BTN_UP))
+		{
+			state = walk;
+		}
+		else
+		{
+			state = stop;
+		}
+	break;
+	
+	 case up_stairs:
         if(stairs_up_process(fall_state)==0x01)
 		{
             staircount++;
-            state=walk_to_stairs;
+			if(staircount==3)
+			{
+				state = walk_top;
+// 				state=pre_walk_top;
+				reset_steps();
+			}else
+			{
+				state=walk;
+			}
         }
         else
 		{
             state=up_stairs;
         }
         break;
+		
+	case pre_walk_top:
+		if (walk_forward_compensating(comp_ini, exp_compass_get_avg_heading()))
+		{
+			state = walk_top;
+		}
+		else if(get_steps() >= STEPS_TOP)
+		{
+			mtn_lib_stop_mtn();
+			state = pre_walk_top;
+		}
+		break;
+		
+		
+	case walk_top:
+		if (exp_gpio_get_value(right_foot_forward_down)==0 || exp_gpio_get_value(left_foot_forward_down)==0)
+		{
+			mtn_lib_stop_mtn();
+		}
+		
+		if(walk_forward_compensating(comp_ini,exp_compass_get_avg_heading())==0x01)
+// 		if(fast_walk_forward() == 0x01)
+		{
+			state = down_stairs;
+			fall_state = balance_robot_has_fallen();
+			stairs_down_process();
+		}
+		else
+		{
+			state = walk_top;
+		}
+		break;
+		
+	 case down_stairs:
+        if(stairs_up_process(fall_state)==0x01)
+		{
+            state=walk_top;
 
-	  case measure10:
-        if (!user_time_is_done()){
-            if (exp_gpio_get_value(left_foot_forward_down)) measureFDL[1]++;
-            else measureFDL[0]++;
-            if (exp_gpio_get_value(right_foot_forward_down))measureFDR[1]++;
-            else measureFDR[0]++;
-            if (exp_gpio_get_value(left_foot_lateral_down)) measureLDL[1]++;
-            else measureLDL[0]++;
-            if (exp_gpio_get_value(right_foot_lateral_down)) measureLDR[1]++;
-            else measureLDR[0]++;
-            if (exp_gpio_get_value(left_foot_forward)) measureFFL[1]++;
-            else measureFFL[0]++;
-            if (exp_gpio_get_value(right_foot_forward)) measureFFR[1]++;
-            else measureFFR[0]++;
         }
-        else {
-            set_measures();
-            printf ("****%d,%d,%d,%d,%d,%d, dif =%d\n", measureFDL[2],measureFDR[2],measureLDL[2],measureLDR[2],measureFFR[2],measureFFL[2],diff);
-            
-			if (measureFFL[2] == 1 || measureFFR[2]==1){ 
-				state = stop;
-			}
-            
-           else {
-               state = walk_to_stairs;
-                    }
-                    
-            reset_measures();
+        else
+		{
+            state=down_stairs;
         }
-
         break;
-    }
+		
+	}
 }
-
