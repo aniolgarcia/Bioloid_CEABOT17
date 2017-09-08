@@ -263,7 +263,7 @@ void user_loop(void)
 
             break;
             
-        case get_up:
+        case get_up;
             action_set_page(236);
             action_start_page();
             state=wait_ready;
