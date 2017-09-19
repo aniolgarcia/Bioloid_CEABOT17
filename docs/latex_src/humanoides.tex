@@ -77,7 +77,6 @@ Mesuren velocitat angular en un rang de $[45, 455]$. S'ha de vigilar perquè a v
 \begin{lstlisting}[language=bash]
 cm510_controller_fw/motion/include/motion_cfg.h
 \end{lstlisting}
-\\
 
 Si els sensors retornen sempre valors incoherents i fixos, el més probable és que s'haigi de reescriure el firmware de la placa d'expansió. Hi ha documentació del procediment a l'apartat 5.1 del document humanoids.pdf.
 
@@ -142,16 +141,16 @@ cm510_controller_fw/motion/src/mtn_library.c
 Allà hi ha totes les funcions de moviment que es faràn servir. 
 
 \subsection{Moviment continuat}
-Quan es crida una funció de moviment, aquesta només fa una iteració. Per exemple: al cridar $walk\_forward()$ el només robot només farà una passa. D'aquesta manera, per obtenir moviment continuat s'ahaurà d'anar cridant les funcions repetidament. 
+Quan es crida una funció de moviment, aquesta només fa una iteració. Per exemple: al cridar $walk\_forward()$ el només robot només farà una passa. D'aquesta manera, per obtenir moviment continuat s'haurà d'anar cridant les funcions repetidament. 
 
 \subsection{Aturar moviments}
-Contràriament al que pugui semblar, per aturar el moviment del robot no és suficient amb cridar la funció $mtn\_lib\_stop\_mtn()$. Si només es crida aqueta funció i es deixa de fer crides a la funció de moviment que s'està intentant parar, el moviment pararà en sec, però no l'acabarà correctament tornant a l'estat inicial. Això provocarà que el següent moviment que s'executi comenci en la posició en que s'ha quedat el robot, fent moviments erronis i imprecisos. El que fa $mtn\_lib\_stop\_mtn()$ és aixecar un flag a la màquina d'estats interna del moviment que s'estava executant, indicant que comenci els moviments de parada. 
+Contràriament al que pugui semblar, per aturar el moviment del robot no és suficient amb cridar la funció $mtn\_lib\_stop\_mtn()$. Si només es crida aquesta funció i es deixa de fer crides a la funció de moviment que s'està intentant parar, el moviment pararà en sec, però no l'acabarà correctament tornant a l'estat inicial. Això provocarà que el següent moviment que s'executi comenci en la posició en que s'ha quedat el robot, fent moviments erronis i imprecisos. El que fa $mtn\_lib\_stop\_mtn()$ és aixecar un flag a la màquina d'estats interna del moviment que s'estava executant, indicant que comenci els moviments de parada. 
 
 D'aquesta manera, fins i tot després d'haver donat la instrucció de parar un moviment, aquest s'ha de continuar cridant fins que retorni $0x01$ (que indica que el moviment ha acabat del tot), permetent d'aquesta manera acabar el moviment correctament. 
 
-Per tal de veure aquest comportament, a continuacó s'adjunta un fragment d'una màquina d'estats que camina recte fins que s'apreta el botó avall i es torna a encendre amb el botó amunt. Generalment l'estructura serà similar a aquesta:
+Per tal de veure aquest comportament, a continuació s'adjunta un fragment d'una màquina d'estats que camina recte fins que es prem el botó avall i es torna a encendre amb el botó amunt. Generalment l'estructura serà similar a aquesta:
 
-\begin{lstlisting}[language=c]
+\begin{lstlisting}[language=c, extendedchars=true, literate={ó}{{\'o}}1]
 
 case walk: 	
 	//Primer tots els casos que poden fer parar el moviment
@@ -160,7 +159,7 @@ case walk:
 		mtn_lib_stop_mtn(); 
 	}
 
-	if(walk_forward() == 0x01) //Comprovem si el moviment ha acabat i alhora cridem la funcló de moviment
+	if(walk_forward() == 0x01) //Comprovem si el moviment ha acabat i alhora cridem la funció de moviment
 	{
 		state = stop; //Canvi d'estat en cas d'haver acabat el moviment
 	}
