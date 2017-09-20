@@ -4,6 +4,8 @@
 #include "visual_analysis.h"
 #define DEFAULT_FACE_CASCADE "/usr/share/opencv/lbpcascades/lbpcascade_frontalface.xml"
 
+//Llibreria bàsica de visió per computador. Documentació a https://github.com/aniolgarcia/robohead
+
 using namespace cv;
 
 visual_analysis::visual_analysis()

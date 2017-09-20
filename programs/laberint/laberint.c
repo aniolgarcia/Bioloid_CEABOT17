@@ -6,7 +6,7 @@
 #include "mtn_library.h"
 #include <stdlib.h>
 
-//Versió final del Laberint
+//Versió final del Laberint. Camina lateralment fins a trobar un forat suficientment llarg. Fa unes quantes passes més per assegurar-se que està dins el forat. Després camina en línia recta compensant fins que troba la paret del final. Fa mitja volta i torna a caminar en línia recta fins a tornar a trobar una paret. 
 
 ///////////////////////////////////////////////////////////
 // Definició de variables globals i tipus
@@ -19,23 +19,23 @@ typedef int bool; //Definim el boleà, que en C no existeix
 
 #define err 100 //Màxim error permès a gira.
 
-typedef enum {wait_start, wait_ready,wait_5, walk_l, walk_r, ready_walk_f, walk_f, turn, ready_walk_return, walk_return, stop, correct_l, correct_r} main_states; //Estats de la màquina d'estats
-typedef enum {t_init,t_middle,t_left,t_right,t_wait_end} turn_states;
+typedef enum {wait_start, wait_ready,wait_5, walk_l, walk_r, ready_walk_f, walk_f, turn, ready_walk_return, walk_return, stop, correct_l, correct_r} main_states; //Estats de la màquina d'estats principañ
+typedef enum {t_init,t_middle,t_left,t_right,t_wait_end} turn_states; //I de la màquina d'estats de gir
 
-typedef uint8_t (*fnct_ptr)(void); //Parametrització de les funcions per a canvis ràpids
+typedef uint8_t (*fnct_ptr)(void); //Punters a funcions per a canvis ràpids
 fnct_ptr fnct_r = turn_right;
-// fnct_ptr fnct_r = turn_angle(15);
 
 fnct_ptr fnct_l = turn_left;
-// fnct_ptr fnct_l = turn_angle(-15);
+
 
 main_states prev, next; //Variable de tipus main_states (estat) que servirà per guardar l'estat anterior a corregir per poder-hi tornar més fàcilment.
 
 
-//Definim variables dels ports, que canvien segons si és una simulació o no ( més detalls a ../index.txt)
+//Definim si l'execució és real o simulada, ja que canvien segons si és una simulació o no ( més detalls a la documentació formal)
 const bool simulat = false;
 adc_t davant, esquerra, dreta;
 
+//Definim una variable global per saber si ha trobat el forat o no
 bool forat = false;
 
 ///////////////////////////////////////////////////////////
@@ -110,7 +110,7 @@ int suma_angles(int a, int b)
 	return res;
 }
 
-//Funció turn_angle() adaptada a la bno055 ALERTA: No suma el nombre de graus a la posició actual, sinó que va a aquella posició de la brúixola!!!
+//Funció turn_angle() adaptada a la bno055.
 uint8_t gira(int angle){
 	static turn_states s = t_init;
 	static int comp_ini = 0;
@@ -121,7 +121,7 @@ uint8_t gira(int angle){
 		case t_init:
 			comp_ini = bno055_correction(exp_bno055_get_heading());
 			comp_end = suma_angles (comp_ini,angle*10);
-// 			comp_end = angle;
+// 			comp_end = angle; //Si es descomenta aquesta línia i es comenta l'anterior, la funció gira() va a una posició absoluta
 
 			s=t_middle;
 			break;
@@ -185,7 +185,7 @@ int valor_base, valor_actual;
 //Parametritzacions de valors límit dels sensors
 static int comp_error = 15;
 static int dist_frontal = 100;
-static int dist_lateral = 250; //250
+static int dist_lateral = 250;
 
 void user_init(void) //S'executa una sola vegada (setup de l'arduino)
 {
@@ -207,7 +207,7 @@ void user_init(void) //S'executa una sola vegada (setup de l'arduino)
         _delay_ms(100);
     }
 
-    if(simulat == true) //Es defineixen els ports segons si es tracta d'una simulació o no. Més info a l'índex
+    if(simulat == true) //Es defineixen els ports segons si es tracta d'una simulació o no. Més info a la documentació
     {
         davant = ADC5;
         esquerra = ADC3;
@@ -233,7 +233,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
     switch(state)
     {
     /* INICIALITZACIÓ */
-    //Wait_start i wait_ready són les inicialitzacions. El robot s'aixeca i executa la pàgina 31 per posar-se en la posició inicial preparat per caminar.
+    //Wait_start, wait_5 i wait_ready són les inicialitzacions. El robot s'aixeca i executa la pàgina 31 per posar-se en la posició inicial preparat per caminar.
 
     case wait_start:
 					 if(is_button_rising_edge(BTN_START))
@@ -266,7 +266,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                     }
                     else
                     {
-                    //Comencem caminant cap a l'esquerra (perquè abans caminava millor cap a aquest costat)
+						//Comencem caminant cap a la dreta (no hi ha una raó específica per fer-ho, es podria perfectament començar cap a l'esquerra) 
                         state=walk_r;
                     }
                     break;
@@ -276,7 +276,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
     //Estat per caminar cap a diverses direccions
 
     //Caminar lateralment cap a l'esquerra
-    case walk_l: if(!balance_is_gyro_enabled())
+    case walk_l: if(!balance_is_gyro_enabled()) //Desactivem el gyro si està activat
                 {
                     balance_enable_gyro();
                 }
@@ -313,7 +313,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
 							forat = true; //S'ha trobat el forat per primera vegada. Com que no es crida a mtn_lib_stop_mtn, tornarà a entrar en aquest estat, fent alguna passa més
 						}
                     }
-                    else if(exp_adc_get_avg_channel(esquerra) > dist_lateral) //Comprovem si ha arribat a la paret i si cal l'enviem cap a l'altre costat
+                    else if(exp_adc_get_avg_channel(esquerra) > dist_lateral) //Comprovem si ha arribat a la paret lateral i si cal l'enviem cap a l'altre costat
                     {
                         mtn_lib_stop_mtn();
 						next = walk_r;
@@ -389,7 +389,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                 }
                 break;
 
-//Cas per corregir la desviai<có en començar a tirar endavant
+	//Cas per corregir la desviació en començar a tirar endavant
     case ready_walk_f:  if(compass(valor_base) > comp_error)
                         {
                             prev = ready_walk_f;
@@ -437,7 +437,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                 break;
 
 
-
+	//Cas de girar 180 graus un cop ha trobat la paret
     case turn: turn_led_on(LED_AUX);
                 if(balance_is_gyro_enabled()) //Si el balance està activat, el desactivem
                 {
@@ -445,7 +445,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                 }
                 
                 //if(gira(valor_base) == 0x01)
-                if(gira(175) ==0x01)
+                if(gira(175) ==0x01) //Girem 175 graus ja que sembla que hi ha un petit bug a la funció gira()/turn_angle() i que no pot girar 180 graus correctament
                 {
                     state = walk_return;
                 }
@@ -454,7 +454,8 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                     state  = turn;
                 }
                 break;
-
+				
+	//Fa una correcció amb la bno055 abans de tornar a caminar endavant
     case ready_walk_return: if(compass(valor_base) > comp_error)
                             {
                                 prev = ready_walk_return;
@@ -470,7 +471,8 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                                 state = walk_return;
                             }
                             break;
-
+							
+	//Cas idèntic a walk_f, amb lúnica diferència de que quan acaba va a stop.
     case walk_return: if(!balance_is_gyro_enabled())
                     {
                         balance_enable_gyro();
@@ -484,11 +486,11 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
 
                     if(walk_forward_compensating(valor_base, bno055_correction(exp_bno055_get_heading())) == 0x01)
                     {
-                        state = turn;
+                        state = stop;
                     }
                     else
                     {
-                        state = walk_f;
+                        state = walk_return;
                     }
                     break;
     /* CORRECIÓ */

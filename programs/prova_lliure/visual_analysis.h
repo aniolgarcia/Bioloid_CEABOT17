@@ -8,6 +8,8 @@
 #include "opencv2/objdetect/objdetect.hpp"
 #include "opencv2/core/core.hpp"
 
+//Llibreria bàsica de visió per computador. Documentació a https://github.com/aniolgarcia/robohead
+
 using namespace cv;
 
 /**

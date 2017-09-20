@@ -10,10 +10,12 @@
 #include "small_steps.h"
 
 
-typedef enum {wait_start,wait_ready,stop, up_stairs, walk} main_states;
+typedef enum {wait_start,wait_ready,stop, up_stairs, walk} main_states; //Definició d'estats de la màquina principal
 
 //Versió final de les escales. Simplement camina endavant fins que troba l'escala i la puja. ALERTA!: Aquest programa puja escales INFINITAMENT, mai les baixa (no vam tenir temps d'implementar-ho correctament...)
 
+
+//Definim els ports als quals estan connectats els sensors
 #define left_foot_forward 			GPIO1	
 #define left_foot_forward_down		GPIO2
 #define left_foot_lateral_down		GPIO3
@@ -22,8 +24,8 @@ typedef enum {wait_start,wait_ready,stop, up_stairs, walk} main_states;
 #define right_foot_lateral_down		GPIO16
 
 #define STEPS_TOP 7
-#define MEASURE_TIME 500 //0.5 second measuring - could be less?
-#define TURN_VALUE 200//what is the minimum value of deviation when we should turn
+#define MEASURE_TIME 500 
+#define TURN_VALUE 200
 
 
 void user_init(void)
@@ -35,7 +37,7 @@ void user_init(void)
     mtn_lib_init();
     exp_adc_start();
     exp_compass_start();
-    init_user_time(); //is it necessary?
+    init_user_time();
 }
 
 void user_loop(void)

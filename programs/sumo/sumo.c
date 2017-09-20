@@ -6,7 +6,8 @@
 #include "mtn_library.h"
 #include <stdlib.h>
 
-//Base del programa de sumo
+//Programa de sumo. En principi es va movent fent atacs laterals i quan detecta l'enemic ataca cap a aqella direcció. PROBLEMA: Es mou massa i fa masses voltes, així que és MOLT difícil arribar a detectar l'enemic. S'hauria de fer una cerca de manera més estàtica i actuar de manera més inteligent. 
+//APUNT: Poseu algun sensor de llarga distància, segurament funcionarà millot; amb els de mitja en tota la competició de sumo vam detectar 1 sol robot. 
 
 typedef enum {wait_start, wait_5, wait_ready,wait_ready2, gir_dreta, gir_dreta2,attack0, attack1, attack2, attack3, attack4, attack5, attack6, jump_davant, jump_esquerra, jump_dreta, get_up, attack45} main_states;
 typedef enum {t_init,t_middle,t_left,t_right,t_wait_end} turn_states;
@@ -15,8 +16,6 @@ typedef enum {t_init,t_middle,t_left,t_right,t_wait_end} turn_states;
 #define err 100
 
 main_states prev, next;
-
-//Funció per calcular el desviament del robot respecte l'orientació inicial. És com compass però amb la posició inicial parametritzada.
 
 adc_t davant, esquerra, dreta;
 

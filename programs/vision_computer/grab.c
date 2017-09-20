@@ -17,7 +17,7 @@
 #include "rs232.h"
 
 
-std::string serial_dev="/dev/ttyUSB0";
+std::string serial_dev="/dev/ttyUSB0";  //Definition of the cm510 port
 
 #define NUM_IMGS  	1
 #define SIZE_X		640
