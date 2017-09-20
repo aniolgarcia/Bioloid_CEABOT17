@@ -6,7 +6,7 @@
 #include "mtn_library.h"
 #include <stdlib.h>
 
-//Programa per intentar fer que el robot camini recte. Quant detecta una desviació de n graus, crida una vegada a la funció turn_left() o turn_right() segons convingui. Alternativament es pot cridar la funció turn_angle() amb l'angle en positiu o negatiu I AMB VALORS ENTRE 0 I 360 (la funció ja multiplica el valor *10) o fer-ho de manera automàtica amb turn_angle(compass(valor_base)).
+//Programa en motiu de la visita d'un casal. El robot camina recte infinitament fins que troba una paret. Si es treu la paret, el robot continua caminant.
 
 typedef enum {wait_start, wait_ready, walk, check_compass, stop, correct_l, correct_r} main_states;
 
@@ -164,43 +164,7 @@ void user_loop(void)
 		      {
 			state  = correct_r;
 		      }
-		      break;
-
-
-	       
-//       case correct: if(error_r == true)
-// 		    {
-// 		      mtn_lib_stop_mtn();
-// 		      if(fnct2() == 0x01)
-// 		      {
-// 			error_r = false;
-// 			state = walk;
-// 		      }
-// 		      else
-// 		      {
-// 			state = correct;
-// 		      }
-// 		      
-// 		    }
-// 		    else if(error_l == true)
-// 		    {
-// 		      mtn_lib_stop_mtn();
-// 		      if(fnct3() == 0x01)
-// 		      {
-// 			error_l = false;
-// 			state = walk;
-// 		      }
-// 		      else
-// 		      {
-// 			state = correct;
-// 		      }
-// 		      		      
-// 		    }
-// 		    break;
-		    
-
-		      
-		  
+		      break;		  
 		    
       case stop: mtn_lib_stop_mtn();
 		 if(fnct1() == 0x01)

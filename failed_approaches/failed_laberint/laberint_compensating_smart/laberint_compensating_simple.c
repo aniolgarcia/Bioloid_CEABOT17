@@ -6,7 +6,7 @@
 #include "mtn_library.h"
 #include <stdlib.h>
 
-//Versió del laberint_compensating amb algunes millores estructurals
+//Intent interessant d'unificar les funcions de moviment. Es creen diverses funcions amb màquines d'estat internes per fer-ho tot parametritzable. La meva opinió: NO VAL LA PENA, ho fa tot més complicat. Feu servir el laberint.c
 
 ///////////////////////////////////////////////////////////
 // Definició de variables globals i tipus

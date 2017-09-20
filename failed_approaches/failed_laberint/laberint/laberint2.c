@@ -6,7 +6,7 @@
 #include "mtn_library.h"
 #include <stdlib.h>
 
-//Intent inical de l'estructura del laberint. L'algorisme funciona correctament, però l'execució no és del tot bona. Hi ha problemes sobretot a l'hora de corregir els errors quan es camina recte. COMPROVAR QUE ELS balance_enable_gyro ESTIGUIN BEN POSATS I FER balance_disable_gyro() QUAN ES GIRA!!!!
+//Intent inical de l'estructura del laberint. La base de l'algorisme està bé, però l'execució no és del tot bona. Hi ha problemes sobretot a l'hora de corregir els errors quan es camina recte. COMPROVAR QUE ELS balance_enable_gyro ESTIGUIN BEN POSATS I FER balance_disable_gyro() QUAN ES GIRA!!!!
 
 typedef int bool; //Definim el boleà, que en C no existeix
 #define true 1
