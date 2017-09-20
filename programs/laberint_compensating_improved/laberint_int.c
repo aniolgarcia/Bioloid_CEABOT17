@@ -36,7 +36,7 @@ main_states prev, next; //Variable de tipus main_states (estat) que servirà per
 const bool simulat = false;
 adc_t davant, esquerra, dreta;
 
-bool forat = false;
+int forat = 0;
 
 ///////////////////////////////////////////////////////////
 //  Definició de funcions pròpies
@@ -302,15 +302,15 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
 //                      mtn_lib_stop_mtn();
 //                      next = ready_walk_f;
 // 						next = stop;
-						if(forat == true) //Comprovem si ja ha trobat un forat abans. Si es així, vol dir que el forat és prou gros.
+						if(forat == 3) //Comprovem si ja ha trobat un forat abans. Si es així, vol dir que el forat és prou gros.
 						{
 							mtn_lib_stop_mtn(); //el parem definitivament (només si ha trobat dos cops el mateix forat)
 							next = ready_walk_f; //Definim l'estat que s'executarà a continuació
-							forat = false; //Fem un reset del bool;
+							forat = 0; //Fem un reset del bool;
 						}
 						else
 						{
-							forat = true; //S'ha trobat el forat per primera vegada. Com que no es crida a mtn_lib_stop_mtn, tornarà a entrar en aquest estat, fent alguna passa més
+							forat++; //S'ha trobat el forat per primera vegada. Com que no es crida a mtn_lib_stop_mtn, tornarà a entrar en aquest estat, fent alguna passa més
 						}
                     }
                     else if(exp_adc_get_avg_channel(esquerra) > dist_lateral) //Comprovem si ha arribat a la paret i si cal l'enviem cap a l'altre costat
@@ -322,7 +322,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                     if(walk_left() == 0x01) //Si alguna comprovació anterior l'ha fet parar
                     {
 						state = next; //L'enviem a l'estat que ha definit aquesta comprovació
-						forat = false; //Ens assegurem que quan es passi a un altre estat, el boleà sigui fals
+						forat = 0; //Ens assegurem que quan es passi a un altre estat, el boleà sigui fals
                     }
                     else //En cas contrari, tornem a aquest mateix estat
                     {
@@ -360,15 +360,15 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
 //                         mtn_lib_stop_mtn();
 // 						next = ready_walk_f;
 //						next = stop;
-						if(forat == true)
+						if(forat == 3)
 						{
 							mtn_lib_stop_mtn();
 							next = ready_walk_f;
-							forat = false;
+							forat = 0;
 						}
 						else
 						{
-							forat = true;
+							forat++;
 						}
                     }
                     else if(exp_adc_get_avg_channel(dreta) > dist_lateral) //Comprovem si ha arribat a la paret
@@ -380,7 +380,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                     if(walk_right() == 0x01)
                     {
                         state = next;
-						forat = false;
+						forat = 0;
                     }
                     else
                     {
