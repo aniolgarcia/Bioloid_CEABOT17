@@ -48,7 +48,7 @@ motion_manager:
 	$(MAKE) -C $(MAN_DIR)
 
 download: $(MAIN_OUT_HEX)
-	/home/humanoids/iri-lab/labrobotica/tools/robotis_tools/trunk/bin/fw_downloader -d /dev/ttyUSB0 -f ./$(PROJECT).hex -p cm510
+	/home/humanoides/iri-lab/labrobotica/tools/robotis_tools/trunk/bin/fw_downloader -d /dev/ttyUSB0 -f ./$(PROJECT).hex -p cm510
 
 clean:
 	-rm $(PROJECT).map

@@ -25,12 +25,12 @@ fnct_ptr fnct1=fast_walk_forward;
 // fnct_ptr fnct1 = walk_forward;
 //fnct_ptr fnct1 = walk_backward;
 
-fnct_ptr fnct2 = turn_left;
-//fnct_ptr fnct2 = walk_left;
+//fnct_ptr fnct2 = turn_left;
+fnct_ptr fnct2 = walk_left;
 //fnct_ptr fnct2 = walk_backward_turn_left;
 
-fnct_ptr fnct3 = turn_right;
-//fnct_ptr fnct3 = walk_right;
+//fnct_ptr fnct3 = turn_right;
+fnct_ptr fnct3 = walk_right;
 //fnct_ptr fnct3 = walk_backward_turn_right;
 
 void user_loop(void)
