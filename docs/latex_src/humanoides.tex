@@ -30,6 +30,7 @@
 \definecolor{mymauve}{rgb}{0.58,0,0.82}
 
 
+
 \title{Humanoides: documentació i refèrencia \\ \small{Altrament conegut com "els caòtics apunts de l'Aniol passats a net"}}
 
 \author{Aloma Alenyà, Martí Zaera i Aniol Garcia}
@@ -39,38 +40,64 @@
 \begin{document}
 \maketitle
 \section{Introducció}
-Aquest document pretén ser una continuació/ampliació del document humanoids \footnote{humanoids.pdf s'hauria de trobar en el mateix directori que aquest fitxer} que va fer la Laia Freixas. És un recutll de procediments, informació i documentació del que hem anat fent, així com l'explicació de problemes que hem anat trobant i com solucionar-los. 
+Aquest document pretén ser una continuació/ampliació del document humanoids \footnote{humanoids.pdf s'hauria de trobar en el mateix directori que aquest fitxer} que va fer la Laia Freixas. És un recull de procediments, informació i documentació del que hem anat fent, així com l'explicació de problemes que hem anat trobant i com solucionar-los. 
+\section{Contingut del directori}
+\subsection{docs}
+Directori de la documentació: hi ha tant aquest arxiu, com el que va fer la Laia, així com les bases del concurs CEABOT del 2017.
+\subsection{failed\_approaches}
+Directori dels programes que o bé no han funcionat com esperàvem o sí funcionen però no es van utilitzar a la competició. Crec que és útil tenir-los tant per donar altres idees de com poden funcionar els programes com per saber què no és recomanable fer o què no funciona bé. A l'inici de cada programa hi ha una petita explicació de què és el que fa i si ho fa o no.
+\subsection{programs}
+Directori dels programes utilitzats en competició. No necessàriament són millors que les seves alternatives de $failed\_approaches$, però són els que vam creure que donarien millors resultats a la competició.
+\subsubsection{laberint}
+Versió del Laberint que millor va funcionar. Camina lateralment fins a trobar un forat suficientment llarg. Fa unes quantes passes més per assegurar-se que està dins el forat i camina en línia recta compensant fins que troba la paret del final. Fa mitja volta i torna a caminar en línia recta fins a tornar a trobar una paret.
+\subsubsection{prova\_lliure}
+Bàsicament obre una càmera i busca la cara més gran. La idea era fer que el robot mirés a la cara que es trobava.
+\subsubsection{stairs}
+Camina endavant fins que troba l'escala i la puja. ALERTA!: Aquest programa puja escales INFINITAMENT, mai les baixa! A failed\_approaches hi ha altres implementacions que sí que fan l'acció de baixar.
+\subsubsection{sumo}
+En principi es va movent fent atacs laterals i quan detecta l'enemic ataca cap a aquella direcció
+\subsubsection{vision\_cm510}
+Programa de la cm510 per la prova de visió. Llegeix el QR descodificat que li envia vision\_computer i gira el nombre de graus corresponent.
+\subsubsection{vision\_computer}
+Programa de la BeagleBone per capturar imatges amb la càmera i descodificar el contingut del QR. També hi ha la part de comunicació serial amb la cm510 per tal de passar la informació.
 
-\section{Índex de programes}
-\begin{itemize}
+\subsection{telemetry}
+DIrectori amb petits programes per llegir sensors del robot per serial. Útils per fer proves i lectures ràpides.
+\subsection{tests}
+Els primers programes de proves. Són petits exemples que fan poques accions. Serveixen per controlar que tot funciona correctament i veure com es fan les coses.
+\subsection{useful}
+Hi ha backups dels fitxers .xacro i .yaml, així com les pàgines de moviments per defecte i algunes plantilles per programes i Makefiles.
+%\section{Índex de programes}
+%\begin{itemize}
 
-\item $all\_movements$: Programa per provar moviments
-\item $auto\_gir$: Programa per fer debug de la brúixola. Fixa una direcció inicial i quan el gires hi torna
-\item $casal$: demo de caminar recte i  parar quan trobi un obstacle al davant. Fet per la visita d'un casal d'infants autistes.
-\item $do\_nothing$: fa la posició inicial ($action\_set\_page(31)$) i no fa res més.
-\item $estructura\_laberint$: Ara per ara camina cap a l'esquerra fins que troba una paret i en trobar-la torna cap a la dreta fins que en troba una altre.  
-\item $laberint$: Màquina d'estats completa del laberint, amb els comprovadors de les funcions de moviment.
-\item $laberint\_compensating$: Igual que laberint, però utilitzant el bno055 en lloc del compass i utilitzant les funcions compensating.
-\item $lectura\_serial$: Primeres proves de comunicació serial amb el robot.
-\item $moviments\_simples$: camina o gira per sempre segons el botó que es premi.  
-\item $read\_compass$: llegeix brúixola. Fer servir $sensor.c$ en comptes d'aquest.
-\item $sensor$: fa lectures de qualsevol dels sensors i les imprimeix per serial
-\item $turn\_angle$: Proves de precisió de la funció $turn\_angle$
-\item $vision\_cm510$: Màquina d'estats base pel programa del cm510 de la prova de visió
-\item $vision\_girs\_exactes$: Ara per ara és un INTENT de fer girar el robot 45 graus amb una mica de precisió
-\item $walk\_correction$: Fa caminar el robot recte corregint segons el compass (no acaba d'encadenar bé els moviments)
-\item $walk\_correction\_compensating$: Caminar recte però utilitzant les funcions compensating i el bno055.
-\item $walk\_forward$: Fan caminar el robot recte sense modificacions
-\item $walk\_prova$: Camina endavant fins que troba un obstacle. LLavors para i encén un llum esperant que l'obstacle desaparegui.
-\end{itemize}
+%\item $all\_movements$: Programa per provar moviments
+%\item $auto\_gir$: Programa per fer debug de la brúixola. Fixa una direcció inicial i quan el gires hi torna
+%\item $casal$: demo de caminar recte i  parar quan trobi un obstacle al davant. Fet per la visita d'un casal d'infants autistes.
+%\item $do\_nothing$: fa la posició inicial ($action\_set\_page(31)$) i no fa res més.
+%\item $estructura\_laberint$: Ara per ara camina cap a l'esquerra fins que troba una paret i en trobar-la torna cap a la dreta fins que en troba una altre.  
+%\item $laberint$: Màquina d'estats completa del laberint, amb els comprovadors de les funcions de moviment.
+%\item $laberint\_compensating$: Igual que laberint, però utilitzant el bno055 en lloc del compass i utilitzant les funcions compensating.
+%\item $lectura\_serial$: Primeres proves de comunicació serial amb el robot.
+%\item $moviments\_simples$: camina o gira per sempre segons el botó que es premi.  
+%\item $read\_compass$: llegeix brúixola. Fer servir $sensor.c$ en comptes d'aquest.
+%\item $sensor$: fa lectures de qualsevol dels sensors i les imprimeix per serial
+%\item $turn\_angle$: Proves de precisió de la funció $turn\_angle$
+%\item $vision\_cm510$: Màquina d'estats base pel programa del cm510 de la prova de visió
+%\item $vision\_girs\_exactes$: Ara per ara és un INTENT de fer girar el robot 45 graus amb una mica de precisió
+%\item $walk\_correction$: Fa caminar el robot recte corregint segons el compass (no acaba d'encadenar bé els moviments)
+%\item $walk\_correction\_compensating$: Caminar recte però utilitzant les funcions compensating %i el bno055.
+%\item $walk\_forward$: Fan caminar el robot recte sense modificacions
+%\item $walk\_prova$: Camina endavant fins que troba un obstacle. LLavors para i encén un llum %esperant que l'obstacle desaparegui.
+%\end{itemize}
+
 
 \section{Sensors}
-\subsection{Compass} Ara mateix en desús, substituït per bno055, que té més precissió. La brúixola té un rang de $[0, 3600]$, i teòricament cada 10 és un grau. S'inicialitza amb $exp\_compass\_start()$ i es llegeix el valor amb $exp\_compass\_get\_avg\_heading()$, que ja retorna una mitjana de diverses lectures seves. No és el sensor més precís del món. \textbf{ALERTA}: hi ha funcions que no utilitzen el reang de $[0, 3600]$, sinó que en fan servir un de $[0, 360]$.
+\subsection{Compass} Ara mateix en desús, substituït per bno055, que té més precisió La brúixola té un rang de $[0, 3600]$, i teòricament cada 10 és un grau. S'inicialitza amb $exp\_compass\_start()$ i es llegeix el valor amb $exp\_compass\_get\_avg\_heading()$, que ja retorna una mitjana de diverses lectures seves. No és el sensor més precís del món. \textbf{ALERTA}: hi ha funcions que no utilitzen el reang de $[0, 3600]$, sinó que en fan servir un de $[0, 360]$.
 \subsection{bno055 (substitut de compass)}
 És un sensor que fa de brúixola, giroscopi i magnetòmetre. La brúixola té un rang de $[-1800, -250]\cup [0, 2050]$, és a dir, que de $-250$ salta directament a $0$ i després aquests $250$ els afegeix al final. Hi ha una funció que es diu $bno055\_correction$ que arregla això donant un rang de $[-1800, 1800]$. Si es vol un rang de $[0, 3600]$ només cal sumar-li $1800$ al valor. Tal com passava amb compass, algunes funcions utilitzen aquest rang dividit entre $10$. Per inicialitzar-lo s'utilitza $exp\_bno055\_start()$ i per llegir-ne valors $exp\_bno055\_get\_heading()$. \textbf{ALERTA}: hi ha funcions com $turn\_angle()$ que estan programades per fer servir el compass en lloc del bno055. O bé s'ha de modificar la llibreria o bé redefinir la funció en el propi codi amb les ordres correctes.
 
 \subsection{IR}
-Rang de $[82, 500]$ per al de llarga distància (aproximadament). Com més pròxim és l'objecte, més augmenta el valor, encara que a uns $5$ o $6$ $cm$ del sensor el valor torna a decrèixer al apropar l'objecte.
+Rang de $[82, 500]$ per al de llarga distància (aproximadament). Com més pròxim és l'objecte, més augmenta el valor, encara que a uns $5$ o $6$ $cm$ del sensor el valor torna a decréixer al apropar l'objecte.
 
 \subsection{Gyro} 
 Mesuren velocitat angular en un rang de $[45, 455]$. S'ha de vigilar perquè a vegades el giroscopi que monitoritza l'eix x està connectat al port de l'eix y i al revés. Per defecte l'eix x correspon al port $3$ i l'eix y al port $4$. Es poden invertir les direccions dels eixos (l'equivalent a rotar el sensor $180$ graus amb un paràmetre a 
@@ -78,7 +105,7 @@ Mesuren velocitat angular en un rang de $[45, 455]$. S'ha de vigilar perquè a v
 cm510_controller_fw/motion/include/motion_cfg.h
 \end{lstlisting}
 
-Si els sensors retornen sempre valors incoherents i fixos, el més probable és que s'haigi de reescriure el firmware de la placa d'expansió. Hi ha documentació del procediment a l'apartat 5.1 del document humanoids.pdf.
+Si els sensors retornen sempre valors incoherents i fixos, el més probable és que s'hagi de reescriure el firmware de la placa d'expansió. Hi ha documentació del procediment a l'apartat 5.1 del document humanoids.pdf.
 
 \section{Simulador}
 Per utilitzar el simulador cal primer configurar-lo editant una sèrie de 
@@ -110,6 +137,20 @@ on $(x\ y\ z)$ és la posició relativa a $parent$ i $(r\ p\ y)$ és l'orientaci
 
 \subsection{Compilar i executar}
 Per compilar els programes per utilitzar-los al simulador s'utilitza catkin. El procés de compilació és el següent:
+\begin{lstlisting}
+$ roscd bioloid_controller_cm510
+\end{lstlisting}
+Aquí hem d'editar el document CMakeLists.txt i posar el path al nostre programa, així com el nom del programa. Buscar i editar les línies
+
+\begin{lstlisting}
+SET(ProjectPath ~/directori/programa)
+\end{lstlisting} 
+i
+\begin{lstlisting}
+# main application module
+${ProjectPath}/programa.c
+\end{lstlisting}
+Finalment cal fer
 \begin{lstlisting}[language=bash]
 $ roscd
 $ cd ..
@@ -123,18 +164,18 @@ $ roslaunch bioloid_apps ceabot_base.launch robot:=myrobot mtn_file:=ceabot_moti
 on c$eabot\_base.launch$ es pot substituir pel fitxer d'entorn (l'escenari) del simulador, a escollir entre
 \begin{itemize}
 \item $ceabot\_base.launch$: entorn pla sense cap obstacle.
-\item $ceabot\_obstacles.launch$: entorna amb una reproducció de l'estructura de la prova de laberint del CEABOT. S'ha de tenir en compte que l'estructura no està del tot a escala, i les mides no són les reals que s'utilitzaràn en competició.
+\item $ceabot\_obstacles.launch$: entorna amb una reproducció de l'estructura de la prova de laberint del CEABOT. S'ha de tenir en compte que l'estructura no està del tot a escala, i les mides no són les reals que s'utilitzaran en competició.
 \item $ceabot\_vision.launch$: entorn amb una reproducció de la prova de visió de CEABOT. Tal com l'anterior, l'escala no és del tot exacta.
 \end{itemize}
 El paràmetre $robot$ indica quins robot s'ha de simular. Si no s'ha creat un robot nou i s'ha modificat el model per defecte, no cal tocar-ho. Finalment, el paràmetre $mtn\_file$ indica la llibreria de moviments a carregar, i en principi no s'hauria de tocar.
 
 \subsection{Particularitats del simulador}
-S'ha de vigilar en llegir els ports dels sensors al simulador, ja que aquests no necessàriament correspondràn als del robot real, sinó que correspondràn als definits pels fitxers .xacro i .yaml.
+S'ha de vigilar en llegir els ports dels sensors al simulador, ja que aquests no necessàriament correspondran als del robot real, sinó que correspondran als definits pels fitxers .xacro i .yaml.
 
 
 
 \section{Moviments}
-Aquest apartat és posiblement el tema més delicat. Els moviments del robot es fonamenten en les "pàgines", que entenem que són petits conjunts de moviments d'alguns servomotors concrets. Però aquestes pàgines no es criden directament, sinó que a sobre seu hi ha construïda tota una llibreria amb funcions més senziles de moviments, la $mtn\_library.c$, que es troba a 
+Aquest apartat és possiblement el tema més delicat. Els moviments del robot es fonamenten en les "pàgines", que entenem que són petits conjunts de moviments d'alguns servomotors concrets. Però aquestes pàgines no es criden directament, sinó que a sobre seu hi ha construïda tota una llibreria amb funcions més senzilles de moviments, la $mtn\_library.c$, que es troba a 
 \begin{lstlisting}[language=bash]
 cm510_controller_fw/motion/src/mtn_library.c
 \end{lstlisting}
@@ -202,7 +243,10 @@ $ make
 \subsection{Offsets}
 Per definir els offsets, cal posar primer la placa $cm510$ en mode slave. Per fer-ho cal definir el robot com a slave a 
 \begin{lstlisting}[language=bash]
-cm510_controller_fw/controller/include/cm510_cfg.h
+cm510_controller_fw/controller/include/cm510_cfg.h :
+// CM510 controller operation mode
+//#define CM510_master
+#define CM510_slave
 \end{lstlisting}
 i des de 
 \begin{lstlisting}[language=bash]
@@ -212,10 +256,20 @@ executar
 \begin{lstlisting}[language=bash]
 $ make clean
 $ make
+\end{lstlisting}
+Ara cal pujar el programa slave, que es troba a la carpeta d'exemples de $cm510_controller_fw$, és a dir a
+\begin{lstlisting}
+cm510_controller_fw/examples/slave
+\end{lstlisting}
+Allà cal fer
+\begin{lstlisting}
+$ make clean
+$ make
 $ sudo modprobe ftdi_sio
 $ make download
 \end{lstlisting}
-i des de 
+
+Finalment des de 
 \begin{lstlisting}[language=bash]
 bioloid_robot_driver/
 \end{lstlisting}
@@ -227,25 +281,42 @@ $ ./bin/bioloid_offset
 \end{lstlisting}
 El robot s'hauria d'aixecar i amb el programa s'haurien de modificar les posicions dels servos segons els valors introduïts en temps real.
 
-Un cop acabat, s'ha de tornar a definir el robot coma a master seguint el mateix procediment per posar-lo com a slave.
+Un cop acabat, s'ha de tornar a definir el robot coma a master seguint el mateix procediment que per posar-lo com a slave.
 
-Els offsets definits aquí s'emmagatzemen a la EPROM del robot i per tant és de les primeres coses que s'executen en encendre el robot. 
+Els offsets definits aquí s'emmagatzemen a la EEPROM del robot i per tant és de les primeres coses que s'executen en encendre'l. 
+
+\subsection{Pàgines de moviments}
+La controladora té un conjunt de pàgines de moviments que defineixen les posicions dels motors en els diversos passos de cada moviment. A vegades interessa tenir un conjunt de funcions de moviment (per exemple: uns moviments per al sumo i uns altres per pujar escales), i hem de canviar el fitxer de pàgines de moviments que té el robot. Això es fa amb una eina anomenada $mtn_downloader$.
+Per pujar un arxiu $.mtn$ al robot fem:
+
+\begin{lstlisting}
+$ mtn_downloader -d <port_serie_dispositiu> -m <fitxer_mtn>
+\end{lstlisting}
+Per exemple:
+
+\begin{lstlisting}
+$ mtn_downloader -d /dev/ttyUSB0 -m sumo.mtn
+\end{lstlisting}
+
+\textbf{Observacions}: Els fitxers $.mtn$ tenen un nombre fix de pàgines i pot ser que moltes d'aquestes estiguin buides. Així, quan es vol afegir una pàgina, se n'ha d'esborrar una d'aquestes buides i posar-hi en el seu lloc la nova. Un altre fet important és que les pàgines es criden per la seva ID. La ID d'una pàgina correspon a la posició que ocupa dins el fitxer de pàgines. El recomanable és buscar la ID de l'última pàgina plena i posar les noves a continuació, de manera que sigui fàcil saber el seu ID. No les poseu mai davant, ja que si no totes les ID de les altres pàgines es veuran afectades! Posteriorment es pot fer un define i assignar un nom a cada ID.
 
 \subsection{Calibració del bno055}
 Per utilitzar el sensor bno055, cal un a calibració prèvia. Cada programa que l'utilitza té programada una funció que esborra els valors de l'última calibració de la memòria no volàtil si s'apreta el botó amunt en engegar. La pròxima vegada que s'engegui el robot, el programa esperarà una calibració, i en principi no s'hauria d'encendre el llum verd. 
 
-Per calibrar els giroscopis tan sols cal deixar-los uns quants segons sense fer res. Pel compass, cal dibuixar 8 a l'aire amb el sensor, i per l'acceleròmetre cal posar-lo en almenys 6 orientacions diferents uns quants segons. Per l'acceleròmetre és recomenable que les orientacions perpendiculars als eixos X, Y, Z. Un cop fet tot sixò, s'hauria d'encendre la llumeta verda i llavors ja es podria executar el programa.
+Per calibrar els giroscopis tan sols cal deixar-los uns quants segons sense fer res. Pel compass, cal dibuixar 8 a l'aire amb el sensor, i per l'acceleròmetre cal posar-lo en almenys 6 orientacions diferents uns quants segons. Per l'acceleròmetre és recomanable que les orientacions perpendiculars als eixos X, Y, Z. Un cop fet tot això, s'hauria d'encendre la llumeta verda i llavors ja es podria executar el programa.
+
+El problema és quan havent seguit tots els passos no s'encén la llumeta. No podem saber quin pas ha fallat, per tant s'ha de tornar a fer tota la calibració fins que s'encengui.
 
 \section{Errors freqüents}
 Si el robot té problemes d'equilibri, hi ha diverses opcions:
 \begin{itemize}
-	\item Que tingueu els giroscopis girats, és a dir, que es facin compensacions a l'eix x segons les lectures del giocopi de l'eix y i al revés. Comprovar primer si és així fent lectures dels dos eixos i en cas d'estar girats modificar els paràmetres a cm510\_cfg.h.
+	\item Que tingueu els giroscopis girats, és a dir, que es facin compensacions a l'eix x segons les lectures del giroscopi de l'eix y i al revés. Comprovar primer si és així fent lectures dels dos eixos i en cas d'estar girats modificar els paràmetres a cm510\_cfg.h.
 	\item Que el balance estigui activat/desactivat quan no ho hauria d'estar.
 	\item Que el robot no tingui els offsets correctes
 	\item Que hi hagi alguna articulació del robot amb molt de joc. Es recomana comprovar i apretar tots els cargols de tant en tant.
 \end{itemize}
 
-Molts errors del $make$ o $make\ download$ (sobretot els que tenen a veure amb $fw\_downloader$) són per culpa dels paths. Reviseu el $makefile$ que siguin correctes. 
+Molts errors del $make$ o $make\ download$ (sobretot els que tenen a veure amb $fw\_downloader$) són per culpa dels paths. Reviseu en el $makefile$ que siguin correctes. 
 
 Si en fer $make\ download$ hi ha errors del tipus
 \begin{lstlisting}[language=bash]
@@ -258,7 +329,7 @@ Error: CBioloidRobot error - No FTDI USB devices found
 \end{lstlisting} 
 solen ser per algun d'aquests motius:
 \begin{itemize}
-	\item Teniu el serial/usb desconectat (passa més sovint del que pot semblar)
+	\item Teniu el serial/usb desconnectat (passa més sovint del que pot semblar)
 	\item Teniu un screen/cuteCom/minicom obert ocupant el port. S'arregla tancant el programa.
 	\item Heu fet $sudo\ rmmod\ ftdi\_sio$. S'arregla executant $sudo\ modprobe\ ftdi\_sio$
 	\end{itemize}
