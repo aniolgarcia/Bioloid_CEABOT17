@@ -2,7 +2,7 @@ PROJECT=laberint_compensating_improved
 ########################################################
 # afegir tots els fitxers que s'han de compilar aquí
 ########################################################
-SOURCES=laberint_compensating_improved.c
+SOURCES=laberint.c
 
 OBJS=$(SOURCES:.c=.o)
 SRC_DIR=./
