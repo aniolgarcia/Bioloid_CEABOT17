@@ -21,6 +21,7 @@ int compass_param(int ini, int actual)
 	return inc;
 }
 
+//Funicó per sumar angles
 int suma_angles(int a, int b)
 {
 	int res = a + b;

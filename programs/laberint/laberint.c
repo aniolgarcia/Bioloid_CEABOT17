@@ -6,7 +6,7 @@
 #include "mtn_library.h"
 #include <stdlib.h>
 
-//Versió del laberint_compensating amb algunes millores estructurals
+//Versió final del Laberint
 
 ///////////////////////////////////////////////////////////
 // Definició de variables globals i tipus
