@@ -110,7 +110,8 @@ int suma_angles(int a, int b)
 	return res;
 }
 
-//Funció turn_angle() adaptada a la bno055 ALERTA: No suma el nombre de graus a la posició actual, sinó que va a aquella posició de la brúixola!!!
+//Funció turn_angle() adaptada a la bno055 i lleugerament modificada.
+// ALERTA: No suma el nombre de graus a la posició actual, sinó que va a aquella posició de la brúixola!!!
 uint8_t gira(int angle){
 	static turn_states s = t_init;
 	static int comp_ini = 0;
@@ -389,7 +390,7 @@ void user_loop(void) //Es repeteix infinitament (equivalent al loop d'arduino o 
                 }
                 break;
 
-//Cas per corregir la desviai<có en començar a tirar endavant
+//Cas per corregir la desviació en començar a tirar endavant
     case ready_walk_f:  if(compass(valor_base) > comp_error)
                         {
                             prev = ready_walk_f;

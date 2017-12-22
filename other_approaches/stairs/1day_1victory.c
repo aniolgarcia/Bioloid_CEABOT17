@@ -10,6 +10,9 @@
 #include "small_steps.h"
 
 
+//Intent desesperat de fer funcionar les escales 1h abans de la competició. SPOILER ALERT: No ho vam acoseguir. 
+// S'hauria d'acabar d'ajustar bastantes coses i fer més proves.
+
 typedef enum {wait_start,wait_ready,walk_to_stairs,stop, up_stairs,measure10} main_states;
 // Walks up the stairs using "Forward-Start + Forward-End + Wait and measure" to get to the stairs
 //Climbs the stairs, and when it has climbed 3 steps, it goes forward fast.Then it goes down 3 steps

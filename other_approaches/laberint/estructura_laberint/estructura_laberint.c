@@ -10,7 +10,9 @@ typedef int bool;
 #define true 1
 #define false 0
 
-//Intent inical de l'estructura del laberint. Ara mateix només funcionen els estats wait_start, wait_ready i walk_l, i el que fa és caminar lateralment fins a trobar un objecte amb el sensor IR. Els altres estats tan sols s'han utilitzat per fer proves i no sempre reflecteixen l'estructura correcta.
+//Intent inical de definir l'estructura del laberint, no és un programa funcional. Ara mateix només funcionen els estats wait_start, wait_ready i walk_l,
+// i el que fa és caminar lateralment fins a trobar un objecte amb el sensor IR. 
+//Els altres estats tan sols s'han utilitzat per fer proves i no sempre reflecteixen l'estructura correcta.
 
 typedef enum {wait_start, wait_ready, wait_cmd, walk_l, walk_r, walk_f, walk_return, turn, stop} main_states;
 

@@ -7,13 +7,21 @@
 #include <stdlib.h>
 
 //Programa de la banda del cm510 per a la prova de visió. La beaglebone/raspberrypi decodifica la camera i envia un número per serial segons el contingut del QR. El cas 0 de la màquina d'estats llegeix el serial (que mai hauria d'enviar 0 o valors negatiu) i els altres casos són cadascun dels moviments. Cal posar altres sistemes de seguretat, ja que ara mateix estem confiant plenament amb el bno055, i no es contemplen casos com per exemple que es vegin 2 QR, que no en trobi cap, que trobi el codi abans de l'esperat o que no el trobi...
+//COm que hi havia problemes de precisió, hem fet un programa que emmagatzema els valors de la bruixola en un array.
+// Cada posició de l'array correspon al valor que dona la brúixola al encarar el robot a un dels obstacles amb QR. No està completament acabat.
+
+//El principi de funcionament era el següent:
+// Si s'apreta botó avall quan la cm510 s'inicialita, entrarà en el mode per recollir dades. Encareu el robot cap a la 
+// posició que voleu guardar i premeu el botó dreta. S'encenrdà una llumeta i, quan s'acabi, apunteu el robot cap al seguent
+// objectiu i premeu botó dret altre cop. Aquest procés s'ha de repetir 8 vegades, una per a cada obstacle.
+
+
 
 int position[8];
 unsigned char state = 'a';
 unsigned char num;
 int valor_base;
-int last_pos = 6;
-int actual_pos;
+int last_pos = 0;
 
 int compass_param(int ini, int actual)
 {
@@ -100,31 +108,35 @@ uint8_t gira(int angle, int dir){
 
 			s=t_middle;
 			break;
-
 		case t_middle:
-			if (abs(angle - bno055_correction(exp_bno055_get_heading())) > err)
-			{
+			if (abs (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end))>err){
+			// ("diff = %d\n",compass_param (bno055_correction(exp_bno055_get_heading()),comp_end));
+//				if (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end)>err){
+//					s =t_right;
+//				}
+//				else if (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end)<-err){
+//					s=t_left;
+//				}
 				if(dir == -1)
 				{
-					s = t_left;
+					s = t_left;					
 				}
 				if(dir == 1)
 				{
 					s = t_right;
 				}
-
+			
 			}
 			else {
 				s = t_wait_end;
 			}
 			break;
-
 		case t_right:
-			if (turn_right() == 0x01){
+			if (turn_right()){
 				s = t_wait_end;
 			}
 			else {
-				if (abs(angle - bno055_correction(exp_bno055_get_heading())) < err){
+				if (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end)<err){
 						mtn_lib_stop_mtn();
 				}
 				else s = t_right;
@@ -133,18 +145,17 @@ uint8_t gira(int angle, int dir){
 			break;
 
 		case t_left:
-			if (turn_left() == 0x01){
+			if (turn_left()){
 				s = t_wait_end;
 			}
 			else {
-				if (abs(angle - bno055_correction(exp_bno055_get_heading())) < err){
+				if (compass_param (bno055_correction(exp_bno055_get_heading()),comp_end)>-err){
 						mtn_lib_stop_mtn();
 				}
 				else s = t_left;
 
 			}
 			break;
-
 		case t_wait_end:
 			done =0x01;
 			s = t_init;
@@ -175,14 +186,14 @@ void user_init(void)
   }
   //cm510_printf("Init");
 
-  if(is_button_rising_edge(BTN_DOWN))
+  if(is_button_pressed(BTN_DOWN)) //Entrem en mode de lectura
   {
 	  int cont = 0;
 	  while(cont < 8)
 	  {
 			toggle_led(LED_RxD);
 			//cm510_printf("Wait reading");
-		  if(is_button_rising_edge(BTN_RIGHT))
+		  if(is_button_rising_edge(BTN_RIGHT)) //Quan es premi el botó, fem lectura i la guardem
 		  {
 				//cm510_printf("Reading compass");
 			  toggle_led(LED_AUX);
@@ -190,20 +201,19 @@ void user_init(void)
 			  cont += 1;
 				toggle_led(LED_AUX);
 		  }
-		_delay_ms(1000);
 	  }
   }
-  else
+  else //Si no s'ha entrat en mode lectura, es posen uns valors per defecte (que funcionaven per la posició concreta d'on féiem les proves, en qualsevol altre lloc són totalment erronis)
   {
 	toggle_led(LED_TxD);
-	  position[0] = -1465;
-	  position[1] = -1056;
-	  position[2] = -602;
-	  position[3] = -215;
-	  position[4] = 304;
-	  position[5] = 912;
-	  position[6] = 1195;
-	  position[7] = 1634;
+	  position[0] = 1184;
+	  position[1] = 1591;
+	  position[2] = -1636;
+	  position[3] = -611;
+	  position[4] = 105;
+	  position[5] = 406;
+	  position[6] = 758;
+	  position[7] = 1134;
   }
 
 }
@@ -251,11 +261,10 @@ void user_loop(void)
 	    }while(num == 0);
 	    break;
 
-    case '1':
-		actual_pos = (last_pos+(-45/45))%8;
-		if(gira(position[actual_pos], -1) == 0x01)
+    case '1': toggle_led(LED_RxD);
+		if(gira(position[(last_pos-1)%8], -1) == 0x01)
 	    {
-			last_pos = actual_pos;
+			last_pos = (last_pos-1)%8;
 			data = 'c';
 	    }
 	    else
@@ -264,14 +273,13 @@ void user_loop(void)
 			//cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
 			data = '1';
 	    }
-	    cm510_write(&data,1);
+//	    //cm510_write(&data,1);
 	    break;
 
     case '2':
-		actual_pos = (last_pos+(45/45))%8;
-		if(gira(position[actual_pos], 1) == 0x01)
+		if(gira(position[(last_pos+1)%8], 1) == 0x01)
 	    {
-			last_pos = actual_pos;
+			last_pos = (last_pos+1)%8;
 			data = 'c';
 	    }
 	    else
@@ -280,14 +288,13 @@ void user_loop(void)
 			//cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
 			data = '2';
 	    }
-	    cm510_write(&data,1);
+//	    //cm510_write(&data,1);
 	    break;
 
     case '3':
-		actual_pos = (last_pos+(-90/45))%8;
-		if(gira(position[actual_pos], -1) == 0x01)
+		if(gira(position[(last_pos-2)%8], -1) == 0x01)
 	    {
-			last_pos = actual_pos;
+			last_pos = (last_pos-2)%8;
 			data = 'c';
 	    }
 	    else
@@ -296,16 +303,13 @@ void user_loop(void)
 			//cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
 			data = '3';
 	    }
-	    cm510_write(&data,1);
+	    //cm510_write(&data,1);
 	    break;
 
     case '4':
-		actual_pos = (last_pos+(90/45))%8;
-		unsigned char console = '0' + actual_pos;
-		cm510_write(&console, 1);
-		if(gira(position[actual_pos], 1) == 0x01)
+		if(gira(position[(last_pos+2)%8], 1) == 0x01)
 	    {
-			last_pos = actual_pos;
+			last_pos = (last_pos+2)%8;
 			data = 'c';
 	    }
 	    else
@@ -314,14 +318,13 @@ void user_loop(void)
 			//cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
 			data = '4';
 	    }
-	    cm510_write(&data,1);
+	    ////cm510_write(&data,1);
 	    break;
 
     case '5':
-		actual_pos = (last_pos+(-135/45))%8;
-		if(gira(position[actual_pos], -1) == 0x01)
+		if(gira(position[(last_pos-3)%8], -1) == 0x01)
 	    {
-			last_pos = actual_pos;
+			last_pos = (last_pos-3)%8;
 			data = 'c';
 	    }
 	    else
@@ -330,14 +333,13 @@ void user_loop(void)
 			//cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
 			data = '5';
 	    }
-	    cm510_write(&data,1);
+	    ////cm510_write(&data,1);
 	    break;
 
     case '6':
-		actual_pos = (last_pos+(135/45))%8;
-		if(gira(position[actual_pos], 1) == 0x01)
+		if(gira(position[(last_pos+3)%8], 1) == 0x01)
 	    {
-			last_pos = actual_pos;
+			last_pos = (last_pos+3)%8;
 			data = 'c';
 	    }
 	    else
@@ -346,14 +348,13 @@ void user_loop(void)
 			//cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
 			data = '6';
 	    }
-	    cm510_write(&data,1);
+	    ////cm510_write(&data,1);
 	    break;
 
     case '7':
-		actual_pos = (last_pos+(-180/45))%8;
-		if(gira(position[actual_pos], -1) == 0x01)
+		if(gira(position[(last_pos-4)%8], -1) == 0x01)
 	    {
-			last_pos = actual_pos;
+			last_pos = (last_pos-4)%8;
 			data = 'c';
 	    }
 	    else
@@ -362,14 +363,13 @@ void user_loop(void)
 			//cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
 			data = '7';
 	    }
-	    cm510_write(&data,1);
+	    //cm510_write(&data,1);
 	    break;
 
     case '8':
-		actual_pos = (last_pos+(180/45))%8;
-		if(gira(position[actual_pos], 1) == 0x01)
+		if(gira(position[(last_pos+4)%8], 1) == 0x01)
 	    {
-			last_pos = actual_pos;
+			last_pos = (last_pos+4)%8;
 			data = 'c';
 	    }
 	    else
@@ -378,7 +378,7 @@ void user_loop(void)
 			//cm510_printf("Rang corregit: %d  ", bno055_correction(exp_bno055_get_heading()));
 			data = '8';
 	    }
-	    cm510_write(&data,1);
+	    //cm510_write(&data,1);
 	    break;
   }
 	state = data;

@@ -56,7 +56,7 @@ int visual_analysis::get_color(double& x, double& y, Mat& original_img, int min_
 
 	Mat hsv_img; //Creation of the HSV matrix
 
-	cvtColor(original_img, hsv_img, COLOR_BGR2HSV); //Changinr RGB values to HSV
+	cvtColor(original_img, hsv_img, COLOR_BGR2HSV); //Changing RGB values to HSV
 
 	Mat processed_img; //Creation ot the cleaned and filtered image
 

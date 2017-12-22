@@ -72,3 +72,8 @@ dkms.conf
 *.synctex.gz
 *.synctex.gz(busy)
 *.pdfsync
+
+## Vim temporary files
+*~
+*.swp
+*.swo

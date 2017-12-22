@@ -6,7 +6,8 @@
 #include "mtn_library.h"
 #include <stdlib.h>
 
-//Intent inical de l'estructura del laberint. Amb aquest programa es pretenen arreglar els errors de laberint2 utilitzant el nou compass i les funcions compensating. IMPORTANT!: S'ha de descobrir si les funcions compensating necessiten o no el balance_gyro_enabled() !!!
+//Intent inical de l'estructura del laberint. Amb aquest programa es pretenen arreglar els errors de laberint2 utilitzant el nou compass i les funcions compensating. 
+// IMPORTANT!: S'ha de descobrir si les funcions compensating necessiten o no el balance_gyro_enabled() !!!
 
 /////////////////////////////////////////////////////////// 
 // Definició de variables globals i tipus 
