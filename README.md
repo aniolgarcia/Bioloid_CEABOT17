@@ -1,2 +1,3 @@
 # Bioloid_CEABOT17
-Programs and algorithms for the Bioloid robot
+Repositori dels programes i documentació per a la competició de robots humanoides CEABOT 2017
+
